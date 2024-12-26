@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de la Mascota</title>
+</head>
+<body>
+    <div style="margin: 2%;" >
+        <div >
+            <h1>Detalle de la Mascota</h1>
+            <p>Nombre: {{ mascota.nombre }}</p>
+            <p>Características: {{ mascota.caracteristicas }}</p>
+            <p>Fecha de Creación: {{ mascota.fecha_creado }}</p>
+            <img src="{{ mascota.foto.url }}" alt="Foto de la mascota">
+
+        </div>
+
+        <br><br>
+        <div>
+            <p>Opciones:</p>
+
+            <a href="{% url 'registro_mascotas_editar' pk=mascota.pk %}">Editar</a>
+
+
+            <a href="{% url 'registro_mascotas_eliminar' pk=mascota.pk %}"> Eliminiar </a>
+
+
+            <a href="{% url 'registro_mascotas_lista' %}">Volver a la lista</a>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

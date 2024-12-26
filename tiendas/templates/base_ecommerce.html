@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Tienda Online{% endblock %}</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+
+    <!-- Bootstrap CSS -->
+    
+    <style>
+      /* Estilos modernos para ecommerce */
+      body {
+        background-color: #a7cac4;
+      }
+      .gradient-border {
+        position: relative;
+        overflow: hidden;
+      }
+      .gradient-border::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(to right, #000000, #35cd74);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen font-sans">
+    <!-- Navegación moderna -->
+    <nav class="bg-white shadow-md sticky top-0 z-50 gradient-border">
+      <div
+        class="container mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <a
+          href="{% url 'tienda_list' %}"
+          class="text-2xl font-bold text-gray-800 hover:text-blue-600 transition flex items-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+            />
+          </svg>
+          Tiendas ecomycr™
+        </a>
+        <div class="flex items-center space-x-4">
+         
+          {% if user.is_authenticated %}
+          <div class="relative group">
+            <a
+              href="{% url 'carrito' %}"
+              class="text-gray-700 hover:text-blue-600 transition relative"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                />
+              </svg>
+              <span
+                class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"
+                >99</span
+              >
+            </a>
+          </div>
+          {% if user.is_superuser %}
+          <a
+            href="{% url 'crear_tienda' %}"
+            class="text-gray-700 hover:text-blue-600 transition"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </a>
+          {% endif %}
+          
+          
+          <form action="{% url 'logout' %}" method="post"> {% csrf_token %} <button  class="hover:bg-blue-700 px-3 py-2 rounded" type="submit"> 🚪 Cerrar Sesión </button> </form>
+
+
+          
+          {% else %}
+          <a
+            href="{% url 'login' %}"
+            class="hover:bg-green-700 px-3 py-2 rounded transition inline-flex items-center"
+          >
+            Iniciar Sesión
+          </a>
+          <a
+            href="{% url 'signup' %}"
+            class="hover:bg-green-700 px-3 py-2 rounded transition inline-flex items-center"
+          >
+            Registrarse
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mensajes -->
+    <div class="container mx-auto mt-8 px-4">
+      {% if messages %} {% for message in messages %}
+      <div
+        class="p-4 mb-4 rounded-lg font-semibold flex items-center justify-between shadow-md border-l-4 {% if message.tags == 'success' %} bg-green-50 text-green-800 border-green-500 {% elif message.tags == 'error' %} bg-red-50 text-red-800 border-red-500 {% elif message.tags == 'info' %} bg-blue-50 text-blue-800 border-blue-500 {% else %} bg-yellow-50 text-yellow-800 border-yellow-500 {% endif %}"
+        role="alert"
+      >
+        <span class="flex items-center"> {{ message }} </span>
+        <button
+          class="text-lg font-bold focus:outline-none hover:text-gray-600 transition ml-4"
+          onclick="this.parentElement.style.display='none';"
+        >
+          &times;
+        </button>
+      </div>
+      {% endfor %} {% endif %} 
+      
+      {% block content %}{% endblock %}
+    </div>
+
+    
+
+  </body>
+</html>

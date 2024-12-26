@@ -1,0 +1,186 @@
+{% extends 'base1.html' %}
+{% block title %}Mi Carrito{% endblock %}
+{% block content %}
+{# Contenedor principal del carrito con ancho máximo centrado #}
+<div class="max-w-4xl mx-auto space-y-6">
+    {# Título principal de la página #}
+    <h1 class="text-3xl font-bold mb-6">Mi Carrito</h1>
+
+
+    {# Iteración sobre los carritos paginados #}
+    {% for carrito in carritos_paginados %}
+        {# Usando with para simplificar acceso a variables #}
+        {% with carrito=carrito.carrito items=carrito.items %}
+            {# Tarjeta de carrito con sombra y hover suave #}
+            <div class="bg-white shadow-lg rounded-xl border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl">
+                <div class="p-6">
+                    {# Encabezado con nombre de tienda #}
+                    <h2 class="flex items-center mb-4">
+                        <a href="{% url 'tienda_detail' slug=carrito.tienda.slug %}" class="flex items-center space-x-3 group p-4 bg-gray-100 rounded-lg">
+                            <span class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center group-hover:bg-blue-300 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-700 group-hover:text-blue-900 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                </svg>
+                            </span>
+                            <span class="text-2xl font-semibold text-gray-800 group-hover:text-blue-800 transition">
+                                {{ carrito.tienda.nombre }}
+                            </span>
+                        </a>
+                    </h2>
+
+                    {# Tabla de productos en el carrito #}
+                    <table class="w-full border-collapse bg-white">
+                        {# Encabezados de la tabla #}
+                        <thead>
+                            <tr class="bg-gray-50 text-gray-600">
+                                <th class="px-4 py-3 text-left font-medium">Producto</th>
+                                <th class="px-4 py-3 text-left font-medium">Cantidad</th>
+                                <th class="px-4 py-3 text-left font-medium">Precio</th>
+                                <th class="px-4 py-3 text-left font-medium">Subtotal</th>
+                                <th class="px-4 py-3 text-left font-medium">Acciones</th>
+                            </tr>
+                        </thead>
+
+                        {# Cuerpo de la tabla con los items del carrito #}
+                        <tbody>
+                            {# Iteración sobre los items del carrito #}
+                            {% for item in carrito.items.all %}
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition duration-200">
+                                {# Nombre del producto #}
+                                <td class="px-4 py-3">{{ item.producto.nombre }}</td>
+                                
+                                {# Columna de cantidad con formulario de actualización #}
+                                <td class="px-4 py-3">
+                                    <form method="post" class="flex items-center space-x-2">
+                                        {% csrf_token %}
+                                        {# Campos ocultos para identificar el item #}
+                                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                                        <input type="hidden" name="actualizar_cantidad" value="1">
+                                        
+                                        {# Input de cantidad con límites #}
+                                        <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1"
+                                            max="{{ item.producto.stock }}" class="w-20 px-2 py-1 border border-gray-200 rounded focus:ring-2 focus:ring-blue-200">
+                                        
+                                        {# Botón de actualizar #}
+                                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition">
+                                            Actualizar
+                                        </button>
+                                    </form>
+                                </td>
+
+                                {# Precio unitario y subtotal #}
+                                <td class="px-4 py-3">₡{{ item.precio_unitario }}</td>
+                                <td class="px-4 py-3">₡{{ item.subtotal }}</td>
+
+                                {# Columna de acciones con formulario de eliminación #}
+                                <td class="px-4 py-3">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {# Campos ocultos para identificar el item y carrito #}
+                                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                                        <input type="hidden" name="carrito_id" value="{{ carrito.id }}">
+                                        <input type="hidden" name="eliminar_item" value="1">
+                                        
+                                        {# Botón de eliminar #}
+                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {# Mensaje cuando no hay items #}
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center py-4 text-gray-500">No hay productos en este carrito</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {# Paginación para cada carrito #}
+                    {% if carrito.total_paginas > 1 %}
+                    <div class="flex justify-center mt-4 space-x-2">
+                        <nav class="flex items-center space-x-2">
+                            {# Botón de página anterior #}
+                            {% if items.has_previous %}
+                            <a href="?page_carrito_{{ carrito.id }}={{ items.previous_page_number }}"
+                                class="px-3 py-1 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition">
+                                Anterior
+                            </a>
+                            {% endif %}
+
+                            {# Indicador de página actual #}
+                            <span class="px-3 py-1 text-gray-600">
+                                Página {{ items.number }} de {{ carrito.total_paginas }}
+                            </span>
+
+                            {# Botón de página siguiente #}
+                            {% if items.has_next %}
+                            <a href="?page_carrito_{{ carrito.id }}={{ items.next_page_number }}"
+                                class="px-3 py-1 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition">
+                                Siguiente
+                            </a>
+                            {% endif %}
+                        </nav>
+                    </div>
+                    {% endif %}
+
+                    {# Sección de total y acciones #}
+                    <div class="mt-6 flex justify-between items-center border-t border-gray-100 pt-4">
+                        {# Total del carrito #}
+                        <div class="font-bold text-xl text-gray-800">
+                            Total: ₡{{ total_precio }}
+                        </div>
+
+                        {# Botones de acciones #}
+                        <div class="space-x-4">
+                            {# Formulario para vaciar carrito #}
+                            <form method="post" class="inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="carrito_id" value="{{ carrito.id }}">
+                                <input type="hidden" name="vaciar_carrito" value="1">
+                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition">
+                                    Vaciar Carrito
+                                </button>
+                            </form>
+
+                            {# Formulario para procesar compra - Envio tambien el ID del Carrito y valido en el back el usuario por seguridad #}
+                            <form method="post" class="inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="carrito_id" value="{{ carrito.id }}">
+                                <input type="hidden" name="realizar_compra" value="1">
+                                <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition">
+                                    Procesar Compra
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endwith %}
+    {% empty %}
+        {# Mensaje cuando no hay carritos #}
+        <div class="text-center text-gray-500 bg-white shadow-md rounded-lg p-6">
+            Tu carrito está vacío
+        </div>
+    {% endfor %}
+</div>
+
+
+<div class="text-center text-gray-500 m-10">
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li class="alert {{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+
+
+
+
+
+
+{% endblock %}

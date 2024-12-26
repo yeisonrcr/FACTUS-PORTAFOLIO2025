@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Crear nueva tienda{% endblock %}</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      /* Estilos adicionales para tema animal */
+      body {
+        background-color: #f0f4f8;
+        background-image: linear-gradient(
+            to right,
+            rgba(255, 223, 128, 0.1) 0%,
+            rgba(255, 255, 255, 0) 50%
+          ),
+          url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d1d5db' fill-opacity='0.4'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10c-5.523 0-10-4.477-10-10s4.477-10 10-10c0-5.523 4.477-10 10-10s10 4.477 10 10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+    </style>
+  </head>
+  <body class="min-h-screen font-sans">
+    <!-- Navegación con tema animal -->
+    <nav style="border-radius: 20px;"
+      class="bg-gradient-to-r from-green-700 to-green-900 text-white shadow-lg"
+    >
+      <div
+        class="container mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <a
+          href="{% url 'tienda_list' %}"
+          class="text-3xl font-bold hover:text-green-300 transition flex items-center"
+        >
+          Tiendas Costa Rica
+        </a>
+        <div class="space-x-4">
+          {% if user.is_authenticated %}
+          <a
+            href="{% url 'carrito' %}"
+            class="hover:bg-green-700 px-3 py-2 rounded transition inline-flex items-center"
+          >
+            🛒 Mi Carrito
+          </a>
+          {% if user.is_superuser %}
+          <a
+            href="{% url 'crear_tienda' %}"
+            class="hover:bg-green-700 px-3 py-2 rounded transition inline-flex items-center"
+          >
+            ➕ Crear Tienda
+          </a>
+          {% endif %}
+        
+
+          <form action="{% url 'logout' %}" method="post"> {% csrf_token %} <button  class="hover:bg-blue-700 px-3 py-2 rounded" type="submit"> 🚪 Cerrar cccc Sesión </button> </form>
+
+
+          {% else %}
+          <a
+            href="{% url 'login' %}"
+            class="hover:bg-green-700 px-3 py-2 rounded transition inline-flex items-center"
+          >
+            Iniciar Sesión
+          </a>
+          <a
+            href="{% url 'signup' %}"
+            class="hover:bg-green-700 px-3 py-2 rounded transition inline-flex items-center"
+          >
+            Registrarse
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mensajes -->
+    <div class="container mx-auto mt-8 px-4">
+      {% if messages %} {% for message in messages %}
+      <div
+        class="p-4 mb-4 rounded-lg font-semibold flex items-center justify-between shadow-md border-l-4 {% if message.tags == 'success' %} bg-green-50 text-green-800 border-green-500 {% elif message.tags == 'error' %} bg-red-50 text-red-800 border-red-500 {% elif message.tags == 'info' %} bg-blue-50 text-blue-800 border-blue-500 {% else %} bg-yellow-50 text-yellow-800 border-yellow-500 {% endif %}"
+        role="alert"
+      >
+        <span class="flex items-center">
+          {% if message.tags == 'success' %}🎉{% elif message.tags == 'error'
+          %}⚠️{% elif message.tags == 'info' %}ℹ️{% else %}📝{% endif %} {{
+          message }}
+        </span>
+        <button
+          class="text-lg font-bold focus:outline-none hover:text-gray-600 transition ml-4"
+          onclick="this.parentElement.style.display='none';"
+        >
+          &times;
+        </button>
+      </div>
+      {% endfor %} {% endif %} {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer con tema animal -->
+    <footer class="bg-green-900 text-white py-6 mt-8 shadow-lg" style="border-radius: 20px;">
+      <div class="container mx-auto text-center">
+        <p class="text-sm flex items-center justify-center">
+          {% now "Y" %} Ecommerce. Todos los derechos reservados.
+        </p>
+        <p class="text-xs mt-2 flex items-center justify-center">
+          Desarrollado por
+          <a href="#" class="text-green-300 hover:underline ml-2"
+            >Yeison Araya</a
+          >
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

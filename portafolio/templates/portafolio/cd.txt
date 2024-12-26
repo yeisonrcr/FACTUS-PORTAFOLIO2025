@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Curriculum Vitae</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white">
+    <main>
+        <!-- Proyectos Ejecutables Section -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">PROYECTOS EJECUTABLES</h2>
+                    <!-- Navigation Buttons -->
+                    <div class="flex flex-wrap justify-center gap-2 mb-6">
+                        <a href="{% url 'paginaUNO' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Home</a>
+                        <a href="{% url 'proyectos' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Portafolio completo</a>
+                        <a href="{% url 'condominio_home' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Condominios</a>
+                        <a href="{% url 'todo_oficial' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Oficiales</a>
+                        <a href="{% url 'tienda_list' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Ecommerce</a>
+                        <a href="{% url 'gyna' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Auto-control de Repuestos</a>
+                        <a href="{% url 'blog' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Blog Código Info</a>
+                        
+                        {% if user.is_authenticated %}
+                            <form action="{% url 'logout' %}" method="post" class="inline"> 
+                                {% csrf_token %} 
+                                <button type="submit" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Cerrar Sesión</button> 
+                            </form>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Iniciar Sesión</a>
+                            <a href="{% url 'signup' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Crear Cuenta</a>
+                        {% endif %}
+                    </div>
+                    <hr class="border-t-2 border-black">
+                </div>
+
+                <!-- Project Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- GE-Condominios -->
+                    <div class="rounded-lg overflow-hidden shadow-lg">
+                        <div class="relative">
+                            <img src="{% static 'cv/img/gallery/location1.png' %}" alt="" class="w-full h-48 object-cover">
+                        </div>
+                        <div class="p-6 bg-white">
+                            <p class="text-lg mb-4">App Condominios</p>
+                            <a href="{% url 'condominio_home' %}" class="inline-block px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">Vista previa</a>
+                        </div>
+                    </div>
+
+                    <!-- CM-Oficiales 2021 -->
+                    <div class="rounded-lg overflow-hidden shadow-lg">
+                        <div class="relative">
+                            <img src="{% static 'cv/img/gallery/location3.png' %}" alt="" class="w-full h-48 object-cover">
+                        </div>
+                        <div class="p-6 bg-white">
+                            <p class="text-lg mb-4">Oficiales de Seguridad</p>
+                            <a href="{% url 'todo_oficial' %}" class="inline-block px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">Vista previa</a>
+                        </div>
+                    </div>
+
+                    <!-- CM-Ecommerce 2022 -->
+                    <div class="rounded-lg overflow-hidden shadow-lg">
+                        <div class="relative">
+                            <img src="{% static 'cv/img/gallery/location10.png' %}" alt="" class="w-full h-48 object-cover">
+                        </div>
+                        <div class="p-6 bg-white">
+                            <p class="text-lg mb-4">Sistema de compras</p>
+                            <a href="{% url 'tienda_list' %}" class="inline-block px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">Vista previa</a>
+                        </div>
+                    </div>
+
+                    <!-- CM-CONSULTAS 2022 -->
+                    <div class="rounded-lg overflow-hidden shadow-lg">
+                        <div class="relative">
+                            <img src="{% static 'cv/img/gallery/location13.png' %}" alt="" class="w-full h-48 object-cover">
+                        </div>
+                        <div class="p-6 bg-white">
+                            <p class="text-lg mb-4">Control de Consultas</p>
+                            <a href="{% url 'todo_oficial' %}" class="inline-block px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">Vista previa</a>
+                        </div>
+                    </div>
+
+                    <!-- CM-BLOG 2023 -->
+                    <div class="rounded-lg overflow-hidden shadow-lg">
+                        <div class="relative">
+                            <img src="{% static 'cv/img/gallery/location14.png' %}" alt="" class="w-full h-48 object-cover">
+                        </div>
+                        <div class="p-6 bg-white">
+                            <p class="text-lg mb-4">Información de cursos</p>
+                            <a href="{% url 'blog' %}" class="inline-block px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">Vista previa</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experiencia Laboral Section -->
+        <section class="py-16 bg-gray-900 text-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-16">Experiencia laboral</h2>
+                <div class="max-w-3xl mx-auto">
+                    <div class="text-center space-y-4">
+                        <h5 class="hover:text-gray-300"><a href="#">Supervisor de seguridad GAM</a></h5>
+                        <h5 class="hover:text-gray-300"><a href="#">Respuesta armada</a></h5>
+                        <h5 class="hover:text-gray-300"><a href="#">Escolta de contenedores</a></h5>
+                        <h5 class="hover:text-gray-300"><a href="#">Desarrollador de aplicaciones administrativas</a></h5>
+                        <h5 class="hover:text-gray-300"><a href="#">Encargado Técnico T.I</a></h5>
+                        <h5 class="hover:text-gray-300"><a href="#">Departamento de becas en Academia ITN</a></h5>
+                        <h5 class="hover:text-gray-300"><a href="#">Oficial de Monitoreo y Vigilancia</a></h5>
+                        <h5 class="hover:text-gray-300"><a href="#">Seguridad Privada</a></h5>
+                        <h5 class="hover:text-gray-300"><a href="#">Python Programming Language courses</a></h5>
+                        <h5 class="hover:text-gray-300"><a href="#">Instructor computacional</a></h5>
+                        <h5 class="hover:text-gray-300"><a href="#">Seguridad Industrial</a></h5>
+                        <h5 class="hover:text-gray-300"><a href="#">Palma Aceitera & Ganadería</a></h5>
+                        <h5 class="hover:text-gray-300"><a href="#">Otros...</a></h5>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4 text-center">
+                <a href="https://wa.me/50670907086" class="inline-block px-8 py-4 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">SOLICITAR INFORMACIÓN</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Logo Section -->
+                <div>
+                    <img src="{% static 'cv/img/logo/logo2_footer.png' %}" alt="" class="h-12">
+                </div>
+
+                <!-- Applications Section -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Aplicaciones 2021</h4>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'todo_oficial' %}" class="hover:text-gray-300">Proyecto oficiales</a></li>
+                        <li><a href="{% url 'condominio_home' %}" class="hover:text-gray-300">Proyecto condominios</a></li>
+                    </ul>
+                </div>
+
+                <!-- Play Store Section -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Proyectos Play Store Android</h4>
+                    <a href="{% url 'proyectos' %}">
+                        <img src="{% static 'cv/img/gallery/app-logo.png' %}" alt="" class="h-12">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-gray-700 mt-8 pt-8">
+                <p class="text-center">&copy; Yeison Araya || Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

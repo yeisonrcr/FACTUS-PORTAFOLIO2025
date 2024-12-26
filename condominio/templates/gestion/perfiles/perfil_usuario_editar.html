@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar campo</title>
+</head>
+<body>
+
+    <div style="margin: 2%;" >
+        <div >
+
+            <h1>{{ form.instance.pk|yesno:"Editar integrante permanente , Nuevo integrante permanente" }}</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Guardar</button>
+            </form>
+
+            <br><br>
+            <hr>
+            
+        </div>
+
+        <div>
+
+            <p>
+                Opciones del registro 
+            </p>
+            <a href="{% url 'perfil_usuario_lista' %}">Volver a la lista</a>
+        </div>
+    </div>
+    
+</body>
+</html>

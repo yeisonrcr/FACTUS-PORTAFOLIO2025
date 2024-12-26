@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <style type="text/css">
+    .bs-example {
+      margin: 0px;
+
+    }
+    .bg-dark {
+    background-color: #1D472A!important;
+}
+    .navbar-brand {
+      font-size: 20px;
+      font-family: sans-serif;
+
+    }
+  </style>
+  
+  <link rel="shortcut icon"   href="{% static "img/tab-icon.png" %}" type="image/x-icon">
+  
+</head>
+
+<body>
+
+
+
+  <div class="bs-example">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+      <a href="#" class="navbar-brand" style="color:yellow;">Zona Sur Auto Partes</a>
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+        <div class="navbar-nav">
+          <a href="{% url 'admin-dashboard' %}" class="nav-item nav-link active">Home</a>
+
+        </div>
+
+        <div class="navbar-nav">
+          <a href="#" class="nav-item nav-link">x</a>
+          <a href="#" class="nav-item nav-link">y</a>
+        </div>
+
+
+
+
+      </div>
+    </nav>
+  </div>
+
+
+</body>
+
+</html>

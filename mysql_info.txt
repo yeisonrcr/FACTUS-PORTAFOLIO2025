@@ -1,0 +1,58 @@
+-->error: RuntimeWarning: Got an error checki...
+Conexion con el servidor usuario
+GRANT ALL PRIVILEGES ON user.* TO 'user'@'localhost';
+FLUSH PRIVILEGES;
+
+
+
+Mostrar bases de datos:
+SHOW DATABASES;
+
+Seleccionar una base de datos:
+USE nombre_de_base_de_datos;
+
+Mostrar tablas en una base de datos:
+SHOW TABLES;
+
+Describir la estructura de una tabla:
+DESCRIBE nombre_de_tabla;
+
+Crear una nueva tabla:
+CREATE TABLE nombre_de_tabla (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    edad INT
+);
+
+Insertar datos en una tabla:
+INSERT INTO nombre_de_tabla (nombre, edad) VALUES ('Juan', 30);
+
+Seleccionar datos de una tabla:
+SELECT * FROM nombre_de_tabla;
+
+Actualizar datos en una tabla:
+UPDATE nombre_de_tabla SET edad = 31 WHERE nombre = 'Juan';
+
+Eliminar datos de una tabla:
+DELETE FROM nombre_de_tabla WHERE nombre = 'Juan';
+
+Eliminar una tabla:
+DROP TABLE nombre_de_tabla;
+
+crear una nueva base de datos
+CREATE DATABASE nombre_de_base_de_datos;
+
+
+Abre MySQL Shell:
+
+    bash
+    mysqlsh
+    Conéctate a tu servidor MySQL:
+
+    
+    \connect usuario@host --password
+
+
+CREATE DATABASE nombre_de_base_de_datos;
+
+SHOW DATABASES;

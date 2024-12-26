@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .btn {
+            color: rgb(0, 0, 0);
+            border-radius: 7px;
+            padding: 5px 10px;
+            margin: 4px;
+            font-size: 18px;
+        }
+        .btn:hover{
+            background-color: rgb(21, 188, 188);
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="{% url 'proyectos' %}"><button class="btn"> Home</button></a>
+
+    {% if user.is_authenticated %}
+        
+        <div style="text-align: center; margin: 1.5%;" class="container">
+            
+            <span style="font-size: 2.7em;"> Herramientas de Condominios </span>
+            <br>
+            <br>
+            <div style="margin: 3%; padding:10%; text-align:center;">
+                
+            <span style="font-size: 1.8em;"> Menu de opciones </span>
+            <br><br><br>
+                <hr style="border: 2px solid black; ">
+                            
+
+                <a href="{% url 'perfil_usuario_lista' %}"><button class="btn" type="button">Usuarios permanentes</button></a>
+                <a href="{% url 'registro_visitas_lista' %}"><button class="btn"> Visitas Diarias</button></a>
+                <a href="{% url 'registro_automoviles_lista' %}"><button class="btn" type="button">Vehículos permanentes</button></a>
+                <a href="{% url 'registro_mascotas_lista' %}"><button class="btn" type="button">Mis mascotas</button></a>
+
+                <a href="{% url 'reportes_lista' %}"><button class="btn" type="button">Mis Reportes</button></a>
+
+
+            </div>
+
+        </div>
+    
+    {% else %}
+
+    <div style="text-align: center; margin: 1.5%;" class="container">
+            
+        <span style="font-size: 2.7em;"> Por favor Inicia Sesión para continuar  </span>
+        <br>
+        <br>
+        <div style="margin: 3%; padding:10%; text-align:center;">
+            
+        <span style="font-size: 1.8em;"> Menu de opciones </span>
+        <br><br><br>
+            <hr style="border: 2px solid black; ">
+            <a href="{% url 'login' %}"><button class="btn" type="button">Iniciar Sesion</button></a>
+            <a href="{% url 'signup' %}"><button class="btn"> Crear Cuenta</button></a>
+
+
+        </div>
+
+    </div>
+
+
+    {% endif %}
+
+    
+</body>
+</html>

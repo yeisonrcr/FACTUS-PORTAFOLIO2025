@@ -1,0 +1,31 @@
+
+            // Contenedor principal
+            max-w-6xl  // Define el ancho máximo del contenedor como 6xl.
+            mx-auto    // Centra el contenedor horizontalmente.
+            px-4       // Añade un padding horizontal de 4 unidades.
+
+            // Título
+            text-3xl   // Tamaño del texto: 3xl.
+            font-bold  // Aplica negrita al texto.
+            text-center // Centra el texto horizontalmente.
+            mb-8       // Margen inferior de 8 unidades.
+
+            // Contenedor de botones
+            flex       // Activa el modelo de caja flexible.
+            flex-wrap  // Permite que los elementos se envuelvan si no caben en una línea.
+            justify-center // Centra los elementos flexibles horizontalmente.
+            gap-4      // Espaciado de 4 unidades entre los elementos.
+
+            // Botones
+            bg-white   // Fondo blanco.
+            hover:bg-gray-100 // Cambia el fondo a gris claro al pasar el cursor.
+            text-gray-800 // Texto de color gris oscuro.
+            px-6       // Padding horizontal de 6 unidades.
+            py-2       // Padding vertical de 2 unidades.
+            rounded-lg // Bordes redondeados grandes.
+            shadow     // Añade sombra alrededor del elemento.
+            transition // Habilita transiciones para cambios de estilo.
+            duration-300 // Establece la duración de la transición en 300ms.
+
+
+

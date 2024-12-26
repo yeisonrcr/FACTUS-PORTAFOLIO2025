@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de reportes</title>
+
+    <link rel="stylesheet" type="text/css" href=" {% static 'css/style.css' %} " />
+
+
+</head>
+
+<body>
+
+    <div class="tabla-container center" style="margin: 2%;">
+
+        <h1>Mis reportes creados</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Reporte</th>
+                    <th>Fecha</th>
+                    <th>Opciones</th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+
+                {% for reporte in reportes %}
+                <tr>
+
+                    <td>{{reporte.id}}</td>
+
+                    <td> {{reporte.usuario.username}}</td>
+                    <td>{{reporte.reporte}}</td>
+                    <td>{{reporte.fecha_creado}}</td>
+                    <td>
+                        <a href="{% url 'reporte_detalle' pk=reporte.pk %}">
+                            Ver reporte
+                        </a>
+                    </td>
+
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+
+        <br>
+        <br><br>
+        <br>
+
+        <div>
+            <a href="{% url 'reporte_nuevo' %}"><button>Registrar Nuevo reporte</button></a>
+            
+        </div>
+
+        <a href="{% url 'condominio_home' %}">
+            <button>
+                home
+            </button></a>
+    </div>
+
+</body>
+
+</html>

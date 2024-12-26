@@ -1,0 +1,23 @@
+Al usar django por defecto para el systema de login y usuario general
+
+se debe crear las platillas donde reposan
+
+carpeta/templates/registration
+    login.html
+    password_reset_form.html
+                    done
+                    email
+                    confirm
+                    complete
+                    
+carpeta/templates/accounts/
+    signup.html
+
+    para utilizar una base html
+
+    {% extends "base.html" %}
+    {% block title %}
+    
+    {% endblock title %}
+
+las vistas vienen por defecto en django admin si usar el log de django

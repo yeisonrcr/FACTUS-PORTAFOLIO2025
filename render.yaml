@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: servidor
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn servidor.wsgi"
+    envVars:
+      - key: DATABASE_URL
+        value: ${POSTGRES_URI}
+      - key: SECRET_KEY
+        value: ${SECRET_KEY}

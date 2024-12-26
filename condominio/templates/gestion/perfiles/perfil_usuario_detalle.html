@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles</title>
+</head>
+<body>
+    <div style="margin: 2%;" >
+        <div >
+            <h1>Detalle del Perfil</h1>
+            <p>Integrantes Permanentes: {{ perfil.integrantes_permanente }}</p>
+            <p>Placas Permanentes: {{ perfil.placas_permanentes }}</p>
+            <p>Fecha de Creación: {{ perfil.fecha_creado }}</p>
+            <a href="{% url 'perfil_usuario_editar' pk=perfil.pk %}">Editar</a>
+
+            <a href="{% url 'perfil_usuario_eliminar' pk=perfil.pk %}"> Eliminiar </a>
+        </div>
+
+        <br><br>
+        <div>
+            <p>Opciones:</p>
+            <a href="{% url 'perfil_usuario_lista' %}">Volver a la lista</a>
+        </div>
+    </div>
+</body>
+</html>

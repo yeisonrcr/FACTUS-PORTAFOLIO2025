@@ -1,0 +1,115 @@
+{% extends 'vehicle/adminbase.html' %}
+{% block content %}
+
+<!-- main content -->
+<div class="wrapper">
+
+	<!-- ****** table  start ********** -->
+	<div class="row">
+		<div class="col-12 col-m-12 col-sm-12">
+			<div class="card">
+				<div class="card-header">
+					<h3 style="color:red; text-align:center">
+						Aprobar Consultas recientes /CLientes
+					</h3>
+
+				</div>
+				<div class="card-content">
+                    <table>
+                        <thead>
+                            <tr>
+                            
+                                <th>Fecha</th>
+                                <th>VIA-e</th>
+                                <th>Cliente</th>
+                                <th>WhatsApp</th>
+                                <th>VIN</th>
+
+
+
+                                <th>Vehiculo</th>
+                                
+
+
+                                
+                                <th>Consulta</th>
+                                <th>Distribuidora</th>
+                                
+                                
+                                
+                                
+                                
+                                <th>Dinero del cliente</th>
+                                
+
+
+                                <th>Pedido</th>
+
+
+                                <th>Estado dinero</th>
+                                <th>Estado repuesto</th>
+                                
+                                <th>Editar Estados</th>
+                                
+                                <th>Editar Distribuidora</th>
+                                
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r in data %}
+                                <tr>
+                                    <td style="white-space: nowrap;">{{ r.date|date:"d-m-Y" }}</td>
+
+                                    <td style="white-space: nowrap;">{% if r.tipo is None %}&nbsp;{% else %}{{ r.tipo }}{% endif %}</td>
+                                    
+
+                                    <td>{% if r.vehicle_cliente is None %}&nbsp;{% else %}{{ r.vehicle_cliente }}{% endif %}</td>
+
+                                    <td>{{ r.vehicle_mobile }}</td>
+                                    <td>{% if r.vehicle_no is None %}&nbsp;{% else %}{{ r.vehicle_no }}{% endif %}</td>
+
+
+
+
+                                    
+                                    <td style="white-space: nowrap;">{{ r.dineroCompletoss }}</td>
+                                    
+                                    
+                                    <td>{{ r.problem_description }}</td>
+                                    
+                                    <td>{% if r.distribuidorax is None %}&nbsp;{% else %}{{ r.distribuidorax }}{% endif %}</td>
+
+
+                                    
+                                    <td style="white-space: nowrap;">{{ r.dineroCompleto }}</td>
+
+
+                                    
+
+                                    <td style="white-space: nowrap;">{{ r.status }}</td>
+                                    <td>{{ r.estado }}</td>
+                                    <td>{{ r.dinomoDis }}</td>
+                                    
+                                    
+                                    
+                                    <td><a style="color:red; text-decoration:none; font-size:25px;" href="{% url 'change-status-tres' r.id %}">✎</a></td>
+                                    <td><a style="color:red; text-decoration:none; font-size:25px;" href="{% url 'change-status-dos' r.id %}">✎</a></td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="10">No hay consultas disponibles.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ****** table start ********** -->
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+<!-- end main content -->
+{% endblock content %}

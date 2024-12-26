@@ -1,0 +1,81 @@
+{
+
+Models.
+
+    ✅ Sistema jerárquico de ubicación (Provincia, Cantón, Distrito)
+    ✅ Sistema de 5 estrellas
+    ✅ Cálculo de estrellas por promedio
+    ✅ Redimensionamiento de imágenes
+    ✅ Categorías de productos
+    ✅ Slug para URL amigables 
+
+    Características adicionales de seguridad y rendimiento:
+        Uso de validators para campos numéricos
+        Redimensionamiento de imágenes para optimizar espacio
+        Slugify para URLs seguras
+        Relacionamiento jerárquico con restricciones
+}
+
+
+{
+
+    Forms:
+        Características de los formularios:
+
+            Validaciones personalizadas
+            Widgets de Bootstrap
+            Restricciones de tamaño y tipo de archivo
+            Validación de datos únicos
+            Manejo de errores específicos
+
+            Ventajas:
+
+            Seguridad de datos
+            Experiencia de usuario mejorada
+            Validaciones exhaustivas
+            Flexibilidad para expansión
+}
+
+
+{
+    Views:
+        Características principales de las vistas:
+            Herencia de vistas Django
+
+            Mixins de autenticación: 
+                clases auxiliares que permite verificar si esta logeado, vistas basadas en clases 
+                    PermissionRequiredMixin y UserPassesTestMixin y LoginRequiredMixin
+                    from django.contrib.auth.mixins import x3
+
+            Paginación implementada
+            Búsqueda y filtrado dinámico
+            Seguridad mediante validaciones
+            Manejo de mensajes y redirecciones
+            Separación de responsabilidades
+
+            Ventajas:
+
+                Control de acceso
+                Flexibilidad en búsquedas
+                Experiencia de usuario mejorada
+                Código modular y mantenible
+
+}
+
+
+{
+
+    URLS:
+    
+        Características de las URLs:
+
+            Uso de slugs para URLs amigables
+            Nombres descriptivos para cada ruta
+            Configuración para archivos multimedia
+            Rutas para listar, ver detalles y crear recursos
+
+        Cons. importantes:
+            Las URLs usan slugs para mejor SEO
+            Rutas protegidas para creación (requieren login)
+            Flexibilidad para agregar nuevas rutas
+}

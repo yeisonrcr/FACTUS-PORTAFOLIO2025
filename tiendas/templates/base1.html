@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <!-- Barra de navegación principal -->
+    <nav class="bg-white shadow-md sticky top-0 z-50 border-t-4 border-gradient-to-r from-black to-green-500">
+        <div class="container mx-auto px-4">
+            <div class="relative flex items-center justify-between h-16">
+                <!-- Logo y nombre de la tienda -->
+                <a href="{% url 'proyectos' %}" class="flex-shrink-0 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span class="text-2xl font-bold text-gray-800">Tiendas ecomycr™</span>
+                </a>
+
+                <!-- Botón de menú móvil -->
+                <button id="mobile-menu-button" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                    <span class="sr-only">Abrir menú principal</span>
+                    <!-- Ícono de menú -->
+                    <svg id="menu-icon" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <!-- Ícono de cerrar -->
+                    <svg id="close-icon" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <!-- Menú de escritorio -->
+                <div class="hidden md:flex md:items-center md:space-x-4">
+                    {% if user.is_authenticated %}
+                        <!-- Carrito de compras -->
+                        <div class="relative">
+                            <a href="{% url 'carrito' %}" class="text-gray-700 hover:text-blue-600 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">99</span>
+                            </a>
+                        </div>
+
+                        {% if user.is_superuser %}
+                            <a href="{% url 'crear_tienda' %}" class="text-gray-700 hover:text-blue-600 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </a>
+                        {% endif %}
+
+                        <form action="{% url 'logout' %}" method="post" class="inline">
+                            {% csrf_token %}
+                            <button class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded transition" type="submit">
+                                🚪 Cerrar Sesión
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded transition">
+                            Iniciar Sesión
+                        </a>
+                        <a href="{% url 'signup' %}" class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded transition">
+                            Registrarse
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Menú móvil -->
+            <div id="mobile-menu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'carrito' %}" class="flex items-center justify-between text-gray-700 hover:bg-gray-100 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">
+                            <span class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                Carrito
+                            </span>
+                            <span class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">99</span>
+                        </a>
+
+                        {% if user.is_superuser %}
+                            <a href="{% url 'crear_tienda' %}" class="flex items-center text-gray-700 hover:bg-gray-100 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Crear Tienda
+                            </a>
+                        {% endif %}
+
+                        <form action="{% url 'logout' %}" method="post" class="block w-full">
+                            {% csrf_token %}
+                            <button type="submit" class="w-full text-left flex items-center text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium">
+                                🚪 Cerrar Sesión
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="block text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium">
+                            Iniciar Sesión
+                        </a>
+                        <a href="{% url 'signup' %}" class="block text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium">
+                            Registrarse
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <!-- Sistema de Mensajes Mejorado -->
+    <div class="container mx-auto mt-8 px-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message-alert opacity-100 transform translate-y-0 transition-all duration-300 ease-in-out
+                            p-4 mb-4 rounded-lg font-semibold 
+                            flex items-center justify-between 
+                            shadow-md border-l-4 relative
+                            {% if message.tags == 'success' %} 
+                                bg-green-50 text-green-800 border-green-500
+                            {% elif message.tags == 'error' %} 
+                                bg-red-50 text-red-800 border-red-500
+                            {% elif message.tags == 'info' %} 
+                                bg-blue-50 text-blue-800 border-blue-500
+                            {% else %} 
+                                bg-yellow-50 text-yellow-800 border-yellow-500
+                            {% endif %}"
+                    role="alert">
+                    <!-- Icono según el tipo de mensaje -->
+                    <div class="flex items-center">
+                        {% if message.tags == 'success' %}
+                            <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                        {% elif message.tags == 'error' %}
+                            <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                        {% elif message.tags == 'info' %}
+                            <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zm-1 3a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                        {% else %}
+                            <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                        {% endif %}
+                        <span>{{ message }}</span>
+                    </div>
+                    
+                    <!-- Botón de cerrar con animación -->
+                    <button 
+                        class="text-lg hover:text-gray-600 transition-colors duration-200 focus:outline-none"
+                        onclick="dismissMessage(this.parentElement)">
+                        <span class="sr-only">Cerrar</span>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Contenido principal -->
+        {% block content %}{% endblock %}
+
+        
+    </div>
+
+
+
+    <script>
+        // Script para manejar el menú móvil
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

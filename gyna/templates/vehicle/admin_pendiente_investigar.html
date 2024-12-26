@@ -1,0 +1,169 @@
+
+{% extends 'vehicle/adminbase.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigar</title>
+    <style>
+                /* Style the button */
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;}
+        .button:hover {
+            background-color: #7f8a28;
+        }
+
+        /* Style the container */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;}
+        
+        
+        table {
+                border-collapse: collapse; /* Combina los bordes de las celdas */
+                width: 100%; /* Ancho de la tabla (ajústalo según tus necesidades) */
+            }
+        th, td {
+                border: 1px solid #ddd; /* Grosor y color del borde */
+                padding: 8px; /* Espaciado interno de las celdas */
+                text-align: left; /* Alineación del texto (izquierda) */
+            }
+        th {
+                background-color: #f2f2f2; /* Color de fondo para las cabeceras */
+            }
+
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+    
+        <!-- ****** table start ********** -->
+        <div class="row">
+            <div class="col-12 col-m-12 col-sm-12">
+                <div class="card">
+
+                    
+                    <div class="card-header">
+
+                        <a href="{% url 'gyna' %}" ><button class="button" >
+                            Inicio
+                        </button></a>
+                        <h3 style="color:black; text-align:center">Pedidos a Investigar</h3>
+                    </div>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                
+                                    <th>Fecha</th>
+                                    <th>VIA-e</th>
+                                    <th>Cliente</th>
+                                    <th>WhatsApp</th>
+                                    <th>VIN</th>
+
+
+
+                                    <th>Vehiculo</th>
+                                    
+
+
+                                    
+                                    <th>Consulta</th>
+                                    <th>Distribuidora</th>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <th>Dinero del cliente</th>
+                                    
+
+
+                                    <th>Pedido</th>
+
+
+                                    <th>Estado dinero</th>
+                                    <th>Estado repuesto</th>
+                                    
+                                    <th>Editar Estados</th>
+                                    
+                                    <th>Editar Distribuidora</th>
+                                    
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for r in data %}
+                                    <tr>
+                                        <td style="white-space: nowrap;">{{ r.date|date:"d-m-Y" }}</td>
+
+                                        <td style="white-space: nowrap;">{% if r.tipo is None %}&nbsp;{% else %}{{ r.tipo }}{% endif %}</td>
+                                        
+
+                                        <td>{% if r.vehicle_cliente is None %}&nbsp;{% else %}{{ r.vehicle_cliente }}{% endif %}</td>
+
+                                        <td>{{ r.vehicle_mobile }}</td>
+                                        <td>{% if r.vehicle_no is None %}&nbsp;{% else %}{{ r.vehicle_no }}{% endif %}</td>
+
+
+
+
+                                        
+                                        <td style="white-space: nowrap;">{{ r.dineroCompletoss }}</td>
+                                        
+                                        
+                                        <td>{{ r.problem_description }}</td>
+                                        
+                                        <td>{% if r.distribuidorax is None %}&nbsp;{% else %}{{ r.distribuidorax }}{% endif %}</td>
+
+
+                                        
+                                        <td style="white-space: nowrap;">{{ r.dineroCompleto }}</td>
+
+
+                                        
+
+                                        <td style="white-space: nowrap;">{{ r.status }}</td>
+                                        <td>{{ r.estado }}</td>
+                                        <td>{{ r.dinomoDis }}</td>
+                                        
+                                        
+                                        
+                                        <td><a style="color:red; text-decoration:none; font-size:25px;" href="{% url 'change-status-tres' r.id %}">✎</a></td>
+                                        <td><a style="color:red; text-decoration:none; font-size:25px;" href="{% url 'change-status-dos' r.id %}">✎</a></td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="10">No hay consultas disponibles.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ****** table end ********** -->
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+    
+</body>
+</html>
+
+
+{% endblock content %}

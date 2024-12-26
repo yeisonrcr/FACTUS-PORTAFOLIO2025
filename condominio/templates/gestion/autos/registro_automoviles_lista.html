@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Mascotas</title>
+    <link rel="stylesheet" type="text/css" href=" {% static 'css/style.css' %} " />
+
+
+</head>
+<body>
+
+    <div class="tabla-container center" style="margin: 2%;">
+
+        <div>
+            <h1> Automóviles Autorizados </h1>
+            <table>
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Casa</th>
+                        <th>Marca</th>
+                        <th>Placa</th>
+                        <th>Características</th>
+                        <th>Imagen</th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+
+                    {% for auto in automoviles %}
+                    <tr>
+
+                        <td>{{auto.id}}</td>
+                        <td> {{auto.usuario.username}}</td>
+                        <td>{{auto.auto}}</td>
+                        <td>{{auto.placa}}</td>
+                        <td>{{auto.caracteristicas}}</td>
+
+                        <td>
+                            {% if auto.imagen %}
+
+                            <img src="{{ auto.imagen.url }}" alt="Foto del auto" width="40">
+
+                            {% else %}
+                            No hay imagen
+                            {% endif %}
+                        </td>
+
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+
+        <br>
+        <br><br>
+        <br>
+
+        <div>
+
+            <a href="{% url 'registro_automoviles_nuevo' %}"><button>Registrar nuevo automovil</button></a>
+            
+
+        <a href="{% url 'condominio_home' %}">
+            <button>
+                home
+            </button></a>
+        </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+    
+</body>
+</html>
+

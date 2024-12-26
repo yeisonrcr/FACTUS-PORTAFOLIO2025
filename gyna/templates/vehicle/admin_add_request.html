@@ -1,0 +1,208 @@
+{% extends 'vehicle/adminbase.html' %}  <!-- Extiende la plantilla base 'adminbase.html' -->
+
+{% load widget_tweaks %}  <!-- Carga las etiquetas de 'widget_tweaks' para personalizar los widgets -->
+
+{% block content %}  <!-- Define un bloque llamado 'content' que se reemplazará en la plantilla base -->
+
+<head>
+    <style media="screen">
+        .radio-label {
+            font-size: 1.2em; /* Tamaño de fuente más grande */
+            margin-right: 30px; /* Espaciado entre las etiquetas */
+            
+        }
+
+
+        /* Style the button */
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .button:hover {
+            background-color: #3e8e41;
+        }
+        
+        /* Style the container */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        
+        /* Estilos CSS para los campos de entrada y botones */
+        input[type=text], select, input[type=number], textarea {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        } 
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+
+    </style>
+</head>
+
+<br><br><br>
+
+{% if enquiry.errors %}
+    <!-- Muestra mensajes de error si hay errores en el formulario -->
+    <div class="error-message">
+        <ul>
+            {% for field, error_list in enquiry.errors.items %}
+                {% for error in error_list %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<br>
+
+
+    <h1 style="text-align:center;">Crear nueva consulta</h1>
+    
+<br>
+<div>
+    <form method="post" style="margin-left:200px; margin-right:200px;">
+        {% csrf_token %}  <!-- Agrega el token CSRF para proteger el formulario -->
+
+        <!-- Campos de entrada para VIN, cliente, Whatsapp, marca, año, modelo, consulta, costo total y dinero abonado -->
+        <input type="radio" id="internet" name="tipo" value="Internet">
+        <label for="internet" class="radio-label">Internet</label>
+
+        <input type="radio" id="estados_unidos" name="tipo" value="Estados Unidos">
+        <label for="estados_unidos" class="radio-label">Estados Unidos</label>
+
+        <input type="radio" id="panama" name="tipo" value="Panama">
+        <label for="panama" class="radio-label">Panamá</label>
+
+        <input type="radio" id="otrolugar" name="tipo" value="Otro lugar">
+        <label for="otrolugar" class="radio-label">Otro Lugar</label>
+        <br>
+        <br>
+        <label for="vehicle_mobile">Whatsapp</label>
+        {% render_field enquiry.vehicle_mobile class="form-control" placeholder="Celular" %}
+
+
+        <label for="vehicle_no">VIN</label>
+        {% render_field enquiry.vehicle_no class="form-control" placeholder="VIN del vehiculo" %}
+
+        <label for="vehicle_cliente">Cliente</label>
+        {% render_field enquiry.vehicle_cliente class="form-control" placeholder="Nombre del cliente" %}
+
+        <label for="vehicle_name">Marca</label>
+        {% render_field enquiry.vehicle_name class="form-control" placeholder="Marca del vehiculo" %}
+
+        <label for="vehicle_model">Modelo</label>
+        {% render_field enquiry.vehicle_model class="form-control" placeholder="Modelo del vehiculo" %}
+        
+
+        <label for="vehicle_brand">Año</label>
+        {% render_field enquiry.vehicle_brand class="form-control" placeholder="Agregar años o Año" %}
+<br><br>
+
+        
+<br><br>
+        
+        <label for="problem_description">Consulta del cliente</label>
+        {% render_field enquiry.problem_description class="form-control" placeholder="Aqui repuestos e información adicional ... " %}
+        
+        
+        
+        
+<br>
+
+<br><br>
+
+    <label for="distribuidorax">Distribuidora cotizada</label>
+    {% render_field enquiry.distribuidorax class="form-control" placeholder="Lugares cotizados o se hizo el pedido" %}
+
+
+    <br><br>
+
+        
+        <label for="costAbonado">Dinero Abonado</label>
+        {% render_field enquiry.costAbonado class="form-control" placeholder="Monto abonado ₡$" %}
+        
+        <label for="costTotal">Costo total</label>
+        {% render_field enquiry.costTotal class="form-control" placeholder="Monto total de los repuestos ₡$" %}
+
+
+        <!-- Campos de selección para estado y estado del dinero -->
+        
+        
+<br><br>
+        
+
+<label for="status">Consulta del cliente</label>
+<select name="status" id="status" class="form-control">
+    <option value="Consulta">Solo es una consulta</option>
+    <option value="Enviado">Repuestos entregados al cliente</option>
+    <option value="Pendiente de investigar">Pendiente de investigar</option>
+    <option value="Pendiente de enviar">Pedido Pendiente</option>
+</select>
+
+
+<br>
+
+<label for="dinomoDis">Estado con la distribuidora</label>
+<select name="dinomoDis" id="dinomoDis" class="form-control">
+    <option value="Vacio">Vacio</option>
+    <option value="Investigar">Investigando</option>
+    <option value='Solicitado pero pendiente de enviarmelo'>Se ha solicitado pero  no lo han enviado</option>
+    <option value="Completado">No hay que hacer más nada</option>
+</select>
+
+<br><br>
+
+<label for="estado">$ <strong>Dinero</strong>₡</label>
+<select name="estado" id="estado" class="form-control">
+    <option value="Consulta">Solo es una consulta</option>
+    <option value="Cotizado">Cotizado</option>
+    <option value="Abonado">El cliente abonó</option>
+    <option value="Pagado">Pagado completo</option>
+</select>
+
+
+
+
+
+<input type="submit" value="Crear consulta">
+</form>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}  <!-- Cierra el bloque 'content' -->
+
+
+

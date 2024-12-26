@@ -1,0 +1,46 @@
+
+    # Ruta para manejar errores 404 personalizados
+    handler404 = "vehicle.views.error_404",
+
+Usar select_related o prefetch_related en consultas para optimizar el acceso a los datos relacionados:
+
+Usar serializadores para los datos y paginaciones
+
+Django tiene un middleware llamado MessageMiddleware. Este middleware se asegura de que los mensajes que 
+agregas con messages.success o messages.error se guarden temporalmente. Luego,
+ se pueden mostrar en el siguiente renderizado de una plantilla.
+
+
+
+Esto se llama notación de "doble guion bajo" (__) y se utiliza para navegar por las relaciones de modelos en Django.
+ItemCarrito.objects.get(id=item_id, carrito__usuario=request.user) 
+
+
+
+
+"Broken pipe" 
+    en un servidor ocurre cuando el servidor intenta 
+        enviar datos a un cliente, pero el cliente ya cerró 
+            la conexión antes de que los datos llegaran por completo.
+
+{% extends "./uno.html" %}
+
+
+{% block title %}
+
+{% endblock title %}
+
+
+
+{% block mibloque %}
+
+
+
+{% endblock %}
+
+
+para ejecutar en produccion archivos estaticos por carpetas
+
+python manage.py collectstatic
+
+

@@ -1,0 +1,129 @@
+{% extends 'base1.html' %}
+
+{% block title %}Tiendas Disponibles{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Encabezado con animación sutil -->
+    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-8 relative">
+        <span class="inline-block border-b-4 border-blue-500 pb-2">Tiendas Disponibles</span>
+    </h1>
+
+    <!-- Formulario de búsqueda mejorado -->
+    <form method="get" class="mb-8 flex flex-col sm:flex-row gap-4 sm:gap-0 bg-white p-4 rounded-lg shadow-sm">
+        <div class="flex-grow">
+            <input 
+                type="text" 
+                name="q" 
+                placeholder="Buscar tienda..." 
+                value="{{ request.GET.q }}" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg sm:rounded-r-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200"
+            >
+        </div>
+        
+        <select 
+            name="provincia" 
+            class="w-full sm:w-auto px-4 py-2 border border-gray-300 sm:border-l-0 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200"
+        >
+            <option value="">Todas las Provincias</option>
+            {% for provincia in provincias %}
+                <option 
+                    value="{{ provincia.nombre }}" 
+                    {% if request.GET.provincia == provincia.nombre %}selected{% endif %}
+                >
+                    {{ provincia.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+        
+        <button 
+            type="submit" 
+            class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg sm:rounded-l-none transition-colors duration-200 flex items-center justify-center"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            Buscar
+        </button>
+    </form>
+
+    <!-- Grid de tiendas responsive -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for tienda in tiendas %}
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-2">{{ tienda.nombre }}</h2>
+                    <p class="text-gray-600 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        {{ tienda.canton.nombre }}, {{ tienda.distrito.nombre }}
+                    </p>
+                    
+                    {% if tienda.logo %}
+                    <div class="mb-4 flex justify-center bg-gray-50 rounded-lg p-4"> 
+                        <img 
+                            src="{{ tienda.logo.url }}" 
+                            alt="Logo de {{ tienda.nombre }}" 
+                            class="h-32 w-32 object-contain rounded-lg"
+                        > 
+                    </div>
+                    {% else %}
+                    <div class="mb-4 flex justify-center items-center h-32 bg-gray-50 rounded-lg">
+                        <p class="text-gray-400 italic">Sin logo disponible</p>
+                    </div>
+                    {% endif %}
+                    
+                    <a 
+                        href="{% url 'tienda_detail' slug=tienda.slug %}" 
+                        class="block w-full text-center bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                    >
+                        Ver Tienda
+                    </a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-span-full flex flex-col items-center justify-center py-12 bg-white rounded-xl shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+                <p class="text-gray-600 text-lg">No hay tiendas disponibles en este momento.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Paginación mejorada -->
+    {% if is_paginated %}
+    <div class="mt-8 flex justify-center">
+        <nav class="flex items-center space-x-2" aria-label="Pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.provincia %}&provincia={{ request.GET.provincia }}{% endif %}" 
+                   class="px-3 py-2 rounded-md bg-white border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    &laquo; Primero
+                </a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.provincia %}&provincia={{ request.GET.provincia }}{% endif %}" 
+                   class="px-3 py-2 rounded-md bg-white border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    Anterior
+                </a>
+            {% endif %}
+
+            <span class="px-4 py-2 rounded-md bg-blue-50 text-blue-600 font-medium">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.provincia %}&provincia={{ request.GET.provincia }}{% endif %}" 
+                   class="px-3 py-2 rounded-md bg-white border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    Siguiente
+                </a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.provincia %}&provincia={{ request.GET.provincia }}{% endif %}" 
+                   class="px-3 py-2 rounded-md bg-white border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    Último &raquo;
+                </a>
+            {% endif %}
+        </nav>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

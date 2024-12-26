@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle de la Visita Autorizada</title>
+</head>
+<body>
+    <div style="margin: 2%;" class="container">
+        <div>
+
+            <h1>Detalle de la Visita</h1>
+    
+            <p>Personas Visitantes: {{ visita.personas_visitantes }}</p>
+            <p>Placas Autorizadas: {{ visita.placas_autorizadas }}</p>
+            <p>Fecha de Creación: {{ visita.fecha_creacion }}</p>
+            <p>Eliminado: {{ visita.eliminado }}</p>
+        
+            <br><br><br>
+         <!--     
+            Seguridad pruebas
+            <form method="post" action=>
+                {% csrf_token %}
+                <button type="submit">Eliminar</button>
+            </form>
+         -->
+        </div>
+        <div >
+
+            
+            <a  style="padding: 1%;" href="{% url 'registro_visitas_editar' pk=visita.pk %}">Editar</a>
+            <a  style="padding: 3%;" href="{% url 'registro_visitas_eliminar' pk=visita.pk %}">Eliminar</a>
+            <a  href="{% url 'registro_visitas_lista' %}">Volver a la lista</a>
+
+        </div>
+    </div>
+</body>
+</html>
+

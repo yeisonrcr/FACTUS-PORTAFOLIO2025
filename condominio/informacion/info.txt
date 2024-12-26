@@ -1,0 +1,188 @@
+Hola esto seria la informacion completa de la app condominio, link en el area del proyecto
+
+
+tips: 
+    para guardar las imagenes guardamos el url text en la db y la url foto en la carpeta
+
+
+        """
+
+
+
+                        1. *Crear la carpeta media*:
+                        - En la raíz de tu proyecto Django (donde está el archivo manage.py), crea una carpeta llamada media.
+
+                        2. *Configurar Django para usar la carpeta media*:
+                        - Abre el archivo settings.py y agrega la configuración necesaria para manejar archivos de medios:
+
+                        python
+                        # settings.py
+                        import os
+
+                        # Ruta al directorio de medios
+                        MEDIA_URL = '/media/'
+                        MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+                        3. *Configurar las URLs para servir archivos de medios durante el desarrollo*:
+                        - En urls.py del proyecto (generalmente en la misma carpeta que settings.py), agrega la configuración para servir archivos de medios:
+
+                        python
+                        # urls.py
+                        from django.conf import settings
+                        from django.conf.urls.static import static
+                        from django.urls import path, include
+
+                        urlpatterns = [
+                            path('gestion/', include('gestion.urls')),
+                            # otras rutas
+                        ]
+
+                        if settings.DEBUG:
+                            urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+                        4. *Configuración del modelo para almacenar imágenes*:
+                        - Ya has definido los campos de imagen en tus modelos, por ejemplo:
+
+                        python
+                        class RegistroAutomoviles(models.Model):
+                            auto = models.CharField(max_length=100)
+                            imagen = models.ImageField(upload_to='autos/')
+                            caracteristicas = models.TextField()
+                            placa = models.CharField(max_length=50)
+                            fecha_creada_auto = models.DateTimeField(default=timezone.now)
+
+                        class RegistroMascotas(models.Model):
+                            nombre = models.CharField(max_length=100)
+                            foto = models.ImageField(upload_to='mascotas/')
+                            caracteristicas = models.TextField()
+                            fecha_creado = models.DateTimeField(default=timezone.now)
+
+
+                        Estos campos ImageField utilizarán la configuración upload_to para guardar las imágenes en subcarpetas específicas dentro de la carpeta media.
+
+                        ### Ejemplo de estructura de proyecto:
+
+
+                        /condominio
+                            /gestion
+                                /migrations
+                                /templates
+                                /__init__.py
+                                /admin.py
+                                /apps.py
+                                /forms.py
+                                /models.py
+                                /tests.py
+                                /urls.py
+                                /views.py
+                            /media
+                                /autos
+                                    # imágenes de automóviles
+                                /mascotas
+                                    # imágenes de mascotas
+                            /condominio
+                                /__init__.py
+                                /asgi.py
+                                /settings.py
+                                /urls.py
+                                /wsgi.py
+                            manage.py
+
+
+                        Con estos pasos, tu aplicación de Django estará configurada para guardar y servir imágenes de manera correcta. ¡Espero que esto te ayude a continuar con tu proyecto!
+
+
+
+
+
+
+
+
+        """
+
+
+
+condominio app
+    gestion app 
+        #codigo limpio gestion app para gestionar los procesos aparte 
+        -Creamos los models.py
+            #con esto manejamos el usuario logiado, para creacion de las tablas,
+            #esto solo en el proyecto portafolio ya que la app condominios tendria su propio sistema de seguridad login/signup/logout
+
+
+            from django.contrib.auth.models import User 
+                usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+
+                """
+                
+                    1. *usuario*: 
+                        campo de la tabla titulo. En tu base de datos, se convertirá en una columna que almacenará una clave foránea.
+
+                    2. *models.ForeignKey*:  
+                        Esto define una relación de clave foránea entre el modelo actual y el modelo User. 
+                            En Django, ForeignKey se utiliza para crear una relación de uno a muchos. 
+                                Esto significa que cada instancia del modelo actual puede estar relacionada con una instancia del modelo User.
+
+                    3. *User*: Este es el modelo al que estás haciendo referencia. 
+                            User es típicamente el modelo de usuario proporcionado por Django, 
+                                aunque también puede ser un modelo personalizado de usuario.
+
+                    4. *on_delete=models.CASCADE*: 
+                            Este argumento especifica qué debe suceder con las instancias del modelo actual cuando la instancia relacionada del modelo User se elimina. 
+                                CASCADE significa que si una instancia de User es eliminada, 
+                                    todas las instancias del modelo actual que están relacionadas con esa instancia de User 
+                                        también serán eliminadas. (ojo si se elimina el usuario principal se eliminaran todas las tablas relacionadas con este usuario asi mismo los datos)
+
+
+
+
+                    ### Otros Atributos que Puedes Usar en ForeignKey
+
+                    Además de on_delete, aquí hay algunos otros que puedes agregar a un campo ForeignKey:
+
+                        - *related_name*: Este atributo define el nombre que se usará para la relación inversa desde el modelo User de vuelta al modelo actual.
+
+                                    python
+                                    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mis_modelos')
+                        
+
+                        - *null y blank*: Estos atributos permiten que el campo sea nulo en la base de datos y opcional en los formularios, respectivamente.
+
+                                    python
+                                    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+                        
+
+                        - *default*: Define un valor predeterminado para este campo si no se proporciona uno.
+
+                                    python
+                                    usuario = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+                                    
+
+                    - *limit_choices_to*: Limita las opciones disponibles en el administrador de Django : Es administrador o solo un usuario 
+
+                                    python
+                                    usuario = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'is_staff': True})
+                                    
+    
+
+
+Pasos 
+
+1. Configuración del proyecto Django
+2. Creación del modelo de datos.
+3. Creación de vistas y URLs.
+4. Creación de plantillas.
+5. Implementación de CRUD completo.
+6. Testing a la app
+7. Limpiar codigo
+
+
+Algunas explicaciones
+
+            <p style="font-size: 12px;">
+                si : form.instance.pk|yesno:   Si es Editar integrante permanente el titulo   o   si es nuevo integrante permanente utilizamos la misma plantilla para ambos casos
+            </p>
+
+

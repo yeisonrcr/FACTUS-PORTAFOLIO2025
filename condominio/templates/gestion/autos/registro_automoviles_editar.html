@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ form.instance.pk|yesno:"Editar Automóvil,Nuevo Automóvil" }}</title>
+</head>
+<body>
+
+    <div style="margin: 2%;" >
+        <div>
+            <h1>{{ form.instance.pk|yesno:"Editar Automóvil,Nuevo Automóvil" }}</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Guardar</button>
+            </form>
+            
+        </div>
+
+        <div>
+
+            <p>
+                Opciones del registro 
+            </p>
+            
+    <a href="{% url 'registro_automoviles_lista' %}">Volver a la lista</a>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+

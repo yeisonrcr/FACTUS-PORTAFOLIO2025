@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Automóvil</title>
+</head>
+<body>
+    <div style="margin: 2%;" >
+        <div >
+            <h1>Detalle del Automóvil</h1>
+            <p>Auto: {{ automovil.auto }}</p>
+            <p>Características: {{ automovil.caracteristicas }}</p>
+            <p>Placa: {{ automovil.placa }}</p>
+            <p>Fecha de Creación: {{ automovil.fecha_creada_auto }}</p>
+            {% if automovil.image %}
+                <img src="{{ automovil.imagen.url }}" alt="Imagen del automóvil">
+            {% else %}
+
+<p>Auto {{ automovil.placa }} no tiene foto. </p>
+{% endif %}
+           
+        </div>
+
+        <br><br>
+        <div>
+            <p>Opciones:</p>
+
+
+            <a style="margin: 3px;" href="{% url 'registro_automoviles_editar' pk=automovil.pk %}">Editar</a>
+
+
+            <a style="margin: 32px;" href="{% url 'registro_automoviles_eliminar' pk=automovil.pk %}"> Eliminiar </a>
+
+
+            <a href="{% url 'registro_automoviles_lista' %}">Volver a la lista</a>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}Sistema de registro Django{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto">
+    <div class="container">
+        <!-- Título de la página -->
+        <div>
+            <h1>Iniciar Sesión</h1>
+        </div>
+
+        <!-- Formulario de inicio de sesión -->
+        <div>
+            <form method="post" style="text-align: center;"> <!-- Centrar contenido dentro del formulario -->
+                {% csrf_token %}
+                {{ form.as_p }} <!-- Renderiza automáticamente los campos del formulario -->
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        
+            <!-- Contenedor adicional para centrar los enlaces -->
+            <div style="text-align: center; margin-top: 20px;"> 
+                <a href="{% url 'signup' %}" style="margin-right: 15px;">Registrarse</a>
+                <a href="{% url 'password_reset' %}">¿Olvidaste tu contraseña?</a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<style>
+    /* General */
+    body {
+        font-family: 'Arial', sans-serif; /* Fuente legible */
+        background-color: #f2f8ec; /* Fondo natural */
+        color: #4a4a4a; /* Texto principal */
+        padding: 20px;
+    }
+
+    /* Título principal */
+    h1 {
+        color: #3b7a57; /* Verde natural */
+        text-align: center;
+        font-size: 2.5em;
+    }
+
+    /* Estilos del formulario */
+    form {
+        background-color: #ffffff; /* Fondo blanco */
+        border: 2px solid #3b7a57; /* Borde verde */
+        border-radius: 10px; /* Bordes redondeados */
+        padding: 20px; /* Espaciado interno */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+        max-width: 600px; /* Ancho máximo */
+        margin: 0 auto; /* Centrado */
+    }
+
+    /* Campos de entrada del formulario */
+    input[type="text"], input[type="password"], input[type="file"], select {
+        width: 100%; /* Ancho completo */
+        padding: 10px; /* Espaciado interno */
+        margin-bottom: 15px; /* Separación entre campos */
+        border: 1px solid #cccccc; /* Borde gris */
+        border-radius: 5px; /* Bordes redondeados */
+    }
+
+    /* Efecto al enfocar campos */
+    input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus, select:focus {
+        border-color: #3b7a57; /* Borde verde */
+        outline: none; /* Quita el borde adicional del navegador */
+    }
+
+    /* Botón de envío */
+    form button {
+        background-color: #2b6b48; /* Fondo verde */
+        color: #ffffff; /* Texto blanco */
+        border: none; /* Sin borde */
+        border-radius: 5px; /* Bordes redondeados */
+        padding: 10px 20px; /* Espaciado interno */
+        font-size: 1em; /* Tamaño del texto */
+        cursor: pointer; /* Cursor tipo mano */
+        margin-left: 20px;
+        width: 100%; /* Ancho completo */
+        max-width: 300px; /* Máximo ancho */
+    }
+
+    /* Efecto hover en botón */
+    form button:hover {
+        background-color: #5c5e50; /* Verde más oscuro */
+    }
+
+    /* Enlaces generales */
+    a {
+        color: #2b6b48; /* Verde */
+        text-decoration: none; /* Sin subrayado */
+        font-weight: bold; /* Negrita */
+        transition: color 0.3s, text-decoration 0.3s; /* Transición suave */
+    }
+
+    /* Efecto hover en enlaces */
+    a:hover {
+        color: #238246; /* Verde más oscuro */
+        text-decoration: underline; /* Subrayado */
+    }
+
+    /* Enlaces específicos para 'Registrarse' y 'Olvidaste tu contraseña' */
+    a[href*="signup"], a[href*="password_reset"] {
+        display: inline-block; /* Bloque en línea */
+        margin: 10px 0; /* Espaciado vertical */
+        padding: 10px 15px; /* Espaciado interno */
+        background-color: #f9fafb; /* Fondo claro */
+        border: 1px solid #3b7a57; /* Borde verde */
+        border-radius: 5px; /* Bordes redondeados */
+        text-align: center; /* Centrar texto */
+    }
+
+    /* Efecto hover en los enlaces específicos */
+    a[href*="signup"]:hover, a[href*="password_reset"]:hover {
+        background-color: #3b7a57; /* Fondo verde */
+        color: #ffffff; /* Texto blanco */
+        text-decoration: none; /* Sin subrayado */
+    }
+
+    /* Etiquetas del formulario */
+    label {
+        font-weight: bold; /* Negrita */
+        color: #3b7a57; /* Verde */
+    }
+
+    /* Separación entre párrafos del formulario */
+    form p {
+        margin-bottom: 15px;
+    }
+</style>
+{% endblock %}

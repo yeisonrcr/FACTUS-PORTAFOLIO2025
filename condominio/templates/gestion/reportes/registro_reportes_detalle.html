@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la reporte</title>
+
+    <link rel="stylesheet" type="text/css" href=" {% static 'css/style.css' %} " />
+
+</head>
+<body>
+    <div style="margin: 2%;" >
+        <div >
+            <h1>Detalle de la reporte</h1>
+            <p>Usuario: {{ reporte.usuario.username }}</p>
+            <p>Reporte: {{ reporte.reporte }}</p>
+            <p>Fecha creado: {{ reporte.fecha_creado }}</p>
+
+        </div>
+
+        <br><br>
+        <div>
+            <p>Opciones:</p>
+
+            <a href="{% url 'reporte_editar' pk=reporte.pk %}">Editar</a>
+
+
+            <a href="{% url 'reporte_eliminar' pk=reporte.pk %}"> Eliminiar </a>
+
+
+            <a href="{% url 'reportes_lista' %}">Volver a la lista</a>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

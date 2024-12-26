@@ -1,0 +1,168 @@
+git init
+git checkout -b yeison : creo una rama y automaticamente ingreso 
+git add . !
+git commit -m "" : comento 
+git push origin xrama
+
+
+
+git clone x :clonar el git
+git remote -v: verificamos
+git remote add origin https://github.com/yeracr/Portafolio2025.git  :agregar url a git por errores
+git remote remove origin: eliminar
+git branch : ver que rama estoy
+git push -u origin yeison  : push al github , rama usada, aun no tiene el pull request del jefe pero esta subido para revision
+
+
+git branch -d nombre_de_la_rama
+git remote remove origin
+git remote add origin https://github.com/TuUsuario/TuRepositorio.git
+git push -u origin main
+
+cd C:\Users\Yeison\MiProyecto
+git init
+git add .
+git commit -m "Primer commit"
+git remote add origin https://github.com/Yeison/MiProyecto.git
+git branch -M main
+git push -u origin main
+
+
+#subir cambios
+git add .
+git commit -m "" 
+git push origin usernamex
+
+#cada que inicio, mantengo rama actualizada
+git checkout main
+git pull origin main
+git checkout ecomycr
+git merge main
+
+
+
+Control de Versiones con Git y el Equipo
+Git es una herramienta fundamental para el control de versiones en proyectos colaborativos. A continuación, se presenta una lista de los comandos más comunes en Git, junto con su explicación y uso.
+
+Comandos Básicos de Git
+1. Clonar un Repositorio
+
+git clone <URL>
+Descripción: Clona un repositorio remoto en tu máquina local.
+
+Ejemplo: git clone https://github.com/yeracr/Portafolio2025.git
+2. Verificar Remotos Configurados
+
+git remote -v
+Descripción: Muestra las URLs de los remotos configurados (por ejemplo, origin).
+
+3. Añadir un Remoto
+
+git remote add origin <URL>
+Descripción: Agrega un remoto con la URL especificada.
+
+Ejemplo: git remote add origin https://github.com/yeracr/Portafolio2025.git
+4. Eliminar un Remoto
+
+git remote remove origin
+Descripción: Elimina el remoto especificado.
+
+Manejo de Ramas
+5. Crear y Cambiar de Rama
+
+git checkout -b <nombre_de_rama>
+Descripción: Crea una nueva rama y cambia a ella automáticamente.
+
+Ejemplo: git checkout -b yeison
+6. Verificar la Rama Actual
+
+git branch
+Descripción: Muestra las ramas existentes y resalta la rama actual.
+
+7. Cambiar a una Rama Existente
+
+git checkout <nombre_de_rama>
+Descripción: Cambia a la rama especificada.
+
+Ejemplo: git checkout main
+Trabajar con Cambios
+8. Añadir Cambios al Área de Staging
+
+git add .
+Descripción: Añade todos los archivos modificados al área de staging para ser preparados para el commit.
+
+9. Hacer un Commit
+
+git commit -m "Mensaje de commit"
+Descripción: Realiza un commit con los cambios añadidos al área de staging.
+
+Ejemplo: git commit -m "Añadir nueva funcionalidad"
+10. Subir Cambios al Remoto
+
+git push origin <nombre_de_rama>
+Descripción: Sube los cambios de la rama local al repositorio remoto.
+
+Ejemplo: git push origin yeison
+Sincronizar Cambios con el Remoto
+11. Obtener los Últimos Cambios del Remoto
+
+git pull origin <nombre_de_rama>
+Descripción: Descarga y fusiona los cambios desde el repositorio remoto a la rama local.
+
+Ejemplo: git pull origin main
+12. Fusionar una Rama con la Rama Principal
+
+git merge <nombre_de_rama>
+Descripción: Fusiona los cambios de la rama especificada con la rama actual.
+
+Ejemplo: git merge yeison
+Borrar una Rama
+13. Eliminar una Rama Local
+
+git branch -d <nombre_de_rama>
+Descripción: Elimina una rama local que ya ha sido fusionada.
+
+Ejemplo: git branch -d yeison
+Configuración y Repositorios Remotos
+14. Asociar la Rama Local con el Remoto
+
+git branch --set-upstream-to=origin/<nombre_de_rama> <rama_local>
+Descripción: Asocia una rama local con una rama remota para hacer push y pull de manera más sencilla.
+
+15. Cambiar la URL de un Remoto
+
+git remote set-url origin <nueva_URL>
+Descripción: Cambia la URL de un remoto ya configurado.
+
+Ejemplo: git remote set-url origin https://github.com/TuUsuario/TuRepositorio.git
+Soluciones Comunes
+16. Verificar el Estado de los Remotos
+
+git remote -v
+Descripción: Verifica si tu repositorio tiene remotos configurados.
+
+17. Subir la Rama al Remoto
+
+git push -u origin <rama_actual>
+Descripción: Sube una rama local al remoto, configurando automáticamente el seguimiento de la rama.
+
+18. Verificar el Estado de la Rama
+
+git status
+Descripción: Muestra el estado de los cambios en la rama local y su relación con el remoto.
+
+Otros Comandos Útiles
+19. Listar los Comandos de Git
+
+git help -a
+Descripción: Muestra todos los comandos disponibles en Git.
+
+20. Mostrar los Commits de un Repositorio
+
+git log
+Descripción: Muestra un historial de los commits realizados en el repositorio.
+
+21. Buscar un Patrón en el Historial de Commits
+
+git grep <patrón>
+Descripción: Busca un patrón específico en el historial de commits.

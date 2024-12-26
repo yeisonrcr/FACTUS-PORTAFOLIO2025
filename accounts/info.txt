@@ -1,0 +1,10 @@
+Posibles Errores:
+
+    ConnectionRefusedError : no se puede establecer conexion con el servidor de emails SMTP
+    en setting.py del servidor 
+        agregar datos necesarios
+    
+
+            <p style="font-size: 12px;">
+                si : form.instance.pk|yesno:   Si es Editar integrante permanente el titulo   o   si es nuevo integrante permanente utilizamos la misma plantilla para ambos casos
+            </p>

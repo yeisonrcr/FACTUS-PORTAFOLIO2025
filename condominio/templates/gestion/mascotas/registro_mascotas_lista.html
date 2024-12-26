@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Mascotas</title>
+    
+    <link rel="stylesheet" type="text/css" href=" {% static 'css/style.css' %} " />
+
+
+</head>
+<body>
+
+    <div class="tabla-container center" style="margin: 2%;">
+
+
+        <div>
+            <h1> Mascotas </h1>
+            <table>
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Casa</th>
+                        <th>Nombre</th>
+                        <th>Características</th>
+                        <th>Imagen</th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+
+                    {% for mascota in mascotas %}
+                    <tr>
+
+                        <td>{{mascota.id}}</td>
+
+                        <td> {{mascota.usuario.username}}</td>
+                        <td>{{mascota.nombre}}</td>
+                        <td>{{mascota.caracteristicas}}</td>
+
+                        <td>
+                            {% if mascota.foto %}
+
+                            <img src="{{ mascota.foto.url }}" alt="Foto de la mascota" width="40">
+
+                            {% else %}
+                            No hay imagen
+                            {% endif %}
+                        </td>
+
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+
+        </div>
+
+
+        <br>
+        <br><br>
+        <br>
+
+        <div>
+
+            <a href="{% url 'registro_mascotas_nuevo' %}"><button>Registrar nueva mascota</button></a>
+            
+        </div>
+
+        <a href="{% url 'condominio_home' %}">
+            <button>
+                home
+            </button></a>
+
+    </div>
+
+
+    
+</body>
+</html>
+

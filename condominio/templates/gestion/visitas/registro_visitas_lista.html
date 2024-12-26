@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista</title>
+    
+    <link rel="stylesheet" type="text/css" href=" {% static 'css/style.css' %} " />
+
+</head>
+<body>   
+    <div class="tabla-container center" style="margin: 2%;">
+        <div>
+            <h1> Visitas Autorizadas </h1>
+            <table>
+                <thead>
+
+                    <tr>
+                        <th>Id_visita</th>
+                        <th>Casa</th>
+                        <th>Visitantes</th>
+                        <th>Placas</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                        <th>Opciones</th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+
+                    {% for visita in visitas %}
+                    <tr>
+                        <!-- Recordar que este es el proyecto general con todas las app en un solo usuario por ende mostraremos el username  validar eso en el app de condominiios y oficial ya que estas aplicaciones se comunican mediante APISREST DJANGO NO POR EL ORM-->
+
+                        <td> {{visita.id}}</td>
+                        <td> {{visita.usuario.username}}</td>
+                        <td> {{visita.personas_visitantes}}</td>
+                        <td> {{visita.placas_autorizadas}}</td>
+                        <td> {{visita.eliminado|yesno:"Si,No"}}</td>
+
+                        <td> {{visita.fecha_creacion}}</td>
+
+                        <td>  <a href="{% url 'registro_visitas_detalle' pk=visita.pk %}">Ver</a> </td>
+
+
+                       
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+
+        <br>
+        <br><br>
+        <br>
+
+        <div>
+
+            <a href="{% url 'registro_visitas_nuevo' %}"><button>Añadir otra visita</button></a>
+            
+        </div>
+
+        <a href="{% url 'condominio_home' %}">
+            <button>
+                home
+            </button></a>
+
+
+
+        </div>
+
+    </div>
+    
+</body>
+</html>
+
+
+

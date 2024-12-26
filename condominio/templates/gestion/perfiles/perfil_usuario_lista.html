@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista</title>
+    
+    <link rel="stylesheet" type="text/css" href=" {% static 'css/style.css' %} " />
+
+
+</head>
+<body>
+
+    <div class="tabla-container center" style="margin: 2%;">
+
+        <h1>Usuario registrados como permanentes </h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Permanentes</th>
+                    <th>Placas</th>
+                    <th>Opciones</th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+
+
+
+
+                {% for perfil in perfiles %}
+                <tr>
+
+                    <td>{{perfil.id}}</td>
+
+                    <td> {{perfil.integrantes_permanente}}</td>
+                    <td>{{perfil.placas_permanentes}}</td>
+
+                    <td>
+                        <a href="{% url 'perfil_usuario_detalle' pk=perfil.pk %}">
+                            Ver visita
+                        </a>
+                    </td>
+
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+
+        <br>
+        <br><br>
+        <br>
+
+        <div>
+
+            <a href="{% url 'perfil_usuario_nuevo' %}"><button>Añadir otra persona permanente</button></a>
+            
+        </div>
+
+        <a href="{% url 'condominio_home' %}">
+            <button>
+                home
+            </button></a>
+    </div>
+
+
+    
+</body>
+</html>

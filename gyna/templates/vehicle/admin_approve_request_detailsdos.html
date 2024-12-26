@@ -1,0 +1,72 @@
+{% extends 'vehicle/adminbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar distribuidora</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 900px;
+            padding: 20px;
+            
+            margin: 40px auto; /* Agregamos margen superior e inferior */
+
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+  <br><br><br>
+    <div class="container">
+
+        <h3>Editar distribuidora</h3>
+        <form method="post">
+            {% csrf_token %}
+            <br>
+            <input type="text" id="distribuidorax" name="distribuidorax" value="{{ request_instance.distribuidorax }}">
+            <br>
+            <input type="submit" value="Actualizar">
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+{% endblock content %}
