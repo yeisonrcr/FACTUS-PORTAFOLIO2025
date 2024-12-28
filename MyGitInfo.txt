@@ -4,6 +4,7 @@ git add . !
 git commit -m "" : comento 
 git push origin xrama
 
+git rm -r --cached staticfiles
 
 
 git clone x :clonar el git
