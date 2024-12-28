@@ -9,7 +9,7 @@ git rm -r --cached staticfiles
 
 git clone x :clonar el git
 git remote -v: verificamos
-git remote add origin https://github.com/yeracr/Portafolio2025.git  :agregar url a git por errores
+git remote add origin https://github.com/yeisonrcr/portafolio_privado.git  :agregar url a git por errores
 git remote remove origin: eliminar
 git branch : ver que rama estoy
 git push -u origin yeison  : push al github , rama usada, aun no tiene el pull request del jefe pero esta subido para revision

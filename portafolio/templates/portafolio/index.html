@@ -22,11 +22,11 @@
 
     
     <!-- Hero Section -->
-    <section class="py-8 px-4 md:py-16 bg-white">
+    <section class="py-4 px-4 md:py-8 bg-white">
         <div class="max-w-6xl mx-auto">
             <div class="flex flex-col md:flex-row items-center gap-8">
                 <!-- Profile Image object-cover : mantener el tamaño -->
-                <div class="w-32 md:w-1/3">
+                <div class="w-48 md:w-1/4 md:mr-8">
                     <img src="{% static 'miperfil/images/pic00.jpg' %}" alt="Profile" class="rounded-full shadow-2xl w-full h-full object-cover"> 
                 </div>
 
@@ -51,8 +51,7 @@
                         Redes Informáticas CCNA, Lenguajes de programación Backend Python y Php(otros), 
                         Base de datos relacionales y no relacionales, entre otros.
                     </p>
-
-                    <a href="{% url 'proyectos' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg transition duration-300">Portafolio</a>
+                    <a href="{% url 'proyectos' %}" class="inline-block bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-500 hover:to-purple-700 text-white px-8 py-3 rounded-lg transition duration-300">Portafolio</a>
                 </div>
             </div>
         </div>
