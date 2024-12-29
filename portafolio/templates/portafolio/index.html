@@ -41,9 +41,34 @@
                     </div>
                     {% else %}
                     <div class="flex flex-wrap gap-4 justify-center md:justify-start mb-6">
-                        <a href="{% url 'signup' %}" class="bg-emerald-600 hover:bg-yellow-800 text-white px-6 py-2 rounded-lg transition duration-300">CREARTE UNA CUENTA</a>
-                        <a href="{% url 'login' %}" class="bg-emerald-800 hover:bg-gray-500 text-white px-6 py-2 rounded-lg transition duration-300">INICIAR SESIÓN</a>
+                        <!-- Botón Crear Cuenta -->
+                        <a href="{% url 'signup' %}" 
+                           class="bg-emerald-600 hover:bg-yellow-800 text-white 
+                                  px-4 py-2  <!-- Base: Padding más pequeño para pantallas estándar -->
+                                  sm:px-4 sm:py-2 <!-- sm: Incremento en pantallas > 640px -->
+                                  lg:px-4 lg:py-2 <!-- lg: Aumenta más en pantallas > 1024px -->
+                                  text-xs       <!-- Base: Texto más pequeño -->
+                                  sm:text-sm    <!-- sm: Texto tamaño estándar -->
+                                  lg:text-base  <!-- lg: Texto más grande -->
+                                  rounded-lg transition duration-300">
+                            CREARTE UNA CUENTA
+                        </a>
+                        <!-- Botón Iniciar Sesión -->
+                        <a href="{% url 'login' %}" 
+                           class="bg-emerald-800 hover:bg-gray-500 text-white 
+                                  px-4 py-2   <!-- Base: Padding más pequeño para pantallas estándar -->
+                                  sm:px-4 sm:py-2 <!-- sm: Incremento en pantallas > 640px -->
+                                  lg:px-4 lg:py-2 <!-- lg: Aumenta más en pantallas > 1024px -->
+                                  text-xs       <!-- Base: Texto más pequeño -->
+                                  sm:text-sm    <!-- sm: Texto tamaño estándar -->
+                                  lg:text-base  <!-- lg: Texto más grande -->
+                                  rounded-lg transition duration-300">
+                            INICIAR SESIÓN
+                        </a>
                     </div>
+
+                    
+                    
                     {% endif %}
 
                     <p class="text-lg text-gray-700 mb-6">
@@ -82,7 +107,7 @@
     </section>
 
     <!-- Experience Section -->
-    <section class="bg-gray-800 text-white py-12">
+    <section class="bg-gray-900 text-white py-12">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold mb-6">2018 - 2024</h2>
             <p class="text-lg">

@@ -121,7 +121,7 @@
                             </div>
                             <div class="location-details">
                                 <p>Control de Consultas</p>
-                                <a href="{% url 'todo_oficial' %}" class="location-btn">Vista previa</a>
+                                <a href="{% url 'gyna' %}" class="location-btn">Vista previa</a>
                             </div>
                         </div>
                     </div>
@@ -141,42 +141,49 @@
                 </div>
             </div>
         </div>
-
         <!-- Sección de experiencia laboral -->
-        <div class="services-area pt-30 pb-30 section-bg" style="background: #030305;">
+        <div class="services-area pt-10 pb-10 section-bg" style="background: #030305;">
+            <!-- pt-10 y pb-10 son padding superior e inferior de 2.5rem (40px) -->
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="section-tittle section-tittle2 text-center mb-80" style="margin-top: 1cm;">
-                            <span style="font-size: 2.5em;">Experiencia laboral</span>
-                            <hr>
+                        <div class="section-tittle section-tittle2 text-center mb-50" style="margin-top: 70px;">
+                            <!-- text-center centra el texto, mb-6 es margin-bottom de 1.5rem (24px) -->
+                            <span class="text-4xl" style="font-size: 2.5em;">
+                                <!-- text-4xl establece el tamaño del texto a 2.25rem (36px), en este caso modificado a 2.5em -->
+                                Experiencia laboral
+                            </span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Lista de experiencia laboral -->
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="single-services text-center mb-50">
+                    <div class="col-lg-12"> 
+                        <div class="single-services text-center mb-6" style="margin-top: 0;">
+                            <!-- text-center centra el contenido, mb-6 es margin-bottom de 1.5rem (24px) -->
                             <div class="text-center services-cap">
-                                <h5><a href="#">Supervisor de seguridad GAM</a></h5>
-                                <h5><a href="#">Respuesta armada</a></h5>
-                                <h5><a href="#">Escolta de contenedores</a></h5>
-                                <h5><a href="#">Desarrollador de aplicaciones administrativas</a></h5>
-                                <h5><a href="#">Encargado Técnico T.I</a></h5>
-                                <h5><a href="#">Departamento de becas en Academia ITN</a></h5>
-                                <h5><a href="#">Oficial de Monitoreo y Vigilancia</a></h5>
-                                <h5><a href="#">Seguridad Privada</a></h5>
-                                <h5><a href="#">Python Programming Language courses</a></h5>
-                                <h5><a href="#">Instructor computacional</a></h5>
-                                <h5><a href="#">Seguridad Industrial</a></h5>
-                                <h5><a href="#">Palma Aceitera & Ganadería</a></h5>
-                                <h5><a href="#">Otros...</a></h5>
-                                <br><br><br><br>
-                                <div class="services-icon">
+                                <h5 class="mb-2"><a href="#">Supervisor de seguridad GAM</a></h5>
+                                <!-- mb-2 es margin-bottom de 0.5rem (8px) -->
+                                <h5 class="mb-2"><a href="#">Respuesta armada y Escolta</a></h5>
+                                <h5 class="mb-2"><a href="#">Protección de contenedores</a></h5>
+                                <h5 class="mb-2"><a href="#">Aplicaciones administrativas</a></h5>
+                                <h5 class="mb-2"><a href="#">Encargado Técnico T.I</a></h5>
+                                <h5 class="mb-2"><a href="#">Departamento de becas en Academia ITN</a></h5>
+                                <h5 class="mb-2"><a href="#">Oficial de Monitoreo y Vigilancia</a></h5>
+                                <h5 class="mb-2"><a href="#">Seguridad Privada</a></h5>
+                                <h5 class="mb-2"><a href="#">Programación Backend</a></h5>
+                                <h5 class="mb-2"><a href="#">Instructor computacional</a></h5>
+                                <h5 class="mb-2"><a href="#">Seguridad Industrial</a></h5>
+                                <h5 class="mb-2"><a href="#">Palma Aceitera y Ganadería</a></h5>
+                                <h5 class="mb-2"><a href="#">Otros...</a></h5>
+                                <br>
+                                <div class="services-icon mt-4">
+                                    <!-- mt-4 es margin-top de 1rem (16px) -->
                                     <span class="flaticon-list"></span>
                                 </div>
-                                <div class="services-icon">
+                                <div class="services-icon mt-2 ">
+                                    <!-- mt-2 es margin-top de 0.5rem (8px) -->
                                     <span class="flaticon-respect"></span>
                                 </div>
                             </div>
@@ -209,8 +216,8 @@
     <footer>
         <div class="footer-area ">
             <div class="container ">
-                <div class="footer-top footer-padding ">
-                    <div class="row justify-content-between ">
+                <div class="footer-top footer-padding py-4">
+                    <div class="row justify-content-between flex-center-start">
                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 ">
                             <div class="single-footer-caption mb-50 ">
                                 <div class="single-footer-caption mb-30 ">
@@ -222,19 +229,56 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
+                        </div><!-- Comienza la columna con tamaño ajustable según el dispositivo -->
                         <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 ">
+                            <!-- col-xl-2: Ocupa 2 columnas en pantallas extra grandes, col-lg-2: 2 columnas en pantallas grandes -->
+                            <!-- col-md-4: 4 columnas en pantallas medianas, col-sm-6: 6 columnas en pantallas pequeñas -->
+                            
+                            <!-- Contenedor de una sola sección del pie de página -->
                             <div class="single-footer-caption mb-50 ">
+                                <!-- single-footer-caption: Clase personalizada para el estilo, mb-50: Margen inferior -->
+                                
+                                <!-- Título del pie de página -->
                                 <div class="footer-tittle ">
-                                    <h4>Aplicaciones 2021</h4>
+                                    <!-- footer-tittle: Clase personalizada para el estilo del título -->
+                                    
+                                    <!-- Encabezado del título -->
+                                    <h4>Sistemas creados</h4>
+                                    <!-- h4: Título de nivel 4 con el texto "Sistemas creados" -->
+                                    
+                                    <!-- Lista de enlaces -->
                                     <ul>
-                                        <li><a href="{% url "todo_oficial" %}">Proyecto oficiales</a></li>
-                                        <li><a href="{% url "condominio_home" %}">Proyecto condominios</a></li>
+                                        <!-- Lista no ordenada -->
+                                        <li>
+                                            <!-- Elemento de la lista -->
+                                            <a href="{% url 'todo_oficial' %}">Oficiales de Seguridad</a>
+                                            <!-- Enlace a la URL 'todo_oficial' con el texto "Oficiales de Seguridad" -->
+                                        </li>
+                                        <li>
+                                            <!-- Elemento de la lista -->
+                                            <a href="{% url 'condominio_home' %}">Condominio Arcadia</a>
+                                            <!-- Enlace a la URL 'condominio_home' con el texto "Condominio Arcadia" -->
+                                        </li>
+                                        <li>
+                                            <!-- Elemento de la lista -->
+                                            <a href="{% url 'tienda_list' %}">Tienda Ecommerce</a>
+                                            <!-- Enlace a la URL 'tienda_list' con el texto "Tienda Ecommerce" -->
+                                        </li>
+                                        <li>
+                                            <!-- Elemento de la lista -->
+                                            <a href="{% url 'gyna' %}">Consultas y búsquedas</a>
+                                            <!-- Enlace a la URL 'gyna' con el texto "Consultas y búsquedas" -->
+                                        </li>
+                                        <li>
+                                            <!-- Elemento de la lista -->
+                                            <a href="{% url 'blog' %}">Blogger</a>
+                                            <!-- Enlace a la URL 'blog' con el texto "Blogger" -->
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                        
 
                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 ">
                             <div class="single-footer-caption mb-50 ">

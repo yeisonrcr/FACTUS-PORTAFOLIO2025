@@ -1,74 +1,56 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de reportes</title>
-
-    <link rel="stylesheet" type="text/css" href=" {% static 'css/style.css' %} " />
-
-
-</head>
-
-<body>
-
-    <div class="tabla-container center" style="margin: 2%;">
-
-        <h1>Mis reportes creados</h1>
-
-        <table>
-            <thead>
+{% block content %}
+<div class="container mx-auto my-8 p-4">
+    <!-- container: Centra el contenido, mx-auto: Centrado horizontal automático, my-8: Margen vertical, p-4: Padding -->
+    <h1 class="text-3xl font-bold text-center mb-6">Mis reportes creados</h1>
+    <!-- text-3xl: Tamaño del texto, font-bold: Negrita, text-center: Texto centrado, mb-6: Margen inferior -->
+    <div class="overflow-x-auto">
+        <!-- overflow-x-auto: Habilita el scroll horizontal si es necesario -->
+        <table class="min-w-full bg-white shadow-md rounded-lg">
+            <!-- min-w-full: Ancho mínimo 100%, bg-white: Fondo blanco, shadow-md: Sombra, rounded-lg: Bordes redondeados -->
+            <thead class="bg-gray-200 text-gray-700">
+                <!-- bg-gray-200: Fondo gris claro, text-gray-700: Texto gris oscuro -->
                 <tr>
-                    <th>ID</th>
-                    <th>Usuario</th>
-                    <th>Reporte</th>
-                    <th>Fecha</th>
-                    <th>Opciones</th>
-
+                    <th class="w-1/12 px-4 py-2">ID</th>
+                    <!-- w-1/12: Ancho 1/12, px-4: Padding horizontal, py-2: Padding vertical -->
+                    <th class="w-2/12 px-4 py-2">Usuario</th>
+                    <th class="w-4/12 px-4 py-2">Reporte</th>
+                    <th class="w-2/12 px-4 py-2">Fecha</th>
+                    <th class="w-3/12 px-4 py-2">Opciones</th>
                 </tr>
-
             </thead>
-            <tbody>
-
+            <tbody class="text-gray-600">
+                <!-- text-gray-600: Texto gris -->
                 {% for reporte in reportes %}
-                <tr>
-
-                    <td>{{reporte.id}}</td>
-
-                    <td> {{reporte.usuario.username}}</td>
-                    <td>{{reporte.reporte}}</td>
-                    <td>{{reporte.fecha_creado}}</td>
-                    <td>
-                        <a href="{% url 'reporte_detalle' pk=reporte.pk %}">
-                            Ver reporte
-                        </a>
+                <tr class="border-b hover:bg-gray-100">
+                    <!-- border-b: Borde inferior, hover:bg-gray-100: Fondo gris claro al pasar el ratón -->
+                    <td class="px-4 py-2">{{reporte.id}}</td>
+                    <td class="px-4 py-2">{{reporte.usuario.username}}</td>
+                    <td class="px-4 py-2">{{reporte.reporte}}</td>
+                    <td class="px-4 py-2">{{reporte.fecha_creado}}</td>
+                    <td class="px-4 py-2 text-blue-500 hover:text-blue-700 underline">
+                        <a href="{% url 'reporte_detalle' pk=reporte.pk %}">Ver reporte</a>
                     </td>
-
-
                 </tr>
                 {% endfor %}
-
             </tbody>
         </table>
-
-
-        <br>
-        <br><br>
-        <br>
-
-        <div>
-            <a href="{% url 'reporte_nuevo' %}"><button>Registrar Nuevo reporte</button></a>
-            
-        </div>
-
-        <a href="{% url 'condominio_home' %}">
-            <button>
-                home
-            </button></a>
     </div>
 
-</body>
+    <div class="flex justify-center mt-6 space-x-4">
+        <!-- flex: Flexbox, justify-center: Centrar horizontalmente, mt-6: Margen superior, space-x-4: Espaciado horizontal -->
+        <a href="{% url 'reporte_nuevo' %}">
+            <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Registrar Nuevo reporte</button>
+            <!-- bg-green-500: Fondo verde, text-white: Texto blanco, px-4: Padding horizontal, py-2: Padding vertical -->
+            <!-- rounded: Bordes redondeados, hover:bg-green-600: Fondo verde oscuro en hover, transition: Transición suave -->
+        </a>
+        <a href="{% url 'condominio_home' %}">
+            <button class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition">Home</button>
+            <!-- bg-gray-500: Fondo gris, text-white: Texto blanco, px-4: Padding horizontal, py-2: Padding vertical -->
+            <!-- rounded: Bordes redondeados, hover:bg-gray-600: Fondo gris oscuro en hover, transition: Transición suave -->
+        </a>
+    </div>
+</div>
 
-</html>
+{% endblock %}
