@@ -115,11 +115,11 @@ Ejemplo: git pull origin main
 
 git merge <nombre_de_rama>
 Descripción: Fusiona los cambios de la rama especificada con la rama actual.
-
 Ejemplo: git merge yeison
+
+
 Borrar una Rama
 13. Eliminar una Rama Local
-
 git branch -d <nombre_de_rama>
 Descripción: Elimina una rama local que ya ha sido fusionada.
 

@@ -1,81 +1,67 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista</title>
-    
-    <link rel="stylesheet" type="text/css" href=" {% static 'css/style.css' %} " />
+{% extends "base.html" %} 
+{% block content %}
 
-</head>
-<body>   
-    <div class="tabla-container center" style="margin: 2%;">
-        <div>
-            <h1> Visitas Autorizadas </h1>
-            <table>
-                <thead>
-
-                    <tr>
-                        <th>Id_visita</th>
-                        <th>Casa</th>
-                        <th>Visitantes</th>
-                        <th>Placas</th>
-                        <th>Estado</th>
-                        <th>Fecha</th>
-                        <th>Opciones</th>
-
-                    </tr>
-
-                </thead>
-                <tbody>
-
-                    {% for visita in visitas %}
-                    <tr>
-                        <!-- Recordar que este es el proyecto general con todas las app en un solo usuario por ende mostraremos el username  validar eso en el app de condominiios y oficial ya que estas aplicaciones se comunican mediante APISREST DJANGO NO POR EL ORM-->
-
-                        <td> {{visita.id}}</td>
-                        <td> {{visita.usuario.username}}</td>
-                        <td> {{visita.personas_visitantes}}</td>
-                        <td> {{visita.placas_autorizadas}}</td>
-                        <td> {{visita.eliminado|yesno:"Si,No"}}</td>
-
-                        <td> {{visita.fecha_creacion}}</td>
-
-                        <td>  <a href="{% url 'registro_visitas_detalle' pk=visita.pk %}">Ver</a> </td>
-
-
-                       
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
-
-
-        <br>
-        <br><br>
-        <br>
-
-        <div>
-
-            <a href="{% url 'registro_visitas_nuevo' %}"><button>Añadir otra visita</button></a>
-            
+<div class="tabla-container mx-auto mt-4 p-4">
+    <!-- mx-auto: Margen automático para centrar, mt-4: Margen superior, p-4: Padding -->
+    <div>
+        <h1 class="text-2xl font-bold text-center mb-4">Visitas Autorizadas</h1>
+        <!-- text-2xl: Tamaño del texto, font-bold: Negrita, text-center: Texto centrado, mb-4: Margen inferior -->
+        <table class="w-full border-collapse">
+            <!-- w-full: Ancho completo, border-collapse: Colapsar bordes -->
+            <thead>
+                <tr class="bg-gray-100">
+                    <!-- bg-gray-100: Fondo gris claro -->
+                    <th class="border px-4 py-2">Id_visita</th>
+                    <!-- border: Borde, px-4: Padding horizontal, py-2: Padding vertical -->
+                    <th class="border px-4 py-2">Casa</th>
+                    <th class="border px-4 py-2">Visitantes</th>
+                    <th class="border px-4 py-2">Placas</th>
+                    <th class="border px-4 py-2">Estado</th>
+                    <th class="border px-4 py-2">Fecha</th>
+                    <th class="border px-4 py-2">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for visita in visitas %}
+                <tr class="bg-white odd:bg-gray-50">
+                    <!-- bg-white: Fondo blanco, odd:bg-gray-50: Fondo gris claro para filas impares -->
+                    <td class="border px-4 py-2"> {{visita.id}}</td>
+                    <!-- border: Borde, px-4: Padding horizontal, py-2: Padding vertical -->
+                    <td class="border px-4 py-2"> {{visita.usuario.username}}</td>
+                    <td class="border px-4 py-2"> {{visita.personas_visitantes}}</td>
+                    <td class="border px-4 py-2"> {{visita.placas_autorizadas}}</td>
+                    <td class="border px-4 py-2"> {{visita.eliminado|yesno:"Si,No"}}</td>
+                    <td class="border px-4 py-2"> {{visita.fecha_creacion}}</td>
+                    <td class="border px-4 py-2 text-blue-500 underline">
+                        <a href="{% url 'registro_visitas_detalle' pk=visita.pk %}">Ver</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div class="mt-8 flex justify-center space-x-4">
+            <!-- mt-8: Margen superior, flex: Flexbox, justify-center: Centrar horizontalmente, space-x-4: Espaciado horizontal -->
+            <a href="{% url 'registro_visitas_nuevo' %}">
+                <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+                    <!-- bg-green-500: Fondo verde, text-white: Texto blanco, px-4: Padding horizontal -->
+                    <!-- py-2: Padding vertical, rounded: Bordes redondeados, hover:bg-green-600: Fondo verde oscuro en hover -->
+                    <!-- transition: Transición suave -->
+                    Añadir otra visita
+                </button>
+            </a>
+            <a href="{% url 'condominio_home' %}">
+                <button class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition">
+                    <!-- bg-gray-500: Fondo gris, text-white: Texto blanco, px-4: Padding horizontal -->
+                    <!-- py-2: Padding vertical, rounded: Bordes redondeados, hover:bg-gray-600: Fondo gris oscuro en hover -->
+                    <!-- transition: Transición suave -->
+                    Home
+                </button>
+            </a>
         </div>
-
-        <a href="{% url 'condominio_home' %}">
-            <button>
-                home
-            </button></a>
-
-
-
-        </div>
-
     </div>
-    
-</body>
-</html>
+</div>
 
 
+{% endblock %}
 

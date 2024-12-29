@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <!-- Barra de navegación principal -->
+    <nav class="bg-white shadow-md sticky top-0 z-50 border-t-4 border-gradient-to-r from-black to-green-500">
+        <!-- bg-white: Fondo blanco, shadow-md: Sombra media, sticky: Posicionamiento fijo en la parte superior -->
+        <!-- top-0: Pegado al borde superior, z-50: Alta prioridad de z-index, border-t-4: Borde superior -->
+        <div class="container mx-auto px-4">
+            <!-- container: Contenedor centrado, mx-auto: Margen horizontal automático, px-4: Padding horizontal -->
+            <div class="relative flex items-center justify-between h-16">
+                <!-- relative: Posicionamiento relativo, flex: Flexbox, items-center: Centra verticalmente -->
+                <!-- justify-between: Distribuye espacio entre elementos, h-16: Altura -->
+                <!-- Logo y nombre de la tienda -->
+                <a href="{% url 'proyectos' %}" class="flex-shrink-0 flex items-center">
+                    <!-- flex-shrink-0: Evita que el elemento se reduzca, flex: Flexbox, items-center: Centra verticalmente -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <!-- h-8: Altura, w-8: Ancho, mr-2: Margen derecho -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span class="text-2xl font-bold text-gray-800">Tiendas ecomycr™</span>
+                    <!-- text-2xl: Tamaño de texto, font-bold: Negrita, text-gray-800: Color de texto -->
+                </a>
+
+                <!-- Botón de menú móvil -->
+                <button id="mobile-menu-button" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                    <!-- md:hidden: Oculto en pantallas medianas hacia arriba, inline-flex: Flex en línea -->
+                    <!-- items-center: Centra verticalmente, justify-center: Centra horizontalmente -->
+                    <!-- p-2: Padding, rounded-md: Bordes redondeados, text-gray-700: Color de texto -->
+                    <!-- hover:text-gray-900: Color de texto en hover, hover:bg-gray-100: Fondo en hover -->
+                    <!-- focus:outline-none: Sin borde al enfocar, focus:ring-2: Anillo al enfocar -->
+                    <!-- focus:ring-inset: Anillo interno, focus:ring-blue-500: Color del anillo -->
+                    <span class="sr-only">Abrir menú principal</span>
+                    <!-- sr-only: Solo para lectores de pantalla -->
+                    <!-- Ícono de menú -->
+                    <svg id="menu-icon" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <!-- block: Bloque, h-6: Altura, w-6: Ancho -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <!-- Ícono de cerrar -->
+                    <svg id="close-icon" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <!-- hidden: Oculto, h-6: Altura, w-6: Ancho -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <!-- Menú de escritorio -->
+                <div class="hidden md:flex md:items-center md:space-x-4">
+                    <!-- hidden: Oculto por defecto, md:flex: Flex en pantallas medianas hacia arriba -->
+                    <!-- md:items-center: Centra verticalmente en pantallas medianas hacia arriba -->
+                    <!-- md:space-x-4: Espaciado horizontal entre elementos en pantallas medianas hacia arriba -->
+                    {% if user.is_authenticated %}
+                        <!-- Carrito de compras -->
+                        <div class="relative">
+                            <!-- relative: Posicionamiento relativo -->
+                            <a href="{% url 'carrito' %}" class="text-gray-700 hover:text-blue-600 transition">
+                                <!-- text-gray-700: Color de texto, hover:text-blue-600: Color de texto en hover -->
+                                <!-- transition: Transición suave -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <!-- h-6: Altura, w-6: Ancho -->
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">99</span>
+                                <!-- absolute: Posicionamiento absoluto, -top-2: Margen superior negativo -->
+                                <!-- -right-2: Margen derecho negativo, bg-red-500: Fondo rojo -->
+                                <!-- text-white: Color de texto blanco, text-xs: Tamaño de texto -->
+                                <!-- rounded-full: Bordes redondeados completos, h-4: Altura, w-4: Ancho -->
+                                <!-- flex: Flexbox, items-center: Centra verticalmente, justify-center: Centra horizontalmente -->
+                            </a>
+                        </div>
+
+                        {% if user.is_superuser %}
+                            <a href="{% url 'crear_tienda' %}" class="text-gray-700 hover:text-blue-600 transition">
+                                <!-- text-gray-700: Color de texto, hover:text-blue-600: Color de texto en hover -->
+                                <!-- transition: Transición suave -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <!-- h-6: Altura, w-6: Ancho -->
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </a>
+                        {% endif %}
+
+                        <form action="{% url 'logout' %}" method="post" class="inline">
+                            <!-- inline: En línea con otros elementos -->
+                            {% csrf_token %}
+                            <button class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded transition" type="submit">
+                                <!-- bg-gray-100: Fondo gris claro, hover:bg-gray-200: Fondo gris más claro en hover -->
+                                <!-- px-4: Padding horizontal, py-2: Padding vertical, rounded: Bordes redondeados -->
+                                <!-- transition: Transición suave -->
+                                🚪 Cerrar Sesión
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded transition">
+                            <!-- bg-gray-100: Fondo gris claro, hover:bg-gray-200: Fondo gris más claro en hover -->
+                            <!-- px-4: Padding horizontal, py-2: Padding vertical, rounded: Bordes redondeados -->
+                            <!-- transition: Transición suave -->
+                            Iniciar Sesión
+                        </a>
+                        <a href="{% url 'signup' %}" class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded transition">
+
+
+
+                                                        <!-- bg-gray-100: Fondo gris claro, hover:bg-gray-200: Fondo gris más claro en hover -->
+                            <!-- px-4: Padding horizontal, py-2: Padding vertical, rounded: Bordes redondeados -->
+                            <!-- transition: Transición suave -->
+                            Registrarse
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Menú móvil -->
+            <div id="mobile-menu" class="hidden md:hidden">
+                <!-- hidden: Oculto por defecto, md:hidden: Oculto en pantallas medianas hacia arriba -->
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <!-- px-2: Padding horizontal, pt-2: Padding superior, pb-3: Padding inferior -->
+                    <!-- space-y-1: Espaciado vertical entre elementos -->
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'carrito' %}" class="flex items-center justify-between text-gray-700 hover:bg-gray-100 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">
+                            <!-- flex: Flexbox, items-center: Centra verticalmente, justify-between: Espaciado entre elementos -->
+                            <!-- text-gray-700: Color de texto, hover:bg-gray-100: Fondo en hover -->
+                            <!-- hover:text-blue-600: Color de texto en hover, px-3: Padding horizontal -->
+                            <!-- py-2: Padding vertical, rounded-md: Bordes redondeados, text-base: Tamaño de texto -->
+                            <!-- font-medium: Peso de fuente medio -->
+                            <span class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <!-- h-6: Altura, w-6: Ancho, mr-2: Margen derecho -->
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                Carrito
+                            </span>
+                            <span class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">99</span>
+                            <!-- bg-red-500: Fondo rojo, text-white: Color de texto blanco, text-xs: Tamaño de texto -->
+                            <!-- rounded-full: Bordes redondeados completos, h-5: Altura, w-5: Ancho -->
+                            <!-- flex: Flexbox, items-center: Centra verticalmente, justify-center: Centra horizontalmente -->
+                        </a>
+
+                        {% if user.is_superuser %}
+                            <a href="{% url 'crear_tienda' %}" class="flex items-center text-gray-700 hover:bg-gray-100 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">
+                                <!-- flex: Flexbox, items-center: Centra verticalmente -->
+                                <!-- text-gray-700: Color de texto, hover:bg-gray-100: Fondo en hover -->
+                                <!-- hover:text-blue-600: Color de texto en hover, px-3: Padding horizontal -->
+                                <!-- py-2: Padding vertical, rounded-md: Bordes redondeados, text-base: Tamaño de texto -->
+                                <!-- font-medium: Peso de fuente medio -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <!-- h-6: Altura, w-6: Ancho, mr-2: Margen derecho -->
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Crear Tienda
+                            </a>
+                        {% endif %}
+
+                        <form action="{% url 'logout' %}" method="post" class="block w-full">
+                            <!-- block: Bloque completo, w-full: Ancho completo -->
+                            {% csrf_token %}
+                            <button type="submit" class="w-full text-left flex items-center text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium">
+                                <!-- w-full: Ancho completo, text-left: Texto alineado a la izquierda -->
+                                <!-- flex: Flexbox, items-center: Centra verticalmente, text-gray-700: Color de texto -->
+                                <!-- hover:bg-gray-100: Fondo en hover, px-3: Padding horizontal -->
+                                <!-- py-2: Padding vertical, rounded-md: Bordes redondeados -->
+                                <!-- text-base: Tamaño de texto, font-medium: Peso de fuente medio -->
+                                🚪 Cerrar Sesión
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="block text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium">
+                            <!-- block: Bloque completo, text-gray-700: Color de texto -->
+                            <!-- hover:bg-gray-100: Fondo en hover, px-3: Padding horizontal -->
+                            <!-- py-2: Padding vertical, rounded-md: Bordes redondeados -->
+                            <!-- text-base: Tamaño de texto, font-medium: Peso de fuente medio -->
+                            Iniciar Sesión
+                        </a>
+                        <a href="{% url 'signup' %}" class="block text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium">
+                            <!-- block: Bloque completo, text-gray-700: Color de texto -->
+                            <!-- hover:bg-gray-100: Fondo en hover, px-3: Padding horizontal -->
+                            <!-- py-2: Padding vertical, rounded-md: Bordes redondeados -->
+                            <!-- text-base: Tamaño de texto, font-medium: Peso de fuente medio -->
+                            Registrarse
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sistema de Mensajes Mejorado -->
+    <div class="container mx-auto mt-8 px-4">
+        <!-- container: Contenedor centrado, mx-auto: Margen horizontal automático -->
+        <!-- mt-8: Margen superior, px-4: Padding horizontal -->
+        {% if messages %}
+        <!-- Contenido principal -->
+
+        
+        {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        // Script para manejar el menú móvil
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
