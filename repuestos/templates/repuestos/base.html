@@ -1,0 +1,355 @@
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPartes - Tienda de repuestos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .hero-bt {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{% static "media/misImagen/categoria.png" %}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .hero-bx {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('{% static "media/misImagen/bx.png" %}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    
+    <!-- Barra superior con información de contacto -->
+    <div class="bg-yellow-300 text-black py-2">
+        <div class="container mx-auto px-4 flex justify-between items-center text-sm">
+            <div class="flex items-center space-x-4">
+                <span><i class="fas fa-phone mr-2"></i>+506 2222-3333</span>
+                <span><i class="fas fa-envelope mr-2"></i>info@autopartes.com</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <span><i class="fas fa-clock mr-2"></i>Lun-Sáb: 7AM-6PM</span>
+                <a href="#" class="hover:text-blue-400"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="hover:text-pink-400"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-green-400"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra de navegación principal -->
+    <nav class="bg-white shadow-md sticky top-0 z-50 border-t-4 border-gradient-to-r from-yellow-500 to-light-blue-300">
+        <div class="container mx-auto px-4">
+            <div class="relative flex items-center justify-between h-16">
+                <!-- Logo y nombre de la tienda -->
+                <a href="/" class="flex-shrink-0 flex items-center space-x-2">
+                    <i class="fas fa-cogs text-yellow-500"></i>
+                    <span class="text-2xl font-bold text-gray-800">Zona Sur AutoPartes</span>
+                </a>
+
+                <!-- Botón de menú móvil -->
+                <button id="mobile-menu-button" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500">
+                    <span class="sr-only">Abrir menú principal</span>
+                    <svg id="menu-icon" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg id="close-icon" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <!-- Menú de escritorio -->
+                <div class="hidden md:flex md:items-center md:gap-6">
+                    {% if user.is_authenticated and user.is_superuser %} 
+                    
+                        <a href="/admin" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                                Administrador
+                        </a>
+                        <a href="/autopartes" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                            Herramientas
+                        </a>
+                    {% endif %}
+
+                    <a href="{% url 'categorias_lista' %}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                        Categorias
+                    </a>
+                    {% if user.is_authenticated %}
+                    
+                    
+                    <div class="flex items-center gap-4">
+                        <a href="{% url 'ver_carrito' %}" class="relative inline-flex items-center p-2 text-gray-600 hover:text-gray-900 transition-colors">
+                            <i class="fas fa-shopping-cart text-lg"></i>
+                            {% if cantidad_car > 0 %}
+                                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                                    {{cantidad_car}}
+                                </span>
+                            {% endif %}
+                        </a>
+                    </div>
+                    
+                        <form action="{% url 'logout' %}" method="post" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                        </form>
+                    {% else %}
+                        <div class="flex items-center gap-3">
+                            <a href="{% url 'login' %}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                                Iniciar Sesión
+                            </a>
+                            <a href="{% url 'signup' %}" class="text-sm font-medium bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                                Registrarse
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Menú móvil (agregado) -->
+            <div id="mobile-menu" class="hidden md:hidden">
+
+                <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
+                     {% if user.is_authenticated and user.is_superuser %} 
+                    
+                        <a href="/admin" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                            <button class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                                administrador
+                            </button>
+                        </a>
+                        <a href="/autopartes" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                            <button class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                                Herramientas
+                            </button>
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'categorias_lista' %}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                        <button class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                            Categorias
+                        </button>
+                    </a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'ver_carrito' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                            <i class="fas fa-shopping-cart mr-2"></i>
+                            Carrito
+                            {% if cantidad_car > 0 %}
+                                <span class="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-500 rounded-full">
+                                    {{cantidad_car}}
+                                </span>
+                            {% endif %}
+                        </a>
+                        <form action="{% url 'logout' %}" method="post" class="block">
+                            {% csrf_token %}
+                            <button type="submit" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                                Cerrar Sesión
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                            Iniciar Sesión
+                        </a>
+                        <a href="{% url 'signup' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                            Registrarse
+                        </a>
+                    {% endif %}
+                    
+                   
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <!-- Sistema de Mensajes Mejorado y Compacto -->
+    <div class="container max-w-xl mx-auto mt-4 px-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message-alert opacity-100 transform translate-y-0 transition-all duration-300 ease-in-out
+                            p-2 mb-4 rounded-md font-semibold 
+                            flex items-center justify-between 
+                            shadow-md border-l-4 relative
+                            {% if message.tags == 'success' %} 
+                                bg-green-50 text-green-800 border-green-500
+                            {% elif message.tags == 'error' %} 
+                                bg-red-50 text-red-800 border-red-500
+                            {% elif message.tags == 'info' %} 
+                                bg-blue-50 text-blue-800 border-blue-500
+                            {% else %} 
+                                bg-yellow-50 text-yellow-800 border-yellow-500
+                            {% endif %}"
+                    role="alert">
+                    <!-- Icono según el tipo de mensaje -->
+                    <div class="flex items-center">
+                        {% if message.tags == 'success' %}
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                        {% elif message.tags == 'error' %}
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                        {% elif message.tags == 'info' %}
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zm-1 3a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                        {% else %}
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                        {% endif %}
+                        <span>{{ message }}</span>
+                    </div>
+                    
+                    <!-- Botón de cerrar con animación -->
+                    <button 
+                        class="text-lg hover:text-gray-600 transition-colors duration-200 focus:outline-none"
+                        onclick="dismissMessage(this.parentElement)">
+                        <span class="sr-only">Cerrar</span>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+
+
+    <div class="max-w-7xl mx-auto px-1 sm:px-1 lg:px-1 mt-4">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+
+
+
+    <div class="relative overflow-hidden hero-bx">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 pb-4 sm:pb-8 md:pb-10 lg:pb-20 xl:pb-25">
+                <div class="mt-6 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                    <div class="lg:text-center">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                            <span class="block">Hacemos envíos a todo el país</span>
+                            <span class="block text-blue-400">Zona Sur AutoPartes</span>
+
+                        </h1>
+                        <p class="mt-3 text-base text-blue-200 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                           
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <!-- Sección de Ventajas -->
+    <div class="bg-gray100 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <div class="bg-blue-600 rounded-lg p-3">
+                            <i class="fas fa-truck text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Envío Gratis</h3>
+                        <p class="text-gray-600">En compras mayores a ₡50.000</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <div class="bg-blue-600 rounded-lg p-3">
+                            <i class="fas fa-shield-alt text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Garantía Asegurada</h3>
+                        <p class="text-gray-600">30 días de garantía en todos los productos</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <div class="bg-blue-600 rounded-lg p-3">
+                            <i class="fas fa-headset text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Soporte 24/7</h3>
+                        <p class="text-gray-600">Atención al cliente disponible todo el día</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Zona Sur AutoPartes</h3>
+                    <p class="text-gray-400">
+                        
+                        Nos esforzamos por responder tus consultas con prontitud, asegurando que siempre tengas acceso a los repuestos que necesitas.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Tienda Online</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#ofertas" class="text-gray-400 hover:text-white">Ofertas</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contacto</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> Paso Canoas, Costa Rica</li>
+                        <li class="flex items-center"><i class="fas fa-phone mr-2"></i> +506 7068-8989</li>
+                        <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> zonasurautopartes@gmail.com</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Calidad y garantía</h3>
+                    <ul class="space-y-2">
+                            <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> Envíos a todo el país</li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 Tienda Zona Sur AutoPartes || Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para cerrar los mensajes -->
+    <script>
+        function dismissMessage(element) {
+            element.classList.remove('opacity-100');
+            element.classList.add('opacity-0', 'translate-y-2');
+            setTimeout(() => {
+                element.remove();
+            }, 300);
+        }
+    </script>
+
+
+</body>
+</html>

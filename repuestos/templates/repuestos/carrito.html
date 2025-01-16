@@ -1,0 +1,161 @@
+{% extends "repuestos/base.html" %}
+{% load humanize %}
+{% block content %}
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
+        {% if user.is_authenticated %}
+            {# Cart container with enhanced shadow and spacing #}
+            <div class="bg-white rounded-2xl shadow-xl p-8 mb-8 border border-gray-100">
+                <h2 class="text-3xl font-bold text-nav-classic text-center mb-8 relative">
+                    Mi Carrito
+                    {# Decorative underline effect #}
+                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-auto-green/50 rounded-full"></span>
+                </h2>
+
+                {% if carrito.items.all %}
+                    {# Enhanced table container with better scrolling #}
+                    <div class="overflow-x-auto rounded-xl border border-gray-100">
+                        <table class="w-full">
+                            {# Enhanced table header with better contrast #}
+                            <thead class="bg-gradient-to-r from-auto-green/20 to-auto-green/30">
+                                <tr>
+                                    <th class="py-4 px-6 text-left text-sm font-semibold text-nav-classic uppercase tracking-wider">Repuesto</th>
+                                    <th class="py-4 px-6 text-left text-sm font-semibold text-nav-classic uppercase tracking-wider">Precio</th>
+                                    <th class="py-4 px-6 text-left text-sm font-semibold text-nav-classic uppercase tracking-wider">Cantidad</th>
+                                    <th class="py-4 px-6 text-left text-sm font-semibold text-nav-classic uppercase tracking-wider">Subtotal</th>
+                                    <th class="py-4 px-6 text-left text-sm font-semibold text-nav-classic uppercase tracking-wider">Acciones</th>
+                                </tr>
+                            </thead>
+                            
+                            {# Enhanced table body with better hover effects #}
+                            <tbody class="divide-y divide-gray-200">
+                                {% for item in carrito.items.all %}
+                                <tr class="hover:bg-auto-yellow/5 transition-all duration-200">
+                                    <td class="py-4 px-6">
+                                        <a href="/repuesto/{{ item.repuesto.pk }}" 
+                                        class="text-nav-classic hover:text-auto-green-dark font-medium transition-colors duration-200">
+                                            {{ item.repuesto.nombre }}
+                                        </a>
+                                    </td>
+                                    <td class="py-4 px-6 text-nav-classic">₡{{ item.repuesto.calcular_precio_con_descuento|floatformat:0|intcomma }} iva.i</td>
+                                    <td class="py-4 px-6">
+                                        {# Enhanced quantity form with better input styling #}
+                                        <form method="POST" action="{% url 'actualizar_cantidad' item.id %}" class="flex items-center">
+                                            {% csrf_token %}
+                                            <input type="number" 
+                                                name="cantidad" 
+                                                value="{{ item.cantidad }}" 
+                                                min="1" 
+                                                max="{{ item.repuesto.stock }}" 
+                                                class="w-20 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-auto-green/50 focus:border-auto-green transition-all duration-200" />
+                                            <button type="submit" 
+                                                    class="ml-2 px-4 py-2 bg-auto-blue text-nav-classic rounded-lg hover:bg-auto-blue-dark transition-all duration-200 hover:shadow-md">
+                                                Actualizar
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td class="py-4 px-6 font-semibold text-nav-classic">₡{{ item.subtotal|floatformat:0|intcomma  }}</td>
+                                    <td class="py-4 px-6">
+
+                                        <form method="POST"  action= "{% url 'eliminar_item' item.id %}" class="flex items-center">
+                                            {% csrf_token %}
+                                            <button type="submit" class="ml-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700 transition-all duration-200 hover:shadow-md">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                        
+
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            
+                            {# Enhanced footer with gradient background #}
+                            <tfoot class="bg-gradient-to-r from-auto-green/10 to-auto-green/20">
+                                <tr>
+                                    <td colspan="3" class="py-4 px-6 text-right font-bold text-nav-classic">Total Final:</td>
+                                    <td colspan="2" class="py-4 px-6 font-bold text-nav-classic text-lg">₡{{ carrito.total|floatformat:0|intcomma  }}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    {# Enhanced action buttons with better spacing and hover effects #}
+                    <div class="flex justify-between mt-8 gap-4">
+                        <form method="POST" action="vaciar/">
+                            {% csrf_token %}
+                            <button type="submit" 
+                                    class="px-6 py-3 bg-rose-100 text-nav-classic rounded-lg hover:bg-auto-yellow-dark transition-all duration-200 hover:shadow-md flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                Vaciar Carrito
+                            </button>
+                        </form>
+
+                        <form method="POST" action="{% url 'procesar_pago' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="px-6 py-3 bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 flex items-center gap-2">
+                                <span>Proceder el pedido</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </button>
+                        </form>
+                        <form method="POST" action="#">
+                            {% csrf_token %}
+                            <button type="submit" 
+                                    class="px-6 py-3 bg-yellow-100 text-nav-classic rounded-lg hover:bg-auto-yellow-dark transition-all duration-200 hover:shadow-md flex items-center gap-2">
+                                Factura electrónica
+                            </button>
+                        </form>
+                        
+
+
+
+                    </div>
+                {% else %}
+                    {# Enhanced empty cart message with animation #}
+                    <div class="flex flex-col items-center justify-center bg-gray-50 p-8 rounded-xl shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        <p class="text-xl font-medium text-gray-800 mb-6">Tu carrito está vacío</p>
+                        
+                        <a href="{% url 'lista_repuestos' %}" class="group relative inline-flex items-center px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+                            <span class="mr-2">Catálogo de Repuestos</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </a>
+                        
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            {# Enhanced login required message with better visual hierarchy #}
+            <div class="bg-white rounded-xl shadow-lg p-8 text-center max-w-2xl mx-auto">
+                <div class="bg-auto-blue/5 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                    <svg class="w-10 h-10 text-auto-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-nav-classic mb-4">Acceso Requerido</h2>
+                <p class="text-gray-600 mb-8">Para ver tu carrito de repuestos, necesitas iniciar sesión en tu cuenta.</p>
+                <div class="space-x-4">
+                    <a href="/login" 
+                    class="px-6 py-3 bg-auto-blue text-white rounded-lg hover:bg-auto-blue-dark transition-all duration-200 hover:shadow-md inline-block">
+                        Iniciar Sesión
+                    </a>
+                    <a href="/register" 
+                    class="px-6 py-3 bg-white border-2 border-auto-yellow text-nav-classic rounded-lg hover:bg-auto-yellow/10 transition-all duration-200 hover:shadow-md inline-block">
+                        Crear Cuenta
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+
+
+{% endblock %}

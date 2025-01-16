@@ -1,0 +1,226 @@
+{% extends 'vehicle/adminbase.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="min-h-screen flex justify-center items-center" style="background-color: rgba(0, 0, 0, 0.4);">
+    <!-- Mensajes de error -->
+    <!-- Contenedor principal del formulario -->
+    <div class="container mx-auto px-4 py-8 w-full">
+        <form method="post" enctype="multipart/form-data" class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-6">
+            {% csrf_token %}
+
+            <!-- Sección de Información Básica -->
+            <div class="mb-8 py-8">
+                <h1 class="text-2xl text-center font-semibold mb-4 text-gray-800">Crear nuevo producto en la Tienda</h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="space-y-2">
+                        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+                        {% render_field formulario.nombre class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Nombre del repuesto" %}
+                    </div>
+                    <div class="space-y-2">
+                        <label for="codigo" class="block text-sm font-medium text-gray-700">Código</label>
+                        {% render_field formulario.codigo class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Código del repuesto" %}
+                    </div>
+                    <div class="space-y-2 md:col-span-2 lg:col-span-1">
+                        <label for="precio" class="block text-sm font-medium text-gray-700">Precio</label>
+                        {% render_field formulario.precio class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Precio del repuesto" %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Descripción y Stock -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Descripción y Stock</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2 md:col-span-2">
+                        <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+                        {% render_field formulario.descripcion class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Descripción del repuesto" %}
+                    </div>
+                    <div class="space-y-2">
+                        <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
+                        {% render_field formulario.stock class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Stock disponible" %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Ofertas -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Agregar ofertas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label for="en_oferta" class="block text-sm font-medium text-gray-700">En Oferta</label>
+                        {% render_field formulario.en_oferta class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %}
+                    </div>
+                    <div class="space-y-2">
+                        <label for="oferta_especial" class="block text-sm font-medium text-gray-700">Oferta Especial</label>
+                        {% render_field formulario.oferta_especial class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Imágenes -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Imágenes</h2>
+                {{ formset.management_form }}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Itera sobre cada formulario en el formset -->
+                    {% for form in formset %}
+                    <div class="border rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                        <!-- Encabezado con el número de imagen -->
+                        <div class="bg-gray-50 px-4 py-3 rounded-t-xl border-b">
+                            <h3 class="font-medium text-gray-700">Imagen #{{ forloop.counter }}</h3>
+                        </div>
+                        
+                        <div class="p-4 space-y-4">
+                            <!-- Input de archivo -->
+                            <div class="bg-gray-100 rounded-lg p-3 mb-3">
+                                {% render_field form.imagen class="w-full cursor-pointer" %}
+                            </div>
+
+                            <!-- Controles -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <!-- Checkbox Principal -->
+                                <div class="col-span-2">
+                                    <label class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg border hover:bg-gray-100 transition-colors cursor-pointer">
+                                        {% render_field form.es_principal class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %}
+                                        <span class="text-sm font-medium text-gray-700">Imagen Principal</span>
+                                    </label>
+                                </div>
+
+                                <!-- Orden -->
+                                <div class="col-span-2">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Orden de aparición</label>
+                                    <div class="flex items-center">
+                                        {% render_field form.orden class="w-full p-2 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="number" min="1" %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Texto de ayuda -->
+                <div class="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h4 class="text-sm font-medium text-blue-800">Consejos para las imágenes:</h4>
+                            <ul class="mt-2 text-sm text-blue-700 list-disc list-inside">
+                                <li>Selecciona al menos una imagen principal</li>
+                                <li>El orden determina cómo se mostrarán las imágenes</li>
+                                <li>Formatos aceptados: JPG, PNG</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Categorías y Compatibilidad -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Orden de categorías</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Categorías -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">Categorías de la tienda</label>
+                        <div class="relative border rounded-lg bg-white shadow-sm">
+                            <!-- Tabla de categorías -->
+                            <div class="max-h-64 overflow-y-auto p-2">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50 sticky top-0">
+                                        <tr>
+                                            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Seleccionar
+                                            </th>
+                                            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Categoría
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <!-- Itera sobre cada opción en formulario.categorias.field.choices -->
+                                        {% for value, label in formulario.categorias.field.choices %}
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-3 py-2 whitespace-nowrap">
+                                                <!-- Checkbox de selección -->
+                                                <input type="checkbox" 
+                                                    name="categorias" 
+                                                    value="{{ value }}"
+                                                    {% if value in formulario.categorias.value %}checked{% endif %}
+                                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                            </td>
+                                            <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-700">
+                                                {{ label }}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modelos y Años -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">Autos compatibles con este repuesto</label>
+                        <div class="relative border rounded-lg bg-white shadow-sm">
+                            <!-- Tabla de modelos y años compatibles -->
+                            <div class="max-h-64 overflow-y-auto p-2">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50 sticky top-0">
+                                        <tr>
+                                            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Seleccionar
+                                            </th>
+                                            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Modelo/Año
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <!-- Itera sobre cada opción en formulario.modelos_anios_compatibles.field.choices -->
+                                        {% for value, label in formulario.modelos_anios_compatibles.field.choices %}
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-3 py-2 whitespace-nowrap">
+                                                <!-- Checkbox de selección -->
+                                                <input type="checkbox" 
+                                                    name="modelos_anios_compatibles" 
+                                                    value="{{ value }}"
+                                                    {% if value in formulario.modelos_anios_compatibles.value %}checked{% endif %}
+                                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                            </td>
+                                            <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-700">
+                                                {{ label }}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón de Enviar -->
+            <div class="flex justify-center">
+                <button type="submit" class="bg-green-700 hover:bg-yellow-700 text-white py-3 px-8 rounded-lg transition-colors duration-200 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-lg font-semibold">
+                    Crear Producto
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock content %}

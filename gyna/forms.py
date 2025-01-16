@@ -2,55 +2,66 @@ from django import forms
 from django.contrib.auth.models import User
 from . import models
 
-# Formulario principal para manejar solicitudes relacionadas con vehículos
+        
+        
 class RequestForm(forms.ModelForm):
     class Meta:
-        model = models.Request  # Modelo asociado a este formulario
-        fields = [
-            'tipo', 'vehicle_no', 'vehicle_mobile', 'vehicle_cliente', 
-            'vehicle_name', 'vehicle_model', 'vehicle_brand', 
-            'problem_description', 'distribuidorax', 'costAbonado', 'costTotal'
-        ]  # Campos que serán incluidos en el formulario
+        model = models.Request
+        fields = ['tipo', 'vehicle_no', 'vehicle_mobile', 'vehicle_cliente', 'vehicle_name', 
+                  'vehicle_model', 'vehicle_brand', 'problem_description', 'distribuidorax', 
+                  'costAbonado','costotal',]
+        
+        
 
-        # Personalización de widgets para algunos campos
         widgets = {
-            'problem_description': forms.Textarea(attrs={'rows': 3, 'cols': 30})  # Área de texto con tamaño definido
+            'tipo': forms.TextInput(attrs={'class': 'form-control w-full px-4 py-2.5 bg-gray-50 border border-black text-gray-900 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 hover:border-yellow-400 transition-all duration-200'}),
+            'vehicle_no': forms.TextInput(attrs={'class': 'form-control w-full px-4 py-2.5 bg-gray-50 border border-black text-gray-900 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 hover:border-yellow-400 transition-all duration-200'}),
+            'vehicle_mobile': forms.TextInput(attrs={'class': 'form-control w-full px-4 py-2.5 bg-gray-50 border border-black text-gray-900 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 hover:border-yellow-400 transition-all duration-200'}),
+            'vehicle_cliente': forms.TextInput(attrs={'class': 'form-control w-full px-4 py-2.5 bg-gray-50 border border-black text-gray-900 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 hover:border-yellow-400 transition-all duration-200'}),
+            'vehicle_name': forms.TextInput(attrs={'class': 'form-control w-full px-4 py-2.5 bg-gray-50 border border-black text-gray-900 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 hover:border-yellow-400 transition-all duration-200'}),
+            'vehicle_model': forms.TextInput(attrs={'class': 'form-control w-full px-4 py-2.5 bg-gray-50 border border-black text-gray-900 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 hover:border-yellow-400 transition-all duration-200'}),
+            'vehicle_brand': forms.TextInput(attrs={'class': 'form-control w-full px-4 py-2.5 bg-gray-50 border border-black text-gray-900 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 hover:border-yellow-400 transition-all duration-200'}),
+            'problem_description': forms.Textarea(attrs={'rows': 3, 'cols': 30, 'class': 'form-control w-full px-4 py-2.5 bg-gray-50 border border-black text-gray-900 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 hover:border-yellow-400 transition-all duration-200'}),
+            'distribuidorax': forms.TextInput(attrs={'class': 'form-control w-full px-4 py-2.5 bg-gray-50 border border-black text-gray-900 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 hover:border-yellow-400 transition-all duration-200'}),
+            'costAbonado': forms.TextInput(attrs={'class': 'form-control w-full px-4 py-2.5 bg-gray-50 border border-black text-gray-900 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 hover:border-yellow-400 transition-all duration-200'}),
+            'costotal': forms.TextInput(attrs={'class': 'form-control w-full px-4 py-2.5 bg-gray-50 border border-black text-gray-900 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 hover:border-yellow-400 transition-all duration-200'}),
+            
         }
 
-# Formulario para manejar la información específica de distribuidoras
+
+
+
+
+        
 class DistribuidoraxForm(forms.ModelForm):
     class Meta:
-        model = models.Request  # Modelo asociado a este formulario
-        fields = ['distribuidorax']  # Campo incluido en el formulario (se pueden agregar más si es necesario)
+        model = models.Request
+        fields = ['distribuidorax']  # Agrega otros campos si es necesario
 
-# Formulario para que el administrador apruebe y actualice solicitudes
-class AdminApproveRequestForm(forms.Form):
-    # Campo para capturar el costo abonado
-    costAbonado = forms.CharField()
+
+
+class AdminApproveRequestForm(forms.ModelForm):
+    class Meta:
+        model = models.Request
+        fields = ['status', 'dinomoDis']
     
-    # Opciones para el estado general de la solicitud
     stat = (
-        ('Consulta', 'Consulta'),
-        ('Pendiente de investigar', 'Pendiente de investigar'),
-        ('Pendiente de enviar', 'Pendiente de enviar'),
-        ('Enviado', 'Enviado')
+        ('Consulta', 'Consulta'), 
+        ('Pendiente en llegar', 'Pendiente en llegar'), 
+        ('Pendiente de investigar', 'Pendiente de investigar'), 
+        ('Pendiente de enviar', 'Pendiente de enviar'), 
+        ('Compra no entregada', 'Compra no entregada'), 
+        ('Compra entregada', 'Compra entregada')
     )
-    status = forms.ChoiceField(choices=stat)  # Campo de selección para el estado general
     
-    # Opciones para el estado financiero de la solicitud
-    estad = (
-        ('Consulta', 'Consulta'),
-        ('Abonado', 'Abonado'),
-        ('Cotizado', 'Cotizado'),
-        ('Pagado', 'Pagado')
-    )
-    estado = forms.ChoiceField(choices=estad)  # Campo de selección para el estado financiero
+    status = forms.ChoiceField(choices=stat)
     
-    # Opciones para el estado relacionado con distribuidoras
     dinomo = (
-        ('Vacio', 'Vacio'),
-        ('Solicitado pero pendiente de enviarmelo', 'Solicitado pero pendiente de enviarmelo'),
-        ('Completado', 'Completado'),
-        ('Investigar', 'Investigar')
-    )
-    dinomoDis = forms.ChoiceField(choices=dinomo)  # Campo de selección para el estado de la distribuidora
+        ('Sin estado', 'Sin estado'), 
+        ('Monto pagado', 'Monto pagado'), 
+        ('Monto pendiente', 'Monto pendiente')
+    ) 
+    
+    dinomoDis = forms.ChoiceField(choices=dinomo)
+
+    

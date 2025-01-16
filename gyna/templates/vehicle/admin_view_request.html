@@ -1,156 +1,187 @@
 {% extends 'vehicle/adminbase.html' %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todas las Consultas</title>
-    <style>
-        /* Estilo para el botón de inicio */
-        .button {
-            background-color: #4CAF50; /* Verde */
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        .button:hover {
-            background-color: #45a049; /* Verde oscuro */
-        }
+{% load humanize %}
+<div class="flex flex-col p-6">
+    <div class="overflow-x-auto">
+        <div class="inline-block min-w-full py-4 align-middle">
+            <div class="overflow-hidden shadow-lg rounded-lg border border-gray-200">
+                <h3 style="font-size: 2em;" class="text-2xl font-semibold m-6 text-gray-800 mb-6">Todo el registro</h3>
+                
+                <!-- Paginación -->
+                   <!-- Paginación mejorada -->
+                {% if page_obj.paginator.num_pages > 1 %}
+                <nav class="border-t border-gray-200 px-4 py-4 flex items-center justify-between sm:px-0">
+                    <div class="hidden md:-mt-px md:flex">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                                <svg class="mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414zm-6 0a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L5.414 10l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                                </svg>
+                                Primera
+                            </a>
+                            <a href="?page={{ page_obj.previous_page_number }}" class="ml-3 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                                <svg class="mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                Anterior
+                            </a>
+                        {% endif %}
 
-        /* Estilo para el contenedor */
-        .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-        }
+                        <span class="mx-4 inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 border border-blue-300 rounded-md">
+                            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                        </span>
 
-        /* Estilo para la tabla */
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 20px;
-            background-color: #fff; /* Blanco */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-            color: #333;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        /* Estilo para los enlaces de edición */
-        a.edit-link {
-            color: #007bff;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        a.edit-link:hover {
-            color: #0056b3;
-        }
-
-        /* Estilo para la paginación */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .pagination a {
-            color: #007bff;
-            padding: 8px 16px;
-            text-decoration: none;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            margin: 0 5px;
-        }
-        .pagination a:hover {
-            background-color: #007bff;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <div class="wrapper">
-        <!-- ****** Inicio de la tabla ********** -->
-        <div class="row">
-            <div class="col-12 col-m-12 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <a href="{% url 'gyna' %}"><button class="button">Inicio</button></a>
-                        <h3 style="color:black; text-align:center">Todas las consultas</h3>
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}" class="ml-3 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                                Siguiente
+                                <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}" class="ml-3 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                                Última
+                                <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 6.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0zm6 0a1 1 0 010-1.414L14.586 10l-4.293-3.293a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        {% endif %}
                     </div>
-                    <div class="card-content">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>VIA-e</th>
-                                    <th>Cliente</th>
-                                    <th>WhatsApp</th>
-                                    <th>VIN</th>
-                                    <th>Vehiculo</th>
-                                    <th>Consulta</th>
-                                    <th>Distribuidora</th>
-                                    <th>Dinero del cliente</th>
-                                    <th>Pedido</th>
-                                    <th>Estado dinero</th>
-                                    <th>Estado repuesto</th>
-                                    <th>Editar Estados</th>
-                                    <th>Editar Distribuidora</th>
+
+                    <!-- Versión móvil de la paginación -->
+                    <div class="flex md:hidden w-full justify-between">
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md">
+                                Anterior
+                            </a>
+                        {% endif %}
+                        
+                        <span class="text-sm text-gray-700">
+                            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                        </span>
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md">
+                                Siguiente
+                            </a>
+                        {% endif %}
+                    </div>
+                </nav>
+                {% endif %}
+
+                
+                <div class="overflow-x-auto">
+
+                    
+                    <table class="w-full border-collapse divide-y divide-gray-300 border border-gray-300">
+                        <thead class="bg-gradient-to-r from-yellow-200 via-green-200 to-blue-200">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Fecha</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Solicitado en</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Cliente</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">WhatsApp</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Vehículo</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">VIN</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Solicitud</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Distribuidora</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Dinero abonado</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Monto total </th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Estado del pedido</th
+                                    >
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Estado del monto</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Cambiar estados</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Editar consulta</th>
+                            </tr>
+                        </thead>
+
+                        
+
+
+                        
+                        
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            
+                            {% for r in page_obj %}
+                                <tr class="hover:bg-green-50 transition duration-200">
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.date|date:"d-m-Y" }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {% if r.tipo is None %}&nbsp;{% else %}{{ r.tipo }}{% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {% if r.vehicle_cliente is None %}&nbsp;{% else %}{{ r.vehicle_cliente }}{% endif %}
+                                    </td>
+
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.vehicle_mobile }}
+                                    </td>
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.dineroCompletoss }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {% if r.vehicle_no is None %}&nbsp;{% else %}{{ r.vehicle_no }}{% endif %}
+                                    </td>
+
+
+                                    
+
+
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 max-w-xs truncate hover:whitespace-normal hover:overflow-visible hover:bg-yellow-100 break-words">
+                                        {% if r.problem_description is None %}&nbsp;{% else %}{{ r.problem_description }}{% endif %}
+                                    </td>
+
+                                    
+
+
+
+
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {% if r.distribuidorax is None %}&nbsp;{% else %}{{ r.distribuidorax }}{% endif %}
+                                    </td>
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.costAbonado }}
+                                    </td>
+
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.costotal |floatformat:0|intcomma}}
+                                    </td>
+
+
+
+
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.status }}
+                                    </td>
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.dinomoDis }}
+                                    </td>
+
+
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left">
+                                        <a class="text-blue-600 hover:underline" href="{% url 'change-status-tres' r.id %}">✎</a>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left">
+                                        <a class="text-blue-600 hover:underline" href="{% url 'edit-request' r.id %}">✎</a>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {% for r in data %}
-                                    <tr>
-                                        <td style="white-space: nowrap;">{{ r.date|date:"d-m-Y" }}</td>
-                                        <td style="white-space: nowrap;">{% if r.tipo is None %}&nbsp;{% else %}{{ r.tipo }}{% endif %}</td>
-                                        <td>{% if r.vehicle_cliente is None %}&nbsp;{% else %}{{ r.vehicle_cliente }}{% endif %}</td>
-                                        <td>{{ r.vehicle_mobile }}</td>
-                                        <td>{% if r.vehicle_no is None %}&nbsp;{% else %}{{ r.vehicle_no }}{% endif %}</td>
-                                        <td style="white-space: nowrap;">{{ r.dineroCompletoss }}</td>
-                                        <td>{{ r.problem_description }}</td>
-                                        <td>{% if r.distribuidorax is None %}&nbsp;{% else %}{{ r.distribuidorax }}{% endif %}</td>
-                                        <td style="white-space: nowrap;">{{ r.dineroCompleto }}</td>
-                                        <td style="white-space: nowrap;">{{ r.status }}</td>
-                                        <td>{{ r.estado }}</td>
-                                        <td>{{ r.dinomoDis }}</td>
-                                        <td><a class="edit-link" href="{% url 'change-status-tres' r.id %}">✎</a></td>
-                                        <td><a class="edit-link" href="{% url 'change-status-dos' r.id %}">✎</a></td>
-                                    </tr>
                                 {% empty %}
-                                    <tr>
-                                        <td colspan="14">No hay consultas disponibles.</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- Incluyendo la plantilla de paginación -->
-                    {% include './paginator.html' with page_obj=data %}
+                                <tr>
+                                    <td colspan="14" class="px-6 py-4 text-center text-gray-500 border border-gray-300">No hay consultas disponibles.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                        
+                    </table>
+                    
                 </div>
             </div>
         </div>
-        <!-- ****** Fin de la tabla ********** -->
     </div>
-</body>
-</html>
+</div>
 {% endblock content %}

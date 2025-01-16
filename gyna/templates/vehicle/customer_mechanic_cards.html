@@ -12,12 +12,10 @@
       text-align: center;
       font-family: arial;
     }
-
     .title {
       color: grey;
       font-size: 16px;
     }
-
     button {
       border: none;
       outline: 0;
@@ -30,23 +28,19 @@
       width: 100%;
       font-size: 16px;
     }
-
     button:hover,
     a:hover {
       opacity: 0.7;
     }
-
     .grid-container {
       display: grid;
       grid-template-columns: auto auto auto;
       padding: 60px;
       margin-left:150px;
     }
-
     a:link {
       text-decoration: none;
     }
-
     a {
       color: white;
     }
@@ -54,23 +48,14 @@
 </head>
 
 <body>
-
   <br><br>
-
-    <div class="grid-item">
-      <div class="card" >
-        <img src="{% static "images/admin.png" %}" alt="John" style="width:100% " >
-        <p class="title" > <strong>Administración</strong></p>
-        <p><a  href="{% url 'adminclick' %}" ><button>Iniciar Sesión</button></a></p>
-
-       
-      </div>
+  <div class="grid-item">
+    <div class="card">
+      <img src="{% static "images/admin.png" %}" alt="John" style="width:100%">
+      <p class="title"><strong>Administración</strong></p>
+      <p><a href="/adminclick"><button>Iniciar Sesión</button></a></p>
     </div>
-
-    
   </div>
-
-
 </body>
 
 </html>

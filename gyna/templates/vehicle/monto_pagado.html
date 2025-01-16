@@ -1,0 +1,136 @@
+{% extends 'vehicle/adminbase.html' %}
+{% block content %}
+{% load humanize %}
+<div class="flex flex-col p-6">
+    <div class="overflow-x-auto">
+        <div class="inline-block min-w-full py-4 align-middle">
+            <div class="overflow-hidden shadow-lg rounded-lg border border-gray-200">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6">Todo el registro</h3>
+                <div class="overflow-x-auto">
+                    
+                    <table class="w-full border-collapse divide-y divide-gray-300 border border-gray-300">
+                        <thead class="bg-gradient-to-r from-yellow-200 via-green-200 to-blue-200">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Fecha</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Solicitado en</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Cliente</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">WhatsApp</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Vehículo</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">VIN</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Solicitud</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Distribuidora</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Dinero abonado</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Monto total </th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Estado del pedido</th
+                                    >
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Estado del monto</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Cambiar estados</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Editar consulta</th>
+                            </tr>
+                        </thead>
+
+                        
+
+
+                        
+                        
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            
+                            {% for r in page_obj %}
+                                <tr class="hover:bg-green-50 transition duration-200">
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.date|date:"d-m-Y" }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {% if r.tipo is None %}&nbsp;{% else %}{{ r.tipo }}{% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {% if r.vehicle_cliente is None %}&nbsp;{% else %}{{ r.vehicle_cliente }}{% endif %}
+                                    </td>
+
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.vehicle_mobile }}
+                                    </td>
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.dineroCompletoss }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {% if r.vehicle_no is None %}&nbsp;{% else %}{{ r.vehicle_no }}{% endif %}
+                                    </td>
+
+
+                                    
+
+
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 max-w-xs truncate hover:whitespace-normal hover:overflow-visible hover:bg-yellow-100 break-words">
+                                        {% if r.problem_description is None %}&nbsp;{% else %}{{ r.problem_description }}{% endif %}
+                                    </td>
+
+                                    
+
+
+
+
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {% if r.distribuidorax is None %}&nbsp;{% else %}{{ r.distribuidorax }}{% endif %}
+                                    </td>
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.costAbonado }}
+                                    </td>
+
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.costotal |floatformat:0|intcomma}}
+                                    </td>
+
+
+
+
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.status }}
+                                    </td>
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.dinomoDis }}
+                                    </td>
+
+
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left">
+                                        <a class="text-blue-600 hover:underline" href="{% url 'change-status-tres' r.id %}">✎</a>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left">
+                                        <a class="text-blue-600 hover:underline" href="{% url 'edit-request' r.id %}">✎</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="14" class="px-6 py-4 text-center text-gray-500 border border-gray-300">No hay consultas disponibles.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                        
+                    </table>
+                </div>
+                <!-- Paginación -->
+                <div class="mt-4">
+                    <span class="text-sm text-gray-700">
+                        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                    </span>
+                    <div class="inline-flex mt-2">
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 bg-gray-300 border border-gray-300 text-gray-700">Anterior</a>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}" class="ml-3 px-3 py-1 bg-gray-300 border border-gray-300 text-gray-700">Siguiente</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,291 +1,315 @@
-
 {% extends 'vehicle/adminbase.html' %}
 {% load static %}
 {% block content %}
 
-<head>
-
-	<style type="text/css">
-	  a:link {
-		text-decoration: none;
-	  }
-  
-	  h6 {
-		color: white;
-		font-size: 0.90em;
-	  }
-  
-	  .order-card {
-		color: #fff;
-	  }
-  
-	  .bg-c-blue {
-		background: linear-gradient(45deg, #4099ff, #73b4ff);
-	  }
-  
-	  .bg-c-green {
-		background: linear-gradient(45deg, #2ed8b6, #59e0c5);
-	  }
-  
-	  .bg-c-yellow {
-		background: linear-gradient(45deg, #FFB64D, #ffcb80);
-	  }
-  
-	  .bg-c-pink {
-		background: linear-gradient(45deg, #FF5370, #ff869a);
-	  }
-
-    
-    /* Nuevos colores */
-    .bg-c-light-blue {
-        background: linear-gradient(45deg, #a0c8ff, #c3e0ff);
-    }
-    
-    
-    .bg-c-soft-yellow {
-        background: linear-gradient(45deg, #ffeb99, #fff6cc);
-    }
-    
-    .bg-c-lavender {
-        background: linear-gradient(45deg, #d8aaff, #e6c6ff);
-    }
-    
-    .bg-c-peach {
-        background: linear-gradient(45deg, #ffcc99, #ffd9b3);
-    }
-    
-    .bg-c-pearl-gray {
-        background: linear-gradient(45deg, #e0e0e0, #f0f0f0);
-    }
-    
-    .bg-c-turquoise {
-        background: linear-gradient(45deg, #99e6e6, #b3f0f0);
-    }
-
-    
-    .bg-c-mint {
-        background: #40cfff;
-    }
-    
-    .bg-c-light-green {
-        background: #7cdaf9;
-    }
-    
-    .bg-c-sky-blue {
-        background: #b6ffff;
-    }
-    
-    .bg-c-light-blue {
-        background: #90e0ff;
-    }
-    
-    .bg-c-light-pink {
-        background: #ffc0cb;
-    }
-    
-    .bg-c-white {
-        background: #ffffff;
-    }
-    
-  
-  
-	  .card {
-		border-radius: 5px;
-		-webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-		box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-		border: none;
-		margin-bottom: 30px;
-		-webkit-transition: all 0.3s ease-in-out;
-		transition: all 0.3s ease-in-out;
-	  }
-  
-	  .card .card-block {
-		padding: 16px;
-	  }
-  
-	  .order-card i {
-		font-size: 20px;
-	  }
-  
-	  .f-left {
-		float: left;
-	  }
-  
-	  .f-right {
-		float: right;
-	  }
-	  h6{
-		size:20;
-	  }
-	</style>
-  </head>
-<!-- main content -->
-<div class="wrapper">
-
-
-
-<div style="margin-left:100px; margin-right:100px;" class="container">
-    <div class="row">
-        
-        <!-- Crear consulta -->
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-green order-card">
-
-                <a href="{% url 'admin-add-request' %}">
-                    <div class="card-block">
-                        <h6 style="color: black;" class="m-b-20"><strong>Crear consulta</strong></h6>
-                        <h2 class="text-right"><i class="fas fa-plus-circle f-left"></i></h2>
-                        <br>
+<div class="min-h-screen bg-gray-100 py-6 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Main Grid Container -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- Create Request -->
+            <a href="{% url 'admin-add-request'%}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Crear consulta</h3>
+                            </div>
+                        </div>
                     </div>
-                </a>
-            </div>
-        </div>
-        
-        <!-- Ver consultas -->
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-green order-card">
-                <a href="{% url 'admin-view-request' %}">
-                    <div class="card-block">
-                        <h6 style="color: black;" class="m-b-20"><strong>Ver consultas</strong></h6>
-                        <h2 class="text-right"><i class="fas fa-eye f-left"></i></h2>
-                        <br>
+                </div>
+            </a>
+            <!-- View New Requests -->
+            <a href="{% url 'ver-consultas' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Registro completo</h3>
+                            </div>
+                        </div>
                     </div>
-                </a>
-            </div>
-        </div>
+                </div>
+            </a>
 
-        
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-blue order-card">
-                
-                <a href="{% url 'admin-view-request-dineropen' %}">
-                    <div class="card-block">
-                        <h6 style="color: black;" class="m-b-20"><strong>Clientes comprometidos</strong></h6>
-                        <h2 class="text-right"><i class="fas fa-eye f-left"></i></h2>
-                        <br>
+            <!-- View All Requests -->
+            <a href="{% url 'admin-view-request' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Tabla de registro</h3>
+                            </div>
+                        </div>
                     </div>
-                </a>
-            </div>
+                </div>
+            </a>
+
+            
+            
+
+
+            <!-- Quoted -->
+            <a href="{% url 'mostrar_ordenes_tienda' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-yellow-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-black/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.3432-3 2-3M12 8c1.657 0 3-.895 3-2s-1.343-2-3-2-3 .895-3 2 1.343 2 3 2zm0 0v1"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Pedidos de la tienda</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+
+            
+
+
+
+            <!-- Quoted -->
+            <a href="{% url 'solo-consultas' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.3432-3 2-3M12 8c1.657 0 3-.895 3-2s-1.343-2-3-2-3 .895-3 2 1.343 2 3 2zm0 0v1"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Consultas</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            
+            <!-- compras-entregadas -->
+            <a href="{% url 'compras-entregadas' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-emerald-400 to-blue-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.3432-3 2-3M12 8c1.657 0 3-.895 3-2s-1.343-2-3-2-3 .895-3 2 1.343 2 3 2zm0 0v1"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Compras entregadas</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+
+
+
+
+            <!-- Committed Clients -->
+            <a href="{% url 'admin-view-request-dineropen' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-blue-400 to-blue-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Pedidos pagados</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            
+            <!-- Committed Clients -->
+            <a href="{% url 'pendientes-pagar' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-blue-400 to-blue-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Pedidos pendientes de pagar</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+
+            <!-- From Internet -->
+            <a href="{% url 'admin-view-request-internet' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-blue-500  to-pink-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Vía Internet</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- United States -->
+            <a href="{% url 'admin-view-request-usa' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-pink-400 to-pink-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                    <h3 class="text-lg font-semibold text-white">Vía U.S.A</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Panama -->
+            <a href="{% url 'admin-view-request-panama' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-pink-400 to-pink-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Vía Panamá</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <!-- ASIA -->
+            <a href="{% url 'admin-view-request-asia' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-pink-400 to-rose-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Vía Asia</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+
+            
+            <!-- Quoted -->
+            <a href="{% url 'compras-no-entregadas' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-rose-400  to-rose-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.3432-3 2-3M12 8c1.657 0 3-.895 3-2s-1.343-2-3-2-3 .895-3 2 1.343 2 3 2zm0 0v1"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Compras No entregadas</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+
+            <!-- Pending Investigation -->
+            <a href="{% url 'admin-view-request-investigar' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-rose-500 to-rose-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Pendientes de investigar</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+            <!-- Pending Arrival -->
+            <a href="{% url 'admin-view-request-dispagados' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-rose-500 to-rose-600 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Pendientes en llegar</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
         </div>
-
-
-
     </div>
-    <br>
-    <div class="row">
-
-
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-pink order-card">
-                
-                    <a href="{% url 'admin-view-request-internet' %}">
-                    <div class="card-block">
-                        <h6 style="color: black;" class="m-b-20"><strong>De Internet</strong></h6>
-                        <h2 class="text-right"><i class="fas fa-eye f-left"></i></h2>
-                        <br>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-pink order-card">
-                <a href="{% url 'admin-view-request-usa' %}">
-
-                    <div class="card-block">
-                        <h6 style="color: black;" class="m-b-20"><strong>Estados Unidos</strong></h6>
-                        <h2 class="text-right"><i class="fas fa-eye f-left"></i></h2>
-                        <br>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-pink order-card">
-                
-                <a href="{% url 'admin-view-request-panama' %}">
-
-                    <div class="card-block">
-                        <h6 style="color: black;" class="m-b-20"><strong>Panamá</strong></h6>
-                        <h2 class="text-right"><i class="fas fa-eye f-left"></i></h2>
-                        <br>
-                    </div>
-                </a>
-            </div>
-        </div>
-        
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-pink order-card">                
-                <a href="{% url 'admin-view-request-otros' %}">
-                    <div class="card-block">
-                        <h6 style="color: black;" class="m-b-20"><strong>Otros lugares</strong></h6>
-                        <h2 class="text-right"><i class="fas fa-eye f-left"></i></h2>
-                        <br>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-    </div>
-    <br>
-    <br>
-
-    <div class="row"> 
-
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-yellow order-card">
-
-                    
-                <a href="{% url 'admin-view-request-investigar' %}">
-                    <div class="card-block">
-                        <h6 style="color: black;" class="m-b-20"><strong>Pendientes de investigar</strong></h6>
-                        <h2 class="text-right"><i class="fas fa-eye f-left"></i></h2>
-                        <br>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-yellow order-card">
-
-                
-                <a href="{% url 'admin-view-request-clientepen' %}">
-
-                    <div class="card-block">
-                        <h6 style="color: black;" class="m-b-20"><strong>COTIZADOS</strong></h6>
-                        <h2 class="text-right"><i class="fas fa-eye f-left"></i></h2>
-                        <br>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-yellow order-card">
-
-                
-                
-                <a href="{% url 'admin-view-request-dispagados' %}">
-                    <div class="card-block">
-                        <h6 style="color: black;" class="m-b-20"><strong>Pendientes en llegar</strong></h6>
-                        <h2 class="text-right"><i class="fas fa-eye f-left"></i></h2>
-                        <br>
-                    </div>
-                </a>
-            </div>
-        </div>
-        
-    </div>
-	<br><br>
-	<br><br>
-
 </div>
-<!-- end main content -->
+
 {% endblock content %}
 
 
 
 
-                    
+
+
+

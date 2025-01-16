@@ -1,0 +1,904 @@
+{% load humanize %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPartes - Tienda de repuestos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Estilos base compartidos */
+        .hero-bt,
+        .hero-bx,
+        .hero-bh {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 300px; /* Asegura una altura mínima */
+        }
+
+        /* Hero BT */
+        .hero-bt {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                            url('{% static "media/misImagen/categoria.png" %}');
+        }
+
+        /* Hero BX */
+        .hero-bx {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), 
+                            url('{% static "media/misImagen/bx.png" %}');
+        }
+
+        /* Hero BH */
+        .hero-bh {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), 
+                            url('{% static "media/misImagen/bh.png" %}');
+        }
+
+        /* Escritorio: Mantener fixed para pantallas grandes */
+        @media screen and (min-width: 1024px) {
+            .hero-bt,
+            .hero-bx,
+            .hero-bh {
+                background-attachment: fixed;
+            }
+        }
+
+        /* Tablets */
+        @media screen and (min-width: 768px) and (max-width: 1023px) {
+            .hero-bt,
+            .hero-bx,
+            .hero-bh {
+                background-attachment: scroll;
+                background-position: center center;
+            }
+        }
+
+        /* Móviles */
+        @media screen and (max-width: 767px) {
+            .hero-bt,
+            .hero-bx,
+            .hero-bh {
+                background-attachment: scroll;
+                background-position: center center;
+                min-height: 250px; /* Altura más pequeña para móviles */
+            }
+        }
+
+        /* Para dispositivos iOS específicamente */
+        @supports (-webkit-touch-callout: none) {
+            .hero-bt,
+            .hero-bx,
+            .hero-bh {
+                background-attachment: scroll;
+            }
+        }
+
+    </style>
+</head>
+<body class="bg-gray-200">
+
+    
+    <!-- Barra superior con información de contacto -->
+    <div class="bg-yellow-300 text-black py-2">
+        <div class="container mx-auto px-4 flex justify-between items-center text-sm">
+            <div class="flex items-center space-x-4">
+                <span><i class="fas fa-phone mr-2"></i>+506 2222-3333</span>
+                <span><i class="fas fa-envelope mr-2"></i>info@autopartes.com</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <span><i class="fas fa-clock mr-2"></i>Lun-Sáb: 7AM-6PM</span>
+                <a href="/" class="hover:text-blue-400"><i class="fab fa-facebook"></i></a>
+                <a href="/" class="hover:text-pink-400"><i class="fab fa-instagram"></i></a>
+                <a href="/" class="hover:text-green-400"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra de navegación principal -->
+    <nav class="bg-white shadow-md sticky top-0 z-50 border-t-4 border-gradient-to-r from-yellow-500 to-light-blue-300">
+        <div class="container mx-auto px-4">
+            <div class="relative flex items-center justify-between h-16">
+                <!-- Logo y nombre de la tienda -->
+                <a href="/" class="flex-shrink-0 flex items-center space-x-2">
+                    <i class="fas fa-cogs text-yellow-500"></i>
+                    <span class="text-2xl font-bold text-gray-800">Zona Sur AutoPartes</span>
+                </a>
+
+                <!-- Botón de menú móvil -->
+                <button id="mobile-menu-button" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500">
+                    <span class="sr-only">Abrir menú principal</span>
+                    <svg id="menu-icon" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg id="close-icon" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <!-- Menú de escritorio -->
+                <div class="hidden md:flex md:items-center md:gap-6">
+                    {% if user.is_authenticated and user.is_superuser %} 
+                    
+                    <a href="/autopartes" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                        Herramientas
+                    </a>
+                        <a href="/admin" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                                Administrador
+                        </a>
+                    {% endif %}
+
+                    <a href="{% url 'categorias_lista' %}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                        Categorias
+                    </a>
+                    {% if user.is_authenticated %}
+                    
+                    
+                    <div class="flex items-center gap-4">
+                        <a href="{% url 'ver_carrito' %}" class="relative inline-flex items-center p-2 text-gray-600 hover:text-gray-900 transition-colors">
+                            <i class="fas fa-shopping-cart text-lg"></i>
+                            {% if cantidad_car > 0 %}
+                                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                                    {{cantidad_car}}
+                                </span>
+                            {% endif %}
+                        </a>
+                    </div>
+                    
+                        <form action="{% url 'logout' %}" method="post" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                        </form>
+                    {% else %}
+                        <div class="flex items-center gap-3">
+                            <a href="{% url 'login' %}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                                Iniciar Sesión
+                            </a>
+                            <a href="{% url 'signup' %}" class="text-sm font-medium bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                                Registrarse
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Menú móvil (agregado) -->
+            <div id="mobile-menu" class="hidden md:hidden">
+
+                <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
+                     {% if user.is_authenticated and user.is_superuser %} 
+                    
+                     <a href="/autopartes" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                        <button class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                            Herramientas
+                        </button>
+                    </a>
+                        <a href="/admin" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                            <button class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                                administrador
+                            </button>
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'categorias_lista' %}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                        <button class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                            Categorias
+                        </button>
+                    </a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'ver_carrito' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                            <i class="fas fa-shopping-cart mr-2"></i>
+                            Carrito
+                            {% if cantidad_car > 0 %}
+                                <span class="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-500 rounded-full">
+                                    {{cantidad_car}}
+                                </span>
+                            {% endif %}
+                        </a>
+                        <form action="{% url 'logout' %}" method="post" class="block">
+                            {% csrf_token %}
+                            <button type="submit" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                                Cerrar Sesión
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                            Iniciar Sesión
+                        </a>
+                        <a href="{% url 'signup' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                            Registrarse
+                        </a>
+                    {% endif %}
+                    
+                   
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative h-96" style="background-size: cover; background-position: center;background-repeat: no-repeat;background-attachment: fixed; background-image: url('{% static "media/misImagen/logo1.png" %}'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-black opacity-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50"></div>
+        <div class="relative max-w-7xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center h-full">
+            <h1 class="text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl text-center mb-6">
+
+            </h1>
+            <p class="mt-2 text-white text-xl text-center max-w-2xl">
+            </p>
+        </div>
+    </div>
+    
+
+    <!-- Buscador Mejorado -->
+    <div id="buscar" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 relative z10 mb-12">
+        <div class="bg-gray-800 rounded-xl shadow-2xl p-6">
+            <form method="GET" id="searchForm" action="#productos">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+                    <!-- Campo de búsqueda -->
+                    <div class="lg:col-span-2">
+                        <label for="search" class="block text-sm font-medium text-gray-300 mb-1">Buscar</label>
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="search"
+                                name="q" 
+                                class="w-full px-4 py-3 rounded-lg border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-white placeholder-gray-400"
+                                placeholder="Buscar repuestos..." 
+                                value="{{ query }}"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Selector de Marca -->
+                    <div>
+                        <label for="marca" class="block text-sm font-medium text-gray-300 mb-1">Marca</label>
+                        <select 
+                            id="marca"
+                            name="marca" 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-white"
+                        >
+                            <option value="">Todas las Marcas</option>
+                            {% for marca in marcas %}
+                                <option value="{{ marca.id }}" {% if selected_marca == marca.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ marca.nombre }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Selector de Modelo -->
+                    <div>
+                        <label for="modelo" class="block text-sm font-medium text-gray-300 mb-1">Modelo</label>
+                        <select 
+                            id="modelo"
+                            name="modelo" 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-white"
+                        >
+                            <option value="">Todos los Modelos</option>
+                            {% for modelo in modelos %}
+                                <option value="{{ modelo.id }}" {% if selected_modelo == modelo.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ modelo.nombre }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Selector de Año -->
+                    <div>
+                        <label for="anio" class="block text-sm font-medium text-gray-300 mb-1">Años</label>
+                        <select 
+                            id="anio"
+                            name="anio" 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-white"
+                        >
+                            <option value="">Todos los años</option>
+                            {% for anio in anios %}
+                                <option value="{{ anio.id }}" {% if selected_anio == anio.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ anio.anio }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+
+                    
+                    <!-- Selector de Categoría -->
+                    <div>
+                        <label for="categoria" class="block text-sm font-medium text-gray-300 mb-1">Categorías</label>
+                        <select 
+                            id="categoria"
+                            name="categoria" 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-white text-xs md:text-sm"
+                        >
+                            <option value="">Todas las categorías</option>
+                            {% for categoria in categorias %}
+                                <option value="{{ categoria.id }}" {% if selected_categoria == categoria.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ categoria.nombre }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Botón de búsqueda -->
+                    <div class="flex items-end">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-3 rounded-lg transition-colors">
+                            <i class="fas fa-search mr-2"></i>Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>            
+        </div>
+    </div>
+
+
+    <!-- Productos -->
+    <div id="productos" class="bg-gray-200 w-full p-4 mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+
+        <!-- Grid 6x4 -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-4">
+            {% for repuesto in page_obj %}
+            <div class="bg-white text-center rounded-lg shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden flex flex-col justify-between h-full">
+                
+
+                <!-- Información del producto -->
+                <div class="p-4 flex-grow">
+                    <!-- Imagen y badge de oferta -->
+
+
+                    <div class="relative aspect-w-16 rounded aspect-h-9">
+                        {% if repuesto.imagen_principal %}
+                        <img src="{{ repuesto.imagen_principal.imagen.url }}" 
+                            class="rounded-lg  w-full h-40 object-cover hover:scale-125 transition-transform duration-300"
+                            alt="{{ repuesto.nombre }}">
+                        {% endif %}
+                        {% if repuesto.en_oferta %}
+                        <div class="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            {{ repuesto.porcentaje_descuento}}% OFF
+                        </div>
+                        {% endif %}
+
+                        {% if repuesto.oferta_especial %}
+                        <div class="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            {{ repuesto.porcentaje_descuento}}% OFF
+                        </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <h3 class="text-base font-semibold text-gray-900 mb-1 truncate">{{ repuesto.nombre }}</h3>
+                    <p class="text-gray-600 text-sm mb-2 line-clamp-2">{{ repuesto.descripcion }}</p>
+                    
+                    <!-- Precio y calificación -->
+                    <div class="flex items-center justify-between mb-3">
+
+                        
+                        <div class="flex flex-col">
+                            {% if repuesto.en_oferta %}
+                            <span class="text-gray-400 text-xs line-through">₡{{ repuesto.precio|floatformat:0|intcomma }} IVA.i</span>
+                            <span class="text-green-500 text-lg font-semibold">₡ {{ repuesto.calcular_precio_con_descuento|floatformat:0|intcomma }} iva.i</span>
+                            
+                            {% elif repuesto.oferta_especial %}
+                        
+                            <span class="text-gray-400 text-xs line-through">₡{{ repuesto.precio|floatformat:0|intcomma }} iva.i</span>
+                            <span class="text-green-600 text-lg font-semibold">
+                                ₡{{ repuesto.calcular_precio_con_descuento|floatformat:0|intcomma }} iva.i
+                            </span>
+
+
+                            {% else %}
+                            <span class="text-green-500 font-semibold">₡{{ repuesto.precio|floatformat:0|intcomma }} iva.i</span>
+                            {% endif %}                
+                        </div>
+
+                    
+                        <div class="flex items-center bg-gray-100 px-2 py-1 rounded">
+                            <span class="text-yellow-400 text-sm">★</span>
+                            <span class="text-gray-600 text-sm ml-1">{{ repuesto.promedio_calificacion|floatformat:1 }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón de acción -->
+                <div class="px-4 pb-4 flex justify-center">
+                    <a href="{% url 'detalle_repuesto' repuesto.pk %}" 
+                    class="bg-blue-600 text-white text-center py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
+                        Ver producto
+                    </a>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+    
+        {% if page_obj.paginator.num_pages > 1 %}
+        <div class="mt-8 flex justify-center">
+            <nav class="inline-flex rounded-md shadow-sm">
+                {% if page_obj.has_previous %}
+                <a href="?{{ main_query_string }}&page=1#productos" 
+                class="px-3 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-500 hover:bg-gray-50 rounded-l-md">
+                    «
+                </a>
+                <a href="?{{ main_query_string }}&page={{ page_obj.previous_page_number }}#productos" 
+                class="px-3 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    Anterior
+                </a>
+                {% endif %}
+
+
+
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if num == page_obj.number %}
+                    <span class="px-3 py-2 bg-blue-600 text-white border border-blue-600 text-sm font-medium">
+                        {{ num }}
+                    </span>
+                    {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                    <a href="?{{ main_query_string }}&page={{ num }}#productos" 
+                    class="px-3 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-500 hover:bg-gray-50">
+                        {{ num }}
+                    </a>
+                    {% endif %}
+                {% endfor %}
+
+
+
+                {% if page_obj.has_next %}
+                <a href="?{{ main_query_string }}&page={{ page_obj.next_page_number }}#productos" 
+                class="px-3 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    Siguiente
+                </a>
+                <a href="?{{ main_query_string }}&page={{ page_obj.paginator.num_pages }}#productos" 
+                class="px-3 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-500 hover:bg-gray-50 rounded-r-md">
+                    »
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+        {% endif %}
+    </div>
+
+
+    <div class="relative overflow-hidden hero-bt">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:pb-28 xl:pb-32">
+                <div class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                    <div class="text-center lg:text-left">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                            <span class="block">Encuentra el repuesto </span>
+                            <span class="block text-blue-400">que andás buscando</span>
+
+                        </h1>
+                        <p class="mt-3 text-base text-blue-200 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                            Sin salir de casa con nuestro nuevo método de envíos rápidos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- Ofertas Especiales -->
+    <div id="especiales" class="w-full p-4 mx-auto px-4 sm:px-6 lg:px-8 my-12 sm:my-24">
+        <!-- Contenedor con fondo gradiente y sombras -->
+        <div class="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-400 rounded-2xl p-4 sm:p-8 md:p-12 shadow-lg">
+            <!-- Título de la sección -->
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-6 sm:mb-12">Ofertas Especiales</h2>
+            
+            <!-- Contenedor de la grilla de productos -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
+                {% for repuesto in especiales_page %}
+                <!-- Tarjeta de cada producto -->
+                <div class="bg-white rounded-xl shadow-lg transition-transform hover:scale-105 duration-300 flex flex-col h-full">
+                    <!-- Imagen del producto -->
+                    <div class="relative">
+                        {% if repuesto.imagen_principal %}
+                        <img src="{{ repuesto.imagen_principal.imagen.url }}" 
+                            class="w-full h-48 sm:h-56 object-cover rounded-t-xl"
+                            alt="{{ repuesto.nombre }}">
+                        {% endif %}
+                        <!-- Etiqueta de descuento -->
+                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3">
+                            <span class="bg-rose-500 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold shadow-lg">
+                                -{{ repuesto.porcentaje_descuento }}"%
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Información del producto -->
+                    <div class="p-4 sm:p-6 flex flex-col flex-grow">
+                        <!-- Nombre del producto -->
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 text-center break-words line-clamp-2">{{ repuesto.nombre }}</h3>
+                        <!-- Descripción del producto -->
+                        <p class="text-center text-gray-600 text-xs sm:text-sm mb-4 line-clamp-2">{{ repuesto.descripcion }}</p>
+                        
+                        <!-- Precio y calificación -->
+                        <div class="flex items-center justify-between mb-4 mt-auto">
+                            <!-- Precios -->
+                            <div class="flex flex-col">
+                                <span class="text-gray-400 text-xs sm:text-sm line-through">₡{{ repuesto.precio|floatformat:0|intcomma }}</span>
+                                <span class="text-green-600 text-base sm:text-lg font-bold">₡{{ repuesto.calcular_precio_con_descuento|floatformat:0|intcomma }}</span>
+                            </div>
+                            <!-- Calificación -->
+                            <div class="flex items-center bg-yellow-50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg">
+                                <span class="text-yellow-400 mr-1 text-base sm:text-lg">★</span>
+                                <span class="text-gray-700 font-semibold text-sm">{{ repuesto.promedio_calificacion|floatformat:1 }}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Botón -->
+                        <a href="{% url 'detalle_repuesto' repuesto.pk %}"
+                            class="block w-full bg-blue-600 text-white text-center py-2 sm:py-3 px-4 sm:px-6 rounded-lg text-sm sm:text-base font-semibold hover:bg-blue-700 transition-colors duration-300 transform hover:scale-[1.02]">
+                            Ver producto
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Paginación -->
+            {% if especiales_page.paginator.num_pages > 1 %}
+            <div class="mt-8 sm:mt-12 flex justify-center">
+                <nav class="inline-flex rounded-lg shadow-md">
+                    {% if especiales_page.has_previous %}
+                    <a href="?{{ especiales_query_string }}&especiales_page=1#especiales" 
+                        class="px-3 py-1 sm:px-4 sm:py-2 bg-white border border-gray-300 text-xs sm:text-sm font-semibold text-gray-600 hover:bg-gray-50 rounded-l-lg transition-colors">
+                        «
+                    </a>
+                    <a href="?{{ especiales_query_string }}&especiales_page={{ especiales_page.previous_page_number }}#especiales" 
+                        class="px-3 py-1 sm:px-4 sm:py-2 bg-white border border-gray-300 text-xs sm:text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
+                        Anterior
+                    </a>
+                    {% endif %}
+                    
+                    {% for num in especiales_page.paginator.page_range %}
+                        {% if num == especiales_page.number %}
+                        <span class="px-3 py-1 sm:px-4 sm:py-2 bg-rose-600 text-white border border-gray-600 text-xs sm:text-sm font-semibold">
+                            {{ num }}
+                        </span>
+                        {% elif num > especiales_page.number|add:-3 and num < especiales_page.number|add:3 %}
+                        <a href="?{{ especiales_query_string }}&especiales_page={{ num }}#especiales" 
+                            class="px-3 py-1 sm:px-4 sm:py-2 bg-white border border-gray-300 text-xs sm:text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
+                            {{ num }}
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if especiales_page.has_next %}
+                    <a href="?{{ especiales_query_string }}&especiales_page={{ especiales_page.next_page_number }}#especiales" 
+                        class="px-3 py-1 sm:px-4 sm:py-2 bg-white border border-gray-300 text-xs sm:text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
+                        Siguiente
+                    </a>
+                    <a href="{% url 'ver_mas_especiales' %}" class="px-3 py-1 sm:px-4 sm:py-2 bg-white border border-gray-300 text-xs sm:text-sm font-semibold text-gray-600 hover:bg-gray-50 rounded-r-lg transition-colors">
+                        Ver más
+                    </a>
+
+
+
+
+
+
+                    {% endif %}
+
+                </nav>
+
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="relative overflow-hidden hero-bh">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 pb-4 sm:pb-8 md:pb-10 lg:pb-20 xl:pb-25">
+                <div class=" mt-6 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                    <div class="lg:text-center">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                            <span class="block">Compras seguras en el extranjero</span>
+                            <span class="block text-blue-400">Te la envíamos hasta tu casa</span>
+
+                        </h1>
+                        <p class="mt-3 text-base text-blue-200 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ofertas  -->
+    <div id="especiales" class="w-full p-4 mx-auto px-4 sm:px-6 lg:px-8 my-12 sm:my-24">
+        <!-- Contenedor con fondo gradiente y sombras -->
+        <div class="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-400 rounded-2xl p-4 sm:p-8 md:p-12 shadow-lg">
+            <!-- Título de la sección -->
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-6 sm:mb-12">Productos en descuento</h2>
+            
+            <!-- Contenedor de la grilla de productos -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8">
+                {% for repuesto in offers_page %}
+                <!-- Tarjeta de cada producto -->
+                <div class="bg-white rounded-xl shadow-lg transition-transform hover:scale-105 duration-300 flex flex-col h-full">
+                    <!-- Imagen del producto -->
+                    <div class="relative">
+                        {% if repuesto.imagen_principal %}
+                        <img src="{{ repuesto.imagen_principal.imagen.url }}" 
+                            class="w-full h-48 sm:h-56 object-cover rounded-t-xl"
+                            alt="{{ repuesto.nombre }}">
+                        {% endif %}
+                        <!-- Etiqueta de descuento -->
+                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3">
+                            <span class="bg-rose-500 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold shadow-lg">
+                                -{{ repuesto.porcentaje_descuento }}"%
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Información del producto -->
+                    <div class="p-4 sm:p-6 flex flex-col flex-grow">
+                        <!-- Nombre del producto -->
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 text-center break-words line-clamp-2">{{ repuesto.nombre }}</h3>
+                        <!-- Descripción del producto -->
+                        <p class="text-center text-gray-600 text-xs sm:text-sm mb-4 line-clamp-2">{{ repuesto.descripcion }}</p>
+                        
+                        <!-- Precio y calificación -->
+                        <div class="flex items-center justify-between mb-4 mt-auto">
+                            <!-- Precios -->
+                            <div class="flex flex-col">
+                                <span class="text-gray-400 text-xs sm:text-sm line-through">₡{{ repuesto.precio|floatformat:0|intcomma }}</span>
+                                <span class="text-green-600 text-base sm:text-lg font-bold">₡{{ repuesto.calcular_precio_con_descuento|floatformat:0|intcomma }}</span>
+                            </div>
+                            <!-- Calificación -->
+                            <div class="flex items-center bg-yellow-50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg">
+                                <span class="text-yellow-400 mr-1 text-base sm:text-lg">★</span>
+                                <span class="text-gray-700 font-semibold text-sm">{{ repuesto.promedio_calificacion|floatformat:1 }}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Botón -->
+                        <a href="{% url 'detalle_repuesto' repuesto.pk %}"
+                            class="block w-full bg-blue-600 text-white text-center py-2 sm:py-3 px-4 sm:px-6 rounded-lg text-sm sm:text-base font-semibold hover:bg-blue-700 transition-colors duration-300 transform hover:scale-[1.02]">
+                            Ver producto
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            
+
+        {% if offers_page.paginator.num_pages > 1 %}
+        <div class="mt-12 flex justify-center">
+            <nav class="inline-flex rounded-lg shadow-md">
+                {% if offers_page.has_previous %}
+                <a href="?{{ offers_query_string }}&offers_page=1#ofertas" 
+                class="px-4 py-2 bg-white border border-gray-300 text-sm font-semibold text-gray-600 hover:bg-gray-50 rounded-l-lg transition-colors">
+                    «
+                </a>
+                <a href="?{{ offers_query_string }}&offers_page={{ offers_page.previous_page_number }}#ofertas" 
+                class="px-4 py-2 bg-white border border-gray-300 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
+                    Anterior
+                </a>
+                {% endif %}
+        
+                {% for num in offers_page.paginator.page_range %}
+                    {% if num == offers_page.number %}
+                    <span class="px-4 py-2 bg-blue-600 text-white border border-blue-600 text-sm font-semibold">
+                        {{ num }}
+                    </span>
+                    {% elif num > offers_page.number|add:-3 and num < offers_page.number|add:3 %}
+                    <a href="?{{ offers_query_string }}&offers_page={{ num }}#ofertas" 
+                    class="px-4 py-2 bg-white border border-gray-300 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
+                        {{ num }}
+                    </a>
+                    {% endif %}
+                {% endfor %}
+        
+                {% if offers_page.has_next %}
+                <a href="?{{ offers_query_string }}&offers_page={{ offers_page.next_page_number }}#ofertas" 
+                class="px-4 py-2 bg-white border border-gray-300 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
+                    Siguiente
+                </a>
+                <a href="?{{ offers_query_string }}&offers_page={{ offers_page.paginator.num_pages }}#ofertas" 
+                class="px-4 py-2 bg-white border border-gray-300 text-sm font-semibold text-gray-600 hover:bg-gray-50 rounded-r-lg transition-colors">
+                    »
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+        {% endif %}
+
+        </div>
+    </div>
+
+    <div class="relative overflow-hidden hero-bx">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 pb-4 sm:pb-8 md:pb-10 lg:pb-20 xl:pb-25">
+                <div class="mt-6 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                    <div class="lg:text-center">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                            <span class="block">Envíos a todo el país</span>
+                            <span class="block text-blue-400">Repuestos de la mejor calidad</span>
+                        </h1>
+                        <p class="mt-3 text-base text-blue-200 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full p-1 m-1 ">
+        <div class="bg-gray-200 rounded-lg shadow-sm p-6">
+
+            <h2 class="text-3xl sm:text-3xl md:text-3xl font-bold text-center text-black mb-6 sm:mb-12">Variedad en repuestos</h2>
+            <ul class="grid grid-cols-2 sm:grid-cols-4  md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+
+                {% for categoria in categorias %}
+                <li class="flex justify-between items-center text-lg text-gray-900">
+                    <a href="{% url 'productos_por_categoria' categoria.id %}" class="hover:text-blue-600 transition-colors max-w-[200px] truncate" title="{{ categoria.nombre }}">
+                        {{ categoria.nombre }}
+                    </a>
+                </li>
+                
+                
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Sección de Ventajas -->
+    <div class="bg-gray100 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <div class="bg-blue-600 rounded-lg p-3">
+                            <i class="fas fa-truck text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Envío Gratis</h3>
+                        <p class="text-gray-600">En compras mayores a ₡50.000</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <div class="bg-blue-600 rounded-lg p-3">
+                            <i class="fas fa-shield-alt text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Garantía Asegurada</h3>
+                        <p class="text-gray-600">30 días de garantía en todos los productos</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <div class="bg-blue-600 rounded-lg p-3">
+                            <i class="fas fa-headset text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Soporte 24/7</h3>
+                        <p class="text-gray-600">Atención al cliente disponible todo el día</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Zona Sur AutoPartes</h3>
+                    <p class="text-gray-400">Estamos comprometidos en atender tus consultas rápidamente, asegurando que siempre encuentres lo que necesitas sin demoras.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Tienda Online</h3>
+                    <ul class="space-y-2">
+                        
+                        <li><a href="#ofertas" class="text-gray-400 hover:text-white">Productos en descuento</a></li>
+                        <li><a href="#especiales" class="text-gray-400 hover:text-white">Super ofertas</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contacto</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> Paso Canoas, Costa Rica</li>
+                        <li class="flex items-center"><i class="fas fa-phone mr-2"></i> +506 8775-2130</li>
+                        <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> zonasurautopartes@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 Tienda Zona Sur AutoPartes || Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para mantener los filtros -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Asegurarse de que los valores seleccionados persistan después de recargar
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        const fields = {
+            'q': 'search',
+            'marca': 'marca',
+            'modelo': 'modelo',
+            'anio': 'anio',
+            'categoria': 'categoria'
+        };
+
+        for (const [param, id] of Object.entries(fields)) {
+            const value = urlParams.get(param);
+            if (value) {
+                document.getElementById(id).value = value;
+            }
+        }});
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+
+            // Función para abrir/cerrar el menú
+            function toggleMenu() {
+                mobileMenu.classList.toggle('hidden');
+                menuIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            }
+
+            // Click en el botón de menú
+            mobileMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMenu();
+            });
+
+            // Cerrar el menú cuando se hace clic fuera
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                    mobileMenu.classList.add('hidden');
+                    menuIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                }
+            });
+
+            // Prevenir que los clics dentro del menú lo cierren
+            mobileMenu.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        });
+
+        
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica si hay parámetros de búsqueda en la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('q') || urlParams.has('marca') || urlParams.has('modelo') || 
+                urlParams.has('anio') || urlParams.has('categoria')) {
+                // Realiza el desplazamiento suave hacia la sección de productos
+                const productosSection = document.getElementById('productos');
+                if (productosSection) {
+                    productosSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
+

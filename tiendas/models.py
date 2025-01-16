@@ -300,7 +300,7 @@ class Producto(models.Model):
         unique_together = ('tienda', 'nombre')
         ordering = ['nombre']
 
-class Carrito(models.Model):
+class CarritoSimple(models.Model):
     """
     Modelo de Carrito por usuario y tienda
     Mantiene estado persistente entre sesiones
@@ -323,7 +323,7 @@ class ItemCarrito(models.Model):
     """
     Productos dentro del carrito con control de cantidad, modelado objetos, o bien las listas por tienda
     """
-    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE, related_name='items')
+    carrito = models.ForeignKey(CarritoSimple, on_delete=models.CASCADE, related_name='items')
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(default=1)
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)

@@ -2,74 +2,29 @@
 {% load widget_tweaks %}
 {% block content %}
 <head>
-  <style media="screen">
-    input[type=text], select,input[type=number] , textarea{
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-
-  input[type=submit] {
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  input[type=submit]:hover {
-    background-color: #45a049;
-  }
-
-
-  </style>
-
-
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-
-<br><br><br><br><br>
-<h3 style="text-align:center;">Editar consulta</h3>
-
-
+<br><br>
 <div>
-  <form method="post" style="margin-left:200px;margin-right:200px;">
-      {% csrf_token %}
+    <form method="post" class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        {% csrf_token %}
+        
+        <div class="mb-6">
+            <label for="status" class="block text-lg font-semibold">Estado del pedido:</label>   
+            {% render_field adminenquiry.status class="form-control mt-2 w-full p-3 border border-gray-300 rounded-lg" %}
+        </div>
     
+        <div class="mb-6">
+            <label for="dinomoDis" class="block text-lg font-semibold">Dinero en caja:</label>
+            {% render_field adminenquiry.dinomoDis class="form-control mt-2 w-full p-3 border border-gray-300 rounded-lg" %}
+        </div>
     
+        <div>
+            <input type="submit" value="Actualizar" class="w-full bg-green-500 text-white py-3 px-4 rounded-lg cursor-pointer hover:bg-green-600">
+        </div>
+    </form>
     
-    <label for="costAbonado">Dinero total dado por el cliente</label>
-    {% render_field adminenquiry.costAbonado value=request_instance.costAbonado class="form-control" %}
-<br><br>
-<br>
-    <label for="status">Con el cliente --- {{ request_instance.status }} </label>   
-    {% render_field adminenquiry.status  class="form-control" %}
-    <br>
-    <br>
-    <label for="estado">Dinero estado: --- {{ request_instance.estado }}  </label>
-    {% render_field adminenquiry.estado value=request_instance.estado class="form-control" %}
-<br>
-<br>
-    <label for="dinomoDis">Estado del repuesto: --- {{ request_instance.dinomoDis }}  </label>
-    {% render_field adminenquiry.dinomoDis value=request_instance.dinomoDis class="form-control" %}
-    
-<br><br>
-
-
-    <input type="submit" value="Actualizar">
-  </form>
 </div>
-
-
-
-
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br>
 {% endblock content %}

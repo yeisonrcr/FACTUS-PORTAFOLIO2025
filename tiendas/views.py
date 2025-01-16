@@ -15,7 +15,7 @@ from django.shortcuts import reverse
 from django.contrib import messages #messager front
 
 #mis archivos
-from .models import Tienda, Producto, Categoria, Carrito, ItemCarrito, Provincia, Canton, Distrito
+from .models import Tienda, Producto, Categoria, CarritoSimple, ItemCarrito, Provincia, Canton, Distrito
 from .forms import TiendaForm, ProductoForm, CarritoForm
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -206,7 +206,7 @@ class ProductoDetailView(DetailView):
                         return redirect('carrito')  # Redirigir al carrito sin agregar más productos
 
                     # Obtener o crear carrito para esta tienda
-                    carrito, created = Carrito.objects.get_or_create(
+                    carrito, created = CarrCarritoSimpleito.objects.get_or_create(
                         usuario=request.user,
                         tienda=producto.tienda
                     )
@@ -367,7 +367,7 @@ class CarritoView(LoginRequiredMixin, View):
         Maneja las solicitudes GET.
         Muestra todos los carritos del usuario autenticado con sus items paginados.
         """
-        carritos = Carrito.objects.filter(usuario=request.user).prefetch_related('items__producto')
+        carritos = CarritoSimple.objects.filter(usuario=request.user).prefetch_related('items__producto')
 
         carritos_paginados = self._serializar_carritos(carritos, request)
         total_precio = 0
@@ -488,11 +488,11 @@ class CarritoView(LoginRequiredMixin, View):
         carrito_id = request.POST.get('carrito_id')
         try:
             # Recuperar el carrito asociado al usuario
-            carrito = Carrito.objects.get(id=carrito_id, usuario=request.user)
+            carrito = CarritoSimple.objects.get(id=carrito_id, usuario=request.user)
             carrito.items.all().delete()  # Eliminar todos los ítems
             carrito.delete()  # Eliminar el carrito
             self.agregar_mensaje(request, 'success', 'Carrito eliminado')
-        except Carrito.DoesNotExist:
+        except CarritoSimple.DoesNotExist:
             self.agregar_mensaje(request, 'error', 'El carrito no existe')
 
         return redirect('carrito')
@@ -512,7 +512,7 @@ class CarritoView(LoginRequiredMixin, View):
             item.delete()  # Eliminar el ítem
 
             # Verificar si el carrito quedó vacío
-            carrito = Carrito.objects.get(id=carrito_id, usuario=request.user)
+            carrito = CarritoSimple.objects.get(id=carrito_id, usuario=request.user)
             if not carrito.items.exists():
                 carrito.delete()  # Eliminar el carrito vacío
                 self.agregar_mensaje(request, 'success', 'El producto fue eliminado y el carrito también, ya que quedó vacío.')
@@ -520,7 +520,7 @@ class CarritoView(LoginRequiredMixin, View):
                 self.agregar_mensaje(request, 'success', 'Producto eliminado del carrito.')
         except ItemCarrito.DoesNotExist:
             self.agregar_mensaje(request, 'error', 'El ítem no existe')
-        except Carrito.DoesNotExist:
+        except CarritoSimple.DoesNotExist:
             self.agregar_mensaje(request, 'error', 'El carrito no existe')
 
         return redirect('carrito')
@@ -565,7 +565,7 @@ class CarritoView(LoginRequiredMixin, View):
                     
                     return redirect('carrito')  # Redirigir a la vista del carrito si está vacío
 
-            except Carrito.DoesNotExist:
+            except CarritoSimple.DoesNotExist:
                 
                 self.agregar_mensaje(request, "error" ,'El carrito no existe o no pertenece al usuario.')
                                      

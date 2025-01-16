@@ -21,7 +21,9 @@ urlpatterns = [
     #urls para la gestion del condominio y guardado de las fotos
     path('condominio/', include('condominio.urls')), #agregamos urls de gestion
     
-    
+    path('repuestos/', include('repuestos.urls')),
+    path('ecoadmin/', include('tiendas.urls')),  # URLs de la aplicación vehicle
+    path('factus/', include('factus.urls')),  # URLs de la aplicación vehicle
     
     
     #urls para la app de oficiales

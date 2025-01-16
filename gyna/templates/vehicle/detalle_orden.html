@@ -1,0 +1,51 @@
+{% extends 'vehicle/adminbase.html' %}
+{% block content %}
+{% load humanize %}
+
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-1 sm:px-2 lg:px-4">
+        <div class="bg-gradient-to-br from-yellow-200 via-green-200 to-blue-200 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200/50">
+            <!-- Encabezado -->
+            <div class="p-4 border-b border-gray-200/40 bg-black/20">
+                <h1 class="text-2xl font-semibold text-gray-800">Factura #00008918900986{{ orden.id }}</h1>
+                <p class="text-sm text-gray-600"><strong>Usuario:</strong> {{ orden.usuario.username }}</p>
+                <p class="text-sm text-gray-600"><strong>Fecha de Compra:</strong> {{ orden.fecha_compra|date:"d-m-Y" }}</p>
+                <p class="text-sm text-gray-600"><strong>Total:</strong> {{ orden.total|floatformat:0|intcomma }} Colones.</p>
+            </div>
+
+            <!-- Contenido de la Orden -->
+            <div class="p-4 space-y-4">
+                <h2 class="text-lg font-medium text-gray-800">Productos seleccionados</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cantidad</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Repuesto</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio Unitario</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            {% for item in items_orden %}
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ item.cantidad }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ item.repuesto.nombre }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ item.precio_unitario|floatformat:0|intcomma }} Colones.</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ item.subtotal|floatformat:0|intcomma }} Colones.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Acciones -->
+            <div class="p-4 bg-gray-50/80 border-t border-gray-200/50 flex justify-end">
+                <a href="{% url 'mostrar_ordenes_tienda' %}" class="px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white text-sm rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-sm hover:shadow">Volver a la lista de órdenes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,97 @@
+{% extends "repuestos/base.html" %}
+{% load humanize %}
+{% block content %}
+
+<!-- Encabezado y filtros -->
+<div class="container mx-auto px-4 py-8">
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-black mb-6">Productos en super ofertas</h2>
+    
+    <!-- Filtros y ordenamiento -->
+    <div class="mb-6 bg-white p-4 rounded-lg shadow-sm">
+        <form class="flex flex-col md:flex-row gap-4 items-center justify-between" method="get">
+            <div class="w-full md:w-1/3">
+                <input type="text"
+                    name="q"
+                    value="{{ query }}"
+                    placeholder="Buscar en ofertas..."
+                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            </div>
+            
+            <div class="flex flex-wrap gap-4 items-center w-full md:w-auto">
+                <select name="orden"
+                    class="w-full md:w-auto rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <option value="">Ordenar por</option>
+                    <option value="precio_bajo" {% if orden == 'precio_bajo' %}selected{% endif %}>Menor precio</option>
+                    <option value="precio_alto" {% if orden == 'precio_alto' %}selected{% endif %}>Mayor precio</option>
+                    <option value="nuevos" {% if orden == 'nuevos' %}selected{% endif %}>Más nuevos</option>
+                    <option value="calificacion" {% if orden == 'calificacion' %}selected{% endif %}>Mejor calificados</option>
+                </select>
+
+                <select name="descuento"
+                    class="w-full md:w-auto rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <option value="">Filtrar por descuento</option>
+                    <option value="20" {% if descuento == '20' %}selected{% endif %}>20% o más</option>
+                    <option value="30" {% if descuento == '30' %}selected{% endif %}>30% o más</option>
+                    <option value="40" {% if descuento == '40' %}selected{% endif %}>40% o más</option>
+                </select>
+
+                <button type="submit"
+                    class="w-full md:w-auto bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors duration-300">
+                    Aplicar filtros
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Grid de productos -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        {% for repuesto in especiales %}
+        <div class="bg-white rounded-xl shadow-lg transition-transform hover:scale-105 duration-300 flex flex-col h-full">
+            <div class="relative">
+                {% if repuesto.imagen_principal %}
+                <img src="{{ repuesto.imagen_principal.imagen.url }}"
+                    class="w-full h-48 object-cover rounded-t-xl"
+                    alt="{{ repuesto.nombre }}">
+                {% endif %}
+                <div class="absolute top-2 right-2">
+                    <span class="bg-rose-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                        -{{ repuesto.porcentaje_descuento|floatformat:0 }}%
+                    </span>
+                </div>
+            </div>
+            
+            <div class="p-4 flex flex-col flex-grow">
+                <h3 class="text-lg font-bold text-gray-900 mb-2 text-center break-words line-clamp-2">
+                    {{ repuesto.nombre }}
+                </h3>
+                <p class="text-center text-gray-600 text-sm mb-4 line-clamp-2">
+                    {{ repuesto.descripcion }}
+                </p>
+                
+                <div class="flex items-center justify-between mb-4 mt-auto">
+                    <div class="flex flex-col">
+                        <span class="text-gray-400 text-sm line-through">
+                            ₡{{ repuesto.precio|floatformat:0|intcomma }}
+                        </span>
+                        <span class="text-green-600 text-lg font-bold">
+                            ₡{{ repuesto.precio_especial|floatformat:0|intcomma }}
+                        </span>
+                    </div>
+                    <div class="flex items-center bg-yellow-50 px-2 py-1 rounded-lg">
+                        <span class="text-yellow-400 mr-1">★</span>
+                        <span class="text-gray-700 font-semibold text-sm">
+                            {{ repuesto.promedio_calificacion|floatformat:1 }}
+                        </span>
+                    </div>
+                </div>
+                
+                <a href="{% url 'detalle_repuesto' repuesto.pk %}"
+                    class="block w-full bg-blue-600 text-white text-center py-2 px-4 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors duration-300 transform hover:scale-[1.02]">
+                    Ver producto
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

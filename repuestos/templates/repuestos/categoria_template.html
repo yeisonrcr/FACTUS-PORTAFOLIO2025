@@ -1,0 +1,122 @@
+{% extends 'repuestos/base.html' %}
+{% load humanize %}
+{% block content %}
+
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Encabezado de categoría -->
+    <div class="mb-8 text-center lg:text-left">
+        <h1 class="text-3xl font-bold text-gray-900">{{ categoria.nombre }}</h1>
+        {% if categoria.descripcion %}
+        <p class="mt-2 text-gray-600">{{ categoria.descripcion }}</p>
+        {% endif %}
+        <p class="mt-2 text-sm text-gray-500">{{ total_productos }} productos encontrados</p>
+    </div>
+
+    <!-- Filtros y ordenamiento -->
+    <div class="mb-6 flex flex-wrap gap-4 items-center justify-between">
+        <form class="flex gap-4 items-center w-full lg:w-auto" method="get">
+            <div class="w-full lg:max-w-xs">
+                <input type="text" 
+                       name="q" 
+                       value="{{ query }}"
+                       placeholder="Buscar en esta categoría" 
+                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            </div>
+            <select name="orden" 
+                    class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                <option value="">Ordenar por</option>
+                <option value="precio_bajo" {% if orden == 'precio_bajo' %}selected{% endif %}>Menor precio</option>
+                <option value="precio_alto" {% if orden == 'precio_alto' %}selected{% endif %}>Mayor precio</option>
+                <option value="nuevos" {% if orden == 'nuevos' %}selected{% endif %}>Más nuevos</option>
+            </select>
+            <button type="submit" 
+                    class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                Aplicar
+            </button>
+        </form>
+    </div>
+
+    <!-- Grid de productos -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for repuesto in page_obj %}
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-lg transition duration-300">
+            
+            
+            {% if repuesto.imagen_principal %}
+            <img src="{{ repuesto.imagen_principal.imagen.url }}" 
+                class="rounded-lg  w-full h-40 object-cover hover:scale-125 transition-transform duration-300"
+                alt="{{ repuesto.nombre }}">
+            {% endif %}
+
+            <div class="p-4">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                    <a href="{% url 'detalle_repuesto' repuesto.pk %}">
+                    {{ repuesto.nombre }}
+                    </a>
+                    
+                    </h3>
+                <p class="text-sm text-gray-600 mb-4 line-clamp-2">{{ repuesto.descripcion }}</p>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-lg font-bold text-green-600">₡{{ repuesto.precio|floatformat:0|intcomma }} IVA incl.</span>
+                    <a href="{% url 'detalle_repuesto' repuesto.pk %}" 
+                    class="text-blue-600 hover:text-blue-800 font-medium">
+                        Ver detalles
+                    </a>
+                </div>
+                <form method="post" action="{% url 'agregar_al_carrito' repuesto.pk %}">
+                    {% csrf_token %}
+                    <div class="flex items-center">
+                        <input type="number" name="cantidad" min="1" value="1" class="w-16 text-center border border-gray-300 rounded-md mr-2">
+                        <button type="submit" class="bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700 transition duration-200">
+                            Añadir al carrito
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-12 text-gray-500">
+            No se encontraron productos en esta categoría
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Paginación -->
+    {% if page_obj.paginator.num_pages > 1 %}
+    <div class="mt-8 flex justify-center">
+        <nav class="inline-flex rounded-md shadow-sm">
+            {% if page_obj.has_previous %}
+            <a href="?page=1{% if query %}&q={{ query }}{% endif %}{% if orden %}&orden={{ orden }}{% endif %}" 
+               class="px-3 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-500 hover:bg-gray-50 rounded-l-md">
+                «
+            </a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if num == page_obj.number %}
+                <span class="px-3 py-2 bg-blue-600 text-white border border-blue-600 text-sm font-medium">
+                    {{ num }}
+                </span>
+                {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                <a href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}{% if orden %}&orden={{ orden }}{% endif %}" 
+                   class="px-3 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    {{ num }}
+                </a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}{% if orden %}&orden={{ orden }}{% endif %}" 
+               class="px-3 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-500 hover:bg-gray-50 rounded-r-md">
+                »
+            </a>
+            {% endif %}
+        </nav>
+    </div>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

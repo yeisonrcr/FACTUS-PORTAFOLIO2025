@@ -1,0 +1,307 @@
+{% extends 'vehicle/adminbase.html' %}
+{% block content %}
+{% load humanize %}
+
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-1 sm:px-2 lg:px-4">
+        <!-- Encabezado de página -->
+        
+        <!-- Grid de cards -->
+         <!-- Grid de cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {% for r in page_obj %}
+                <div class="bg-gradient-to-br from-yellow-200 via-green-200 to-blue-200 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200/50 flex flex-col" style="min-height: 100%;">
+                    <!-- Card Header -->
+                    <div class="p-4 border-b border-gray-200/40 bg-black/20">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-gray-800">{{ r.date|date:"d-m-Y" }}</p>
+                                <h3 class="text-lg font-semibold text-gray-800">
+                                    {% if r.vehicle_cliente %} 
+                                        {{ r.vehicle_cliente }}   
+
+                                        {% if r.vehicle_name %}-{{ r.vehicle_name }}
+                                            
+                                            {% endif %}     
+                                        {% if r.vehicle_model %}-{{ r.vehicle_model }}
+                                        
+                                            {% endif %}     
+                                        {% if r.vehicle_brand %}-{{ r.vehicle_brand }}
+
+                                            {% endif %}     
+
+                                    {% else %}
+                                        No especificado
+                                    {% endif %}
+                                </h3>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-sm font-medium
+                                {% if r.dinomoDis == 'Completado' %}bg-green-100 text-green-800
+                                {% elif r.dinomoDis == 'Pendiente' %}bg-yellow-100 text-yellow-800
+                                {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                {{ r.dinomoDis }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Card Content -->
+                    <div class="p-4 space-y-4 flex-grow">
+                        <!-- Two columns grid for information -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm font-medium text-gray-800">WhatsApp</p>
+                                <p class="text-gray-600">{{ r.vehicle_mobile }}</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-800">VIN</p>
+                                <p class="text-gray-600">{{ r.vehicle_no|default:"No especificado" }}</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-800">Distribuidora</p>
+                                <p class="text-gray-600">{{ r.distribuidorax|default:"No especificada" }}</p>
+                            </div>
+
+                            <div>
+                                <p class="text-sm font-medium text-gray-800">Dinero dado por el cliente</p>
+                                <p class="text-gray-600">{{ r.costAbonado|floatformat:0|intcomma }}</p>
+                            </div>
+
+
+                          
+                            
+                            
+                            <div>
+                                <p class="text-sm font-medium text-gray-800">Monto total </p>
+                                <p class="text-gray-600">{{ r.costotal|floatformat:0|intcomma }}</p>
+                            </div>
+                            
+                            <div>
+                                  
+                                {% if r.status %}
+                                    <p class="text-sm font-medium text-gray-800">Estado del pedido</p>
+                                    <p class="text-gray-600">{{ r.status }}</p>
+                                {% endif %}
+                                
+                            </div>
+
+                        </div>
+
+                        <!-- Full width for description -->
+                        <div class="break-words">
+                            <p class="text-sm font-medium text-gray-800">Solicitud del cliente</p>
+                            <p class="text-gray-600 mt-1 whitespace-normal">{{ r.problem_description }}</p>
+                        </div>                       
+                    </div>
+
+                    <!-- Card Actions -->
+                    <div class="p-4 bg-gray-50/80 border-t border-gray-200/50 flex justify-end space-x-3">
+                        <a href="{% url 'change-status-tres' r.id %}" 
+                        class="px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white text-sm rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-sm hover:shadow">
+                            Editar Estados
+                        </a>
+                        <a href="{% url 'edit-request' r.id %}"
+                        class="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-sm hover:shadow">
+                            Editar Consulta
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-span-full text-center py-8 text-gray-500">
+                    No hay consultas disponibles.
+                </div>
+            {% endfor %}
+        </div>
+
+
+
+
+
+
+        
+
+        <!-- Paginación mejorada -->
+        {% if page_obj.paginator.num_pages > 1 %}
+        <nav class="border-t border-gray-200 px-4 py-4 flex items-center justify-between sm:px-0">
+            <div class="hidden md:-mt-px md:flex">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                        <svg class="mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414zm-6 0a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L5.414 10l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                        </svg>
+                        Primera
+                    </a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="ml-3 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                        <svg class="mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Anterior
+                    </a>
+                {% endif %}
+
+                <span class="mx-4 inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 border border-blue-300 rounded-md">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="ml-3 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                        Siguiente
+                        <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="ml-3 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                        Última
+                        <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 6.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0zm6 0a1 1 0 010-1.414L14.586 10l-4.293-3.293a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                {% endif %}
+            </div>
+
+            <!-- Versión móvil de la paginación -->
+            <div class="flex md:hidden w-full justify-between">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md">
+                        Anterior
+                    </a>
+                {% endif %}
+                
+                <span class="text-sm text-gray-700">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md">
+                        Siguiente
+                    </a>
+                {% endif %}
+            </div>
+        </nav>
+        {% endif %}
+
+
+        <div class="flex flex-col p-2">
+            <div class="overflow-x-auto">
+                <div class="inline-block min-w-full py-0 align-middle">
+                    <div class="overflow-hidden shadow-lg rounded-lg border border-gray-200">
+                        <div class="overflow-x-auto">
+                            
+                    <table class="w-full border-collapse divide-y divide-gray-300 border border-gray-300">
+                        <thead class="bg-gradient-to-r from-yellow-200 via-green-200 to-blue-200">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Fecha</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Solicitado en</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Cliente</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">WhatsApp</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Vehículo</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">VIN</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Solicitud</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Distribuidora</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Dinero abonado</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Monto total </th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Estado del pedido</th
+                                    >
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Estado del monto</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Cambiar estados</th>
+                                <th class="px-4 py-3 text-left text-gray-700 bg-yellow-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">Editar consulta</th>
+                            </tr>
+                        </thead>
+
+                        
+
+
+                        
+                        
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            
+                            {% for r in page_obj %}
+                                <tr class="hover:bg-green-50 transition duration-200">
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.date|date:"d-m-Y" }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {% if r.tipo is None %}&nbsp;{% else %}{{ r.tipo }}{% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {% if r.vehicle_cliente is None %}&nbsp;{% else %}{{ r.vehicle_cliente }}{% endif %}
+                                    </td>
+
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.vehicle_mobile }}
+                                    </td>
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.dineroCompletoss }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {% if r.vehicle_no is None %}&nbsp;{% else %}{{ r.vehicle_no }}{% endif %}
+                                    </td>
+
+
+                                    
+
+
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 max-w-xs truncate hover:whitespace-normal hover:overflow-visible hover:bg-yellow-100 break-words">
+                                        {% if r.problem_description is None %}&nbsp;{% else %}{{ r.problem_description }}{% endif %}
+                                    </td>
+
+                                    
+
+
+
+
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {% if r.distribuidorax is None %}&nbsp;{% else %}{{ r.distribuidorax }}{% endif %}
+                                    </td>
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.costAbonado }}
+                                    </td>
+
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.costotal |floatformat:0|intcomma}}
+                                    </td>
+
+
+
+
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.status }}
+                                    </td>
+                                    
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left truncate whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {{ r.dinomoDis }}
+                                    </td>
+
+
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left">
+                                        <a class="text-blue-600 hover:underline" href="{% url 'change-status-tres' r.id %}">✎</a>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 border border-gray-300 text-left">
+                                        <a class="text-blue-600 hover:underline" href="{% url 'edit-request' r.id %}">✎</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="14" class="px-6 py-4 text-center text-gray-500 border border-gray-300">No hay consultas disponibles.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                        
+                    </table>
+                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+    </div>
+</div>
+
+{% endblock content %}

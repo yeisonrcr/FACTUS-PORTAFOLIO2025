@@ -1,5 +1,6 @@
 {% extends 'vehicle/adminbase.html' %}
 {% block content %}
+{% load humanize %}
 
 <!-- main content -->
 <div class="wrapper">
@@ -20,7 +21,7 @@
                             <tr>
                             
                                 <th>Fecha</th>
-                                <th>VIA-e</th>
+                                <th>Solicitado en</th>
                                 <th>Cliente</th>
                                 <th>WhatsApp</th>
                                 <th>VIN</th>
@@ -88,7 +89,7 @@
                                     
 
                                     <td style="white-space: nowrap;">{{ r.status }}</td>
-                                    <td>{{ r.estado }}</td>
+                                    <td>{{ r.dinomoDis }}</td>
                                     <td>{{ r.dinomoDis }}</td>
                                     
                                     

@@ -1,0 +1,135 @@
+{% extends 'vehicle/adminbase.html' %}
+{% block content %}
+{% load humanize %}
+    <div class="min-h-screen p-3 flex items-center justify-center">
+        <div class="w-full max-w-5xl bg-white rounded-lg shadow-md p-3">
+            <h2 class="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-transparent bg-clip-text">
+                Editar consulta
+            </h2>
+            
+            
+            
+            <form method="post" class="space-y-8">
+                {% csrf_token %}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Tipo -->
+                    <div class="col-span-1 relative group">
+                        <label for="{{ form.tipo.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2 group-hover:text-yellow-600 transition-colors">
+                            Solicitado en
+                        </label>
+                        <div class="relative">
+                            {{ form.tipo }}
+                        </div>
+                    </div>
+
+                    <!-- Número de Vehículo -->
+                    <div class="col-span-1 relative group">
+                        <label for="{{ form.vehicle_no.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2 group-hover:text-yellow-600 transition-colors">
+                            VIN de Vehículo
+                        </label>
+                        <div class="relative">
+                            {{ form.vehicle_no }}
+                        </div>
+                    </div>
+
+                    <!-- Teléfono -->
+                    <div class="col-span-1 relative group">
+                        <label for="{{ form.vehicle_mobile.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2 group-hover:text-yellow-600 transition-colors">
+                            Teléfono
+                        </label>
+                        <div class="relative">
+                            {{ form.vehicle_mobile }}
+                        </div>
+                    </div>
+
+                    <!-- Cliente -->
+                    <div class="col-span-1 relative group">
+                        <label for="{{ form.vehicle_cliente.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2 group-hover:text-yellow-600 transition-colors">
+                            Cliente
+                        </label>
+                        <div class="relative">
+                            {{ form.vehicle_cliente }}
+                        </div>
+                    </div>
+
+                    <!-- Nombre del Vehículo -->
+                    <div class="col-span-1 relative group">
+                        <label for="{{ form.vehicle_name.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2 group-hover:text-yellow-600 transition-colors">
+                            Marca del Vehículo
+                        </label>
+                        <div class="relative">
+                            {{ form.vehicle_name }}
+                        </div>
+                    </div>
+
+                    <!-- Modelo -->
+                    <div class="col-span-1 relative group">
+                        <label for="{{ form.vehicle_model.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2 group-hover:text-yellow-600 transition-colors">
+                            Modelo
+                        </label>
+                        <div class="relative">
+                            {{ form.vehicle_model }}
+                        </div>
+                    </div>
+
+                    <!-- Marca -->
+                    <div class="col-span-1 relative group">
+                        <label for="{{ form.vehicle_brand.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2 group-hover:text-yellow-600 transition-colors">
+                            Años
+                        </label>
+                        <div class="relative">
+                            {{ form.vehicle_brand }}
+                        </div>
+                    </div>
+
+                    <!-- Distribuidora -->
+                    <div class="col-span-1 relative group">
+                        <label for="{{ form.distribuidorax.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2 group-hover:text-yellow-600 transition-colors">
+                            Donde se cotizó
+                        </label>
+                        <div class="relative">
+                            {{ form.distribuidorax }}
+                        </div>
+                    </div>
+
+                    <!-- Costo Abonado -->
+                    <div class="col-span-1 relative group">
+                        <label for="{{ form.costAbonado.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2 group-hover:text-yellow-600 transition-colors">
+                            Dinero dado por el cliente
+                        </label>
+                        <div class="relative">
+                            {{ form.costAbonado }}
+                        </div>
+                    </div>
+
+                    <div class="col-span-1 relative group">
+                        <label for="{{ form.costotal.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2 group-hover:text-yellow-600 transition-colors">
+                            Costo total del pedido
+                        </label>
+                        <div class="relative">
+                            {{ form.costotal }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Descripción del Problema -->
+                <div class="col-span-full relative group mt-6">
+                    <label for="{{ form.problem_description.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2 group-hover:text-yellow-600 transition-colors">
+                        Descripción del consulta
+                    </label>
+                    <div class="relative">
+                        {{ form.problem_description }}
+                    </div>
+                </div>
+
+                <!-- Botón Submit -->
+                <div class="flex justify-end mt-8">
+                    <button type="submit" class="px-8 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

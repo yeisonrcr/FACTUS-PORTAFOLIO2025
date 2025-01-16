@@ -123,10 +123,11 @@ DJANGO_APPS=[
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize'
 ]
 
 MIS_APPS = [
-    'portafolio','accounts', 'condominio',  'oficiales', 'gyna', 'tiendas', 'widget_tweaks', 'blog', 
+    'portafolio','accounts', 'condominio',  'oficiales', 'gyna', 'tiendas', 'widget_tweaks', 'blog', 'factus', 'repuestos', 
     ]
 
 INSTALLED_APPS = DJANGO_APPS + MIS_APPS 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tienda, Producto, Categoria, Carrito, ItemCarrito, Provincia, Canton,Distrito
+from .models import Tienda, Producto, Categoria, CarritoSimple, ItemCarrito, Provincia, Canton,Distrito
 
 @admin.register(Provincia)
 class ProvinciaAdmin(admin.ModelAdmin):
@@ -36,7 +36,7 @@ class ProductoAdmin(admin.ModelAdmin):
     list_filter = ('tienda', 'categoria')
     search_fields = ('nombre', 'detalles', 'tienda__nombre')
 
-@admin.register(Carrito)
+@admin.register(CarritoSimple)
 class CarritoAdmin(admin.ModelAdmin):
     list_display = ('usuario', 'tienda')
     list_filter = ('tienda',)

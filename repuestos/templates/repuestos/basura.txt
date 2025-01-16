@@ -1,0 +1,4 @@
+
+                    <span class="text-xs text-gray-500">
+                        ({{ categoria.repuestos_categoria.count }} productos)
+                    </span>

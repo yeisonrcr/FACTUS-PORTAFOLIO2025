@@ -12,33 +12,30 @@
       background-size: cover;
       background-repeat: no-repeat;
     }
-
     .jumbotron h1 {
       text-align: center;
     }
   </style>
 
-  <link rel="shortcut icon"   href="{% static "img/tab-icon.png" %}" type="image/x-icon">
+  <link rel="shortcut icon" href="{% static "img/tab-icon.png" %}" type="image/x-icon">
 </head>
 
 <body>
   
-  {% include "vehicle/navbar.html" %}
   <br>
   {% include "vehicle/customer_mechanic_cards.html" %}
-<br>
-
+  <br><br><br><br><br>
+  <!-- Marquee with logos -->
   <marquee behavior="scroll" direction="left">
-   <img src="{% static "images/ferrari.png" %}" width="120" height="80" alt="ferrari" />
+    <img src="{% static "images/ferrari.png" %}" width="120" height="80" alt="ferrari" />
     <img src="{% static "images/ford.png" %}" width="120" height="80" alt="ford" />
-   <img src="{% static "images/mahindra.png" %}" width="120" height="80" alt="mahindra" />
-   <img src="{% static "images/tvs.png" %}" width="120" height="80" alt="tvs" />
-   <img src="{% static "images/tata.png" %}" width="120" height="80" alt="tata" />
-   <img src="{% static "images/hero.png" %}" width="120" height="80" alt="hero" />
-   <img src="{% static "images/suzuki.png" %}" width="120" height="80" alt="suzuki" />
- </marquee>
-<br>
-  {% include "vehicle/footer.html" %}
+    <img src="{% static "images/mahindra.png" %}" width="120" height="80" alt="mahindra" />
+    <img src="{% static "images/tvs.png" %}" width="120" height="80" alt="tvs" />
+    <img src="{% static "images/tata.png" %}" width="120" height="80" alt="tata" />
+    <img src="{% static "images/hero.png" %}" width="120" height="80" alt="hero" />
+    <img src="{% static "images/suzuki.png" %}" width="120" height="80" alt="suzuki" />
+  </marquee>
+  <br>
 </body>
 
 </html>
