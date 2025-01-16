@@ -287,10 +287,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(SECOND_DIR,'static' ),
     os.path.join(SECOND_DIR, 'portafolio','static' ),    
+    os.path.join(SECOND_DIR, 'repuestos','static' ),     
 ]
-
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 
 

@@ -220,28 +220,10 @@ def agregar_modelos_anios():
     {"modelo_nombre": "Jetta", "marca_nombre": "Volkswagen", "anios": [2015, 2016, 2017]}
 ]
     
-    modes = [
-    {"modelo_nombre": "Exeo", "marca_nombre": "Seat", "anios": [2013, 2014, 2015]},
-    {"modelo_nombre": "Enyaq", "marca_nombre": "Skoda", "anios": [2021, 2022, 2023]},
-    {"modelo_nombre": "Mokka", "marca_nombre": "Opel", "anios": [2018, 2019, 2020]},
-    {"modelo_nombre": "Sonett", "marca_nombre": "Saab", "anios": [2008, 2009, 2010]},
-    {"modelo_nombre": "C-Elysée", "marca_nombre": "Citroën", "anios": [2015, 2016, 2017]},
-    {"modelo_nombre": "Gran Move", "marca_nombre": "Daihatsu", "anios": [2005, 2006, 2007]},
-    {"modelo_nombre": "Axiom", "marca_nombre": "Isuzu", "anios": [2001, 2002, 2003]},
-    {"modelo_nombre": "G8", "marca_nombre": "Pontiac", "anios": [2008, 2009, 2010]},
-    {"modelo_nombre": "L-Series", "marca_nombre": "Saturn", "anios": [2001, 2002, 2003]},
-    {"modelo_nombre": "EV Hummer", "marca_nombre": "Hummer", "anios": [2021, 2022, 2023]},
-    {"modelo_nombre": "SD1", "marca_nombre": "Rover", "anios": [1980, 1981, 1982]},
-    {"modelo_nombre": "MG Hector", "marca_nombre": "MG", "anios": [2018, 2019, 2020]},
-    {"modelo_nombre": "X7", "marca_nombre": "Geely", "anios": [2017, 2018, 2019]},
-    {"modelo_nombre": "Arrizo GX", "marca_nombre": "Chery", "anios": [2018, 2019, 2020]},
-    {"modelo_nombre": "Poer", "marca_nombre": "Great Wall", "anios": [2020, 2021, 2022]}
-]
+    
 
 
-
-
-    for item in modes:
+    for item in mode:
         # Obtener el modelo correspondiente
         try:
             modelo = Modelo.objects.get(nombre=item["modelo_nombre"], marca__nombre=item["marca_nombre"])
