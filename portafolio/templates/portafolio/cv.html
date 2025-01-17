@@ -44,7 +44,7 @@
                                 <a href="{% url 'condominio_home' %}"><button class="mibtn">Condominios</button></a>
                                 <a href="{% url 'todo_oficial' %}"><button class="mibtn">Oficiales</button></a>
                                 <a href="{% url 'tienda_list' %}"><button class="mibtn">Ecommerce</button></a>
-                                <a href="{% url 'gyna' %}"><button class="mibtn">Auto-control de Repuestos</button></a>
+                                <a href="{% url 'casa-admin' %}"><button class="mibtn">Auto-control de Repuestos</button></a>
 
                                 <a href="{% url 'lista_repuestos' %}"><button class="mibtn">Tienda virtual - Facturación electronica DIAM</button></a>
 
@@ -75,7 +75,20 @@
 
                     <!--Falta de arreglar-->
 
-
+                    
+                    
+                    <!-- Proyecto: GE-Condominios -->
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-location mb-30">
+                            <div class="location-img">
+                                <img src="{% static 'cv/img/gallery/lista_repuestos.png' %}" alt="">
+                            </div>
+                            <div class="location-details">
+                                <p>Facturación DIAM Colombia</p>
+                                <a href="{% url 'lista_repuestos' %}" class="location-btn">Vista previa</a>
+                            </div>
+                        </div>
+                    </div>
                     
                     <!-- Proyecto: GE-Condominios -->
                     <div class="col-lg-4 col-md-6 col-sm-6">
@@ -84,7 +97,7 @@
                                 <img src="{% static 'cv/img/gallery/location1.png' %}" alt="">
                             </div>
                             <div class="location-details">
-                                <p>App Condominios</p>
+                                <p>Condominio Boulevard Agustin</p>
                                 <a href="{% url 'condominio_home' %}" class="location-btn">Vista previa</a>
                             </div>
                         </div>
@@ -97,7 +110,7 @@
                                 <img src="{% static 'cv/img/gallery/location3.png' %}" alt="">
                             </div>
                             <div class="location-details">
-                                <p>Oficiales de Seguridad</p>
+                                <p>Seguridad Arcadia</p>
                                 <a href="{% url 'todo_oficial' %}" class="location-btn">Vista previa</a>
                             </div>
                         </div>
@@ -124,7 +137,7 @@
                             </div>
                             <div class="location-details">
                                 <p>Control de Consultas</p>
-                                <a href="{% url 'gyna' %}" class="location-btn">Vista previa</a>
+                                <a href="{% url 'casa-admin' %}" class="location-btn">Vista previa</a>
                             </div>
                         </div>
                     </div>
@@ -135,7 +148,7 @@
                                 <img src="{% static 'cv/img/gallery/location14.png' %}" alt="">
                             </div>
                             <div class="location-details">
-                                <p>Información de cursos</p>
+                                <p>Información</p>
                                 <a href="{% url 'blog' %}" class="location-btn">Vista previa</a>
                             </div>
                         </div>
@@ -205,7 +218,7 @@
                             <div>
                                 <div class="hero__caption">
                                     <br>
-                                    <a href="https://wa.me/50670907086" class="btn">SOLICITAR INFORMACIÓN</a><br><br>
+                                    <a href="https://wa.me/50670907086" class="btn">Contactar a Whatsapp</a><br><br>
                                 </div>
                                 <br><br><br>
                             </div>
@@ -269,7 +282,7 @@
                                         </li>
                                         <li>
                                             <!-- Elemento de la lista -->
-                                            <a href="{% url 'gyna' %}">Consultas y búsquedas</a>
+                                            <a href="{% url 'casa-admin' %}">Consultas y búsquedas</a>
                                             <!-- Enlace a la URL 'gyna' con el texto "Consultas y búsquedas" -->
                                         </li>
                                         <li>

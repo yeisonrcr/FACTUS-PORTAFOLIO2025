@@ -1,3 +1,9 @@
 proyecto flask sqlalchemy con postgresql
     https://flask-alchemy-contacts.onrender.com/
 
+
+    client_id='',
+            client_secret='',
+            base_url=''
+        )
+

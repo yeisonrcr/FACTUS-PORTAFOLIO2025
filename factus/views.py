@@ -1,3 +1,9 @@
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.exceptions import APIException
+from .factus_client import FactusClient
+
 from django.shortcuts import render, redirect
 from .models import Item
 from .forms import FacturaForm, BillingPeriodForm, CustomerForm
@@ -69,3 +75,23 @@ def create_factura(request):
         'cart_items': cart_items,
         'user': user
     })  # Renderizar la plantilla 'create_factura.html' con los formularios y datos necesarios
+
+
+
+
+class ValidarFacturaView(APIView):
+    def __init__(self):
+        self.factus_client = FactusClient(
+            client_id='9de7b800-6270-4567-81e1-2759d6fcb554',
+            client_secret='0qSxXYi87rDwck7Ybn8Taj2tGh1IoH8MHoupnR6O',
+            base_url='https://api-sandbox.factus.com.co'
+        )
+
+    def post(self, request):
+        """Valida una factura enviando los datos a la API de Factus."""
+        payload = request.data
+        try:
+            resultado = self.factus_client.validar_factura(payload)
+            return Response({"status": "success", "data": resultado})
+        except Exception as e:
+            raise APIException(str(e))

@@ -23,7 +23,7 @@
                         <a href="{% url 'condominio_home' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Condominios</a>
                         <a href="{% url 'todo_oficial' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Oficiales</a>
                         <a href="{% url 'tienda_list' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Ecommerce</a>
-                        <a href="{% url 'gyna' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Auto-control de Repuestos</a>
+                        <a href="{% url 'casa-admin' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Auto-control de Repuestos</a>
                         <a href="{% url 'blog' %}" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-orange-400 transition-colors">Blog Código Info</a>
                         
                         {% if user.is_authenticated %}

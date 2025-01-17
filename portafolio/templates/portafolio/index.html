@@ -2,7 +2,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>HOME</title>
+
+        <meta property="og:title" content="Yeison Araya">
+        <meta property="og:description" content="¨Portafolio principal.">
+        <meta property="og:image" content="{% static 'miperfil/images/pic00.jpg' %}">
+        <meta property="og:url" content="yeracostarica.eu.pythonanywhere.com">
+        <meta property="og:type" content="website">
+
+    <title>Yeison Araya</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -93,12 +100,18 @@
                 <a href="{% url 'condominio_home' %}" class="bg-gradient-to-r from-blue-200 to-purple-200 text-gray-800 px-6 py-2 rounded-lg shadow transition duration-300 hover:bg-gradient-to-r hover:from-yellow hover:to-pink-600">
                     Condominios
                 </a>
+                <a href="{% url 'lista_facturas' %}" class="bg-gradient-to-r from-blue-200 to-purple-200 text-gray-800 px-6 py-2 rounded-lg shadow transition duration-300 hover:bg-gradient-to-r hover:from-yellow hover:to-pink-600">
+                    Facturas electronicas
+                </a>
+
+
+
 
                 <a href="{% url 'tienda_list' %}" class="bg-gradient-to-r from-blue-200 to-purple-200 text-gray-800 px-6 py-2 rounded-lg shadow transition duration-300 hover:bg-gradient-to-r hover:from-blue-300 hover:bg-teal-200">
                     Compras online
                 </a>
 
-                <a href="{% url 'gyna' %}" class="bg-gradient-to-r from-blue-200 to-purple-200 text-gray-800 px-6 py-2 rounded-lg shadow transition duration-300 hover:from-yellow-300 hover:from-blue-300 hover:to-cyan-200">
+                <a href="{% url 'casa-admin' %}" class="bg-gradient-to-r from-blue-200 to-purple-200 text-gray-800 px-6 py-2 rounded-lg shadow transition duration-300 hover:from-yellow-300 hover:from-blue-300 hover:to-cyan-200">
                     Herramientas
                 </a>
 

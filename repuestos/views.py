@@ -407,7 +407,7 @@ def procesar_pago(request):
                 
                 # Mostramos un mensaje de éxito y redirigimos a la lista de repuestos
                 messages.success(request, 'Pago procesado exitosamente')
-                return redirect('gyna')
+                return redirect('casa-admin')
         
         except Exception as e:
             # Manejo de errores
