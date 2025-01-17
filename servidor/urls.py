@@ -26,6 +26,16 @@ urlpatterns = [
     path('factus/', include('factus.urls')),  # URLs de la aplicación vehicle
     
     
+    
+    
+    
+    path('facturasapi/', include('facturasapi.urls')),  # URLs de la aplicación vehicle
+    
+    
+    
+    
+    
+    
     #urls para la app de oficiales
     path('oficiales/', include('oficiales.urls')), #agregamos urls de oficiales app
     

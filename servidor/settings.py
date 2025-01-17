@@ -127,8 +127,19 @@ DJANGO_APPS=[
 ]
 
 MIS_APPS = [
-    'portafolio','accounts', 'condominio',  'oficiales', 'gyna', 'tiendas', 'widget_tweaks', 'blog', 'factus', 'repuestos', 
+    'portafolio','accounts', 'condominio',  'oficiales', 'gyna', 'tiendas', 'widget_tweaks', 'blog', 'repuestos','rest_framework', 'factus', 
+    'facturasapi',
     ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+}
+
+
 
 INSTALLED_APPS = DJANGO_APPS + MIS_APPS 
 #+ MIS_CORS
@@ -331,3 +342,34 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
+
+
+# Factus API Settings
+FACTUS_API_URL = 'https://api-sandbox.factus.com.co'
+FACTUS_CLIENT_ID = '9de7b800-6270-4567-81e1-2759d6fcb554'
+FACTUS_CLIENT_SECRET = '0qSxXYi87rDwck7Ybn8Taj2tGh1IoH8MHoupnR6O'
+
+FACTUS_EMAIL = 'sandbox@factus.com.co'  # El email proporcionado
+FACTUS_PASSWORD = 'sandbox2024%'  # La contraseña proporcionada
+
+
+# Logging configuration para mejor debugging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'factus.log',
+        },
+    },
+    'loggers': {
+        'facturasapi': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+    },
+}

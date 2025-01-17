@@ -102,7 +102,7 @@
                                 </svg>
                             </button>
                         </form>
-                        <form method="POST" action="#">
+                        <form method="POST" action="{% url 'create_factura' %}">
                             {% csrf_token %}
                             <button type="submit" 
                                     class="px-6 py-3 bg-yellow-100 text-nav-classic rounded-lg hover:bg-auto-yellow-dark transition-all duration-200 hover:shadow-md flex items-center gap-2">

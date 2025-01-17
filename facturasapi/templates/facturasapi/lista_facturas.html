@@ -1,0 +1,51 @@
+{% extends 'facturasapi/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Lista de Facturas</h5>
+        <a href="{% url 'crear_factura' %}" class="btn btn-primary">Nueva Factura</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Cliente</th>
+                    <th>Fecha</th>
+                    <th>Valor Total</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for factura in facturas %}
+                <tr>
+                    <td>{{ factura.numero_factura }}</td>
+                    <td>{{ factura.cliente.razon_social }}</td>
+                    <td>{{ factura.fecha_emision|date:"Y-m-d H:i" }}</td>
+                    <td>${{ factura.valor_total|floatformat:2 }}</td>
+                    <td>
+                        <span class="badge {% if factura.estado == 'VALIDADA' %}bg-success{% elif factura.estado == 'ERROR' %}bg-danger{% else %}bg-warning{% endif %}">
+                            {{ factura.estado }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if factura.estado == 'CREADA' %}
+                        <form method="post" action="{% url 'validar_factura' factura.id %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-success">Validar</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No hay facturas registradas.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
