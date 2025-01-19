@@ -1,0 +1,370 @@
+2025-01-17 16:34:01,785 - __main__ - INFO - === Iniciando prueba de Factus ===
+2025-01-17 16:34:01,791 - __main__ - INFO - Obteniendo token de acceso...
+2025-01-17 16:34:01,791 - factus_client - INFO - Intentando obtener token desde: https://api-sandbox.factus.com.co/oauth/token
+2025-01-17 16:34:01,798 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): api-sandbox.factus.com.co:443
+2025-01-17 16:34:02,709 - urllib3.connectionpool - DEBUG - https://api-sandbox.factus.com.co:443 "POST /oauth/token HTTP/1.1" 200 None
+2025-01-17 16:34:02,716 - factus_client - INFO - Token de acceso obtenido exitosamente
+2025-01-17 16:34:02,716 - __main__ - INFO - Token obtenido: eyJ0eXAiOiJKV1QiLCJh...
+2025-01-17 16:34:02,717 - __main__ - INFO - Creando factura...
+2025-01-17 16:34:02,718 - __main__ - DEBUG - Payload de factura: {'document': '01', 'reference_code': 'TEST-aef1fbd8', 'observation': 'Factura de prueba generada automáticamente', 'payment_form': '1', 'payment_method_code': '10', 'billing_period': {'start_date': '2025-01-17', 'end_date': '2025-01-17'}, 'customer': {'identification_document_id': '13', 'identification': '900123456', 'dv': '1', 'company': 'Empresa de Prueba SAS', 'trade_name': 'Empresa de Prueba', 'address': 'Calle Principal #123', 'email': 'prueba@empresa.com', 'phone': '3001234567', 'legal_organization_id': '1', 'tribute_id': '01', 'municipality_id': '11001'}, 'items': [{'code_reference': 'PROD001', 'name': 'Producto de Prueba 1', 'quantity': 2, 'discount_rate': 0, 'price': 100000, 'tax_rate': 19, 'unit_measure_id': '94', 'standard_code_id': '999', 'is_excluded': 0, 'tribute_id': '01', 'withholding_taxes': []}, {'code_reference': 'SERV001', 'name': 'Servicio de Prueba 1', 'quantity': 1, 'discount_rate': 0, 'price': 50000, 'tax_rate': 19, 'unit_measure_id': '94', 'standard_code_id': '999', 'is_excluded': 0, 'tribute_id': '01', 'withholding_taxes': []}]}
+2025-01-17 16:34:02,719 - factus_client - INFO - Validación de payload exitosa
+2025-01-17 16:34:02,720 - factus_client - INFO - Iniciando creación de factura
+2025-01-17 16:34:02,721 - factus_client - DEBUG - Payload de factura: {
+  "document": "01",
+  "reference_code": "TEST-aef1fbd8",
+  "observation": "Factura de prueba generada autom\u00e1ticamente",
+  "payment_form": "1",
+  "payment_method_code": "10",
+  "billing_period": {
+    "start_date": "2025-01-17",
+    "end_date": "2025-01-17"
+  },
+  "customer": {
+    "identification_document_id": "13",
+    "identification": "900123456",
+    "dv": "1",
+    "company": "Empresa de Prueba SAS",
+    "trade_name": "Empresa de Prueba",
+    "address": "Calle Principal #123",
+    "email": "prueba@empresa.com",
+    "phone": "3001234567",
+    "legal_organization_id": "1",
+    "tribute_id": "01",
+    "municipality_id": "11001"
+  },
+  "items": [
+    {
+      "code_reference": "PROD001",
+      "name": "Producto de Prueba 1",
+      "quantity": 2,
+      "discount_rate": 0,
+      "price": 100000,
+      "tax_rate": 19,
+      "unit_measure_id": "94",
+      "standard_code_id": "999",
+      "is_excluded": 0,
+      "tribute_id": "01",
+      "withholding_taxes": []
+    },
+    {
+      "code_reference": "SERV001",
+      "name": "Servicio de Prueba 1",
+      "quantity": 1,
+      "discount_rate": 0,
+      "price": 50000,
+      "tax_rate": 19,
+      "unit_measure_id": "94",
+      "standard_code_id": "999",
+      "is_excluded": 0,
+      "tribute_id": "01",
+      "withholding_taxes": []
+    }
+  ]
+}
+2025-01-17 16:34:02,723 - factus_client - DEBUG - Headers generados: {
+  "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5ZGU3YjgwMC02MjcwLTQ1NjctODFlMS0yNzU5ZDZmY2I1NTQiLCJqdGkiOiJjN2JiNDI3YTcwMDRhMTM3NzI3ZTVkN2FkODFlNTEyZWMxOWNjMzQxYzM3YzlkNWRmNjgzODljODEwMDU5YThjNzVlZTk1OGQ1ZTU4N2Q3ZiIsImlhdCI6MTczNzE1MzI0Mi4zNzEyMTYsIm5iZiI6MTczNzE1MzI0Mi4zNzEyMTgsImV4cCI6MTczNzE1Njg0Mi4zNjE5NjcsInN1YiI6IjMiLCJzY29wZXMiOltdfQ.FipTbK0WT4_5PN1auEfloWYPP6i1ervu81XPqV3cvtB4pLW9YP-b72b-D7OqZf4XcEsC0JN8ETgz8hdOxEdOJyqj_Pb3lcVt5w-7DQcU4z3_WxGa-qTc1k3kc0BVJoF9ngGkFyE9TO3B3xYRg1oa7WuDH0URHhw4D6r9wNL8AHuJNO4RjbCwVCqr6JHJxK86s42g3RCsnTLiG39JXmviLLP1HkzOooJh3HM3TCwlavCJJYz0Wioyp5zg6atms9r1nFol-bCyf_uoo9UqJdeqhVJbYkoLRvL4uEHF6at41KXBDOvMbqHVVb7mvSnFMOGVb0UOxC7at1fpCt0UjKjcfJds-TyHAKwXOdRnZUo-5LXM67-vPov04v9z8wZIWNguS-rS40wF-jE_jnhvC1mgAk3ek7VmOMRzEDjn41srbuX8pbJHFykASTjZog1r2eOPPq2EVGDCLByZrVFMZTU4J2fdiL1zELgiumLI9Msxj2TU2TpIGxxuepK8h903-9nZC3nPIXH_mwTQlO5lHegdeL1EQrPP8aiKfWtwg2N1ssCCPzJiB4CMYIeML4zg7m_9lIFiMMuiKQaus3U-L8OGDIoSLanThkCo-PzHPdWqt9wFBTpt7rhl8ahQJsvbHNvjf1lmHnMV8UkOOl2nBSLpCDOeRI9WKmFwt0I6gKfyYx4",
+  "Accept": "application/json",
+  "Content-Type": "application/json"
+}
+2025-01-17 16:34:02,725 - factus_client - INFO - Realizando solicitud POST a https://api-sandbox.factus.com.co/v1/bills
+2025-01-17 16:34:02,726 - factus_client - DEBUG - Payload: {
+  "document": "01",
+  "reference_code": "TEST-aef1fbd8",
+  "observation": "Factura de prueba generada autom\u00e1ticamente",
+  "payment_form": "1",
+  "payment_method_code": "10",
+  "billing_period": {
+    "start_date": "2025-01-17",
+    "end_date": "2025-01-17"
+  },
+  "customer": {
+    "identification_document_id": "13",
+    "identification": "900123456",
+    "dv": "1",
+    "company": "Empresa de Prueba SAS",
+    "trade_name": "Empresa de Prueba",
+    "address": "Calle Principal #123",
+    "email": "prueba@empresa.com",
+    "phone": "3001234567",
+    "legal_organization_id": "1",
+    "tribute_id": "01",
+    "municipality_id": "11001"
+  },
+  "items": [
+    {
+      "code_reference": "PROD001",
+      "name": "Producto de Prueba 1",
+      "quantity": 2,
+      "discount_rate": 0,
+      "price": 100000,
+      "tax_rate": 19,
+      "unit_measure_id": "94",
+      "standard_code_id": "999",
+      "is_excluded": 0,
+      "tribute_id": "01",
+      "withholding_taxes": []
+    },
+    {
+      "code_reference": "SERV001",
+      "name": "Servicio de Prueba 1",
+      "quantity": 1,
+      "discount_rate": 0,
+      "price": 50000,
+      "tax_rate": 19,
+      "unit_measure_id": "94",
+      "standard_code_id": "999",
+      "is_excluded": 0,
+      "tribute_id": "01",
+      "withholding_taxes": []
+    }
+  ]
+}
+2025-01-17 16:34:02,932 - urllib3.connectionpool - DEBUG - https://api-sandbox.factus.com.co:443 "POST /v1/bills HTTP/1.1" 500 None
+2025-01-17 16:34:02,933 - factus_client - DEBUG - Respuesta recibida. Status: 500
+2025-01-17 16:34:02,934 - factus_client - DEBUG - Headers de respuesta: {'Date': 'Fri, 17 Jan 2025 22:34:02 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Cache-Control': 'no-cache, private', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE', 'Access-Control-Allow-Headers': 'Authorization, Content-Type', 'Access-Control-Allow-Credentials': 'true', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=Z3TQ6kJ5eVNcwRqUocelJpKbL%2F%2BqI%2BxGFffGqnKXCvmB6%2BU%2FqOVcht7Jti1aCA6gtohxLZ9uKEabfbCGXXVMT2QnfC46yUDBy10QkNAhmoNuN%2FbvaYlg85EDkcOQqIghoDK3Jntw0UNX5p2%2FK3TeRL1vrqevriBS"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '9039cf767a7f68bd-SJO', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&rtt=17963&min_rtt=11721&rtt_var=8650&sent=9&recv=10&lost=0&retrans=0&sent_bytes=6020&recv_bytes=3472&delivery_rate=346232&cwnd=255&unsent_bytes=0&cid=c767eccf59c0fa29&ts=962&x=0"'}
+2025-01-17 16:34:02,935 - factus_client - ERROR - Error en la respuesta. Status: 500
+2025-01-17 16:34:02,936 - factus_client - ERROR - Respuesta: {"status":"Internal Server Error","message":"Ha ocurrido un error inesperado"}
+2025-01-17 16:34:02,937 - factus_client - ERROR - Error en request a /v1/bills: 500 Server Error: Internal Server Error for url: https://api-sandbox.factus.com.co/v1/bills
+2025-01-17 16:34:02,938 - __main__ - ERROR - Error en el proceso: 500 Server Error: Internal Server Error for url: https://api-sandbox.factus.com.co/v1/bills
+Traceback (most recent call last):
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_test.py", line 89, in create_test_invoice
+    response = self.client.crear_factura(invoice_payload)
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 167, in crear_factura
+    return self._handle_request(self.session.post, '/v1/bills', json=payload)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 126, in _handle_request
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\quesa\ecomycr\django_env\Lib\site-packages\requests\models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: https://api-sandbox.factus.com.co/v1/bills
+2025-01-17 16:38:41,909 - __main__ - INFO - === Iniciando prueba de Factus ===
+2025-01-17 16:38:41,911 - __main__ - INFO - Obteniendo token de acceso...
+2025-01-17 16:38:41,911 - factus_client - INFO - Intentando obtener token desde: https://api-sandbox.factus.com.co/oauth/token
+2025-01-17 16:38:41,916 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): api-sandbox.factus.com.co:443
+2025-01-17 16:38:42,660 - urllib3.connectionpool - DEBUG - https://api-sandbox.factus.com.co:443 "POST /oauth/token HTTP/1.1" 200 None
+2025-01-17 16:38:42,661 - factus_client - INFO - Token de acceso obtenido exitosamente
+2025-01-17 16:38:42,662 - __main__ - INFO - Creando factura...
+2025-01-17 16:38:42,662 - factus_client - INFO - Validación de payload exitosa
+2025-01-17 16:38:42,662 - factus_client - INFO - Iniciando creación de factura
+2025-01-17 16:38:42,663 - factus_client - DEBUG - Payload de factura: {
+  "document": "01",
+  "reference_code": "TEST-07950141",
+  "observation": "Factura de prueba generada autom\u00e1ticamente",
+  "payment_form": "1",
+  "payment_method_code": "10",
+  "billing_period": {
+    "start_date": "2025-01-17",
+    "end_date": "2025-01-17"
+  },
+  "customer": {
+    "identification_document_id": "13",
+    "identification": "900123456",
+    "dv": "1",
+    "company": "Empresa Yeison SAS",
+    "address": "Calle Principal #123",
+    "email": "prueba@empresa.com",
+    "phone": "3001234567",
+    "legal_organization_id": "1",
+    "tribute_id": "01",
+    "municipality_id": "11001"
+  },
+  "items": [
+    {
+      "code_reference": "PROD001",
+      "name": "Producto de Prueba",
+      "quantity": 2,
+      "price": 100000,
+      "tax_rate": 19,
+      "unit_measure_id": "94",
+      "standard_code_id": "999",
+      "is_excluded": 0,
+      "tribute_id": "01"
+    }
+  ]
+}
+2025-01-17 16:38:42,664 - factus_client - DEBUG - Headers generados: {
+  "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5ZGU3YjgwMC02MjcwLTQ1NjctODFlMS0yNzU5ZDZmY2I1NTQiLCJqdGkiOiJmZjg2YjU3MmQ5ZDMzMzk2MDNiOTk1NjZiZWU3MGE1YzMwYWM0ZGM5NWU3M2VhNjI4MDMzOTU1YjBhMjY1NjZlZDg5YzY2YzRmZjZiOTJmMyIsImlhdCI6MTczNzE1MzUyMi4zNDAwNzksIm5iZiI6MTczNzE1MzUyMi4zNDAwODEsImV4cCI6MTczNzE1NzEyMi4zMzE5NTMsInN1YiI6IjMiLCJzY29wZXMiOltdfQ.ZAn5ry6OXM1H5OtyT7TNJrqtsPObE5LuG-uKp_DwlGfbJuKSQ-pkPttoa5eifUKtd0ngUIXjp67R5CZUJxyS7kcO-MxUesnlqe4tJ6-SHVwgGWojpe59O-IX-YAbqIsH0CnOTPkX5AQXwkDXfVScG-N7FJBP3DfEQUEWHWe1iPUswMnFfAVWaFeevSp5yXZfrNZIIDSzjf99YjwgLIGCH1zVFO1S8UIW46lNJxEb8vclR_8f6yZq5UUEP6il3grOQxYkHn6sT1t6rx5cZIoeBnKkLL9nAl7CRUC5UqdtdNDfoRV7RmJh5Rs57GBq0xDyrPB010JM2Uf2ZThHFCSijnbEsX4ufHQelSChF2-jpZ9i47kAjGkRSGxl9dnet139-J7_fDF7bGEJbHdhtwgEL7cCE7DLPqLfRb2Cmbg8E2_kLbXw0-rrRWjV-UsOhDT_6Sf39rXkhKVV0ZfLhMRcjE_sy_PvnuHLXM7aAqql3o3kOxty6qG9utrahGbmi2DBnt9aTD7LIXKQK-gtPq6HPYEhG9fIbm44-tVZueC7BBquZEid1QFHOl0W6jBEjWwgorBkrlVcjO-xFuXADXEIy_T_BHXaErJ4-ysIHPTnLckEHi02DiVvCXvHhKvvAqUq8eG-vjciPHB7-OP3HPIE03cZr09qJXq2REgDqkp5N6A",
+  "Accept": "application/json",
+  "Content-Type": "application/json"
+}
+2025-01-17 16:38:42,665 - factus_client - INFO - Realizando solicitud POST a https://api-sandbox.factus.com.co/v1/bills
+2025-01-17 16:38:42,666 - factus_client - DEBUG - Payload: {
+  "document": "01",
+  "reference_code": "TEST-07950141",
+  "observation": "Factura de prueba generada autom\u00e1ticamente",
+  "payment_form": "1",
+  "payment_method_code": "10",
+  "billing_period": {
+    "start_date": "2025-01-17",
+    "end_date": "2025-01-17"
+  },
+  "customer": {
+    "identification_document_id": "13",
+    "identification": "900123456",
+    "dv": "1",
+    "company": "Empresa Yeison SAS",
+    "address": "Calle Principal #123",
+    "email": "prueba@empresa.com",
+    "phone": "3001234567",
+    "legal_organization_id": "1",
+    "tribute_id": "01",
+    "municipality_id": "11001"
+  },
+  "items": [
+    {
+      "code_reference": "PROD001",
+      "name": "Producto de Prueba",
+      "quantity": 2,
+      "price": 100000,
+      "tax_rate": 19,
+      "unit_measure_id": "94",
+      "standard_code_id": "999",
+      "is_excluded": 0,
+      "tribute_id": "01"
+    }
+  ]
+}
+2025-01-17 16:38:42,887 - urllib3.connectionpool - DEBUG - https://api-sandbox.factus.com.co:443 "POST /v1/bills HTTP/1.1" 500 None
+2025-01-17 16:38:42,889 - factus_client - DEBUG - Respuesta recibida. Status: 500
+2025-01-17 16:38:42,889 - factus_client - DEBUG - Headers de respuesta: {'Date': 'Fri, 17 Jan 2025 22:38:42 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Cache-Control': 'no-cache, private', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE', 'Access-Control-Allow-Headers': 'Authorization, Content-Type', 'Access-Control-Allow-Credentials': 'true', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=JOrCkvk2G08XYjXHlS7U3vCWJH0WNobe0d6IW2NLj6qnH48Gs2TOl77soisVJFy6FhQy1HzLfdkbm%2BdcttXJqCHQ5CQmQZounEW6Z9ahvngEQU925DwbmAUb%2FkaaRoJZPyoO9SFyNtYJiDK33T1emvpA2XURZx7Z"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '9039d64c092c68ba-SJO', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&rtt=12346&min_rtt=11064&rtt_var=4105&sent=9&recv=10&lost=0&retrans=0&sent_bytes=6025&recv_bytes=3141&delivery_rate=368763&cwnd=255&unsent_bytes=0&cid=cf64311104954996&ts=891&x=0"'}
+2025-01-17 16:38:42,890 - factus_client - ERROR - Error en la respuesta. Status: 500
+2025-01-17 16:38:42,891 - factus_client - ERROR - Respuesta: {"status":"Internal Server Error","message":"Ha ocurrido un error inesperado"}
+2025-01-17 16:38:42,891 - factus_client - ERROR - Error en request a /v1/bills: 500 Server Error: Internal Server Error for url: https://api-sandbox.factus.com.co/v1/bills
+2025-01-17 16:38:42,892 - factus_client - ERROR - Error inesperado creando factura: 500 Server Error: Internal Server Error for url: https://api-sandbox.factus.com.co/v1/bills
+Traceback (most recent call last):
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 170, in crear_factura
+    response = self._handle_request(self.session.post, '/v1/bills', json=payload)
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 126, in _handle_request
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\quesa\ecomycr\django_env\Lib\site-packages\requests\models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: https://api-sandbox.factus.com.co/v1/bills
+2025-01-17 16:38:42,896 - __main__ - ERROR - Error en la creación de la factura: 500 Server Error: Internal Server Error for url: https://api-sandbox.factus.com.co/v1/bills
+Traceback (most recent call last):
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_test.py", line 73, in create_test_invoice
+    response = self.client.crear_factura(invoice_payload)
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 170, in crear_factura
+    response = self._handle_request(self.session.post, '/v1/bills', json=payload)
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 126, in _handle_request
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\quesa\ecomycr\django_env\Lib\site-packages\requests\models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: https://api-sandbox.factus.com.co/v1/bills
+2025-01-17 16:41:28,036 - __main__ - INFO - === Iniciando prueba de Factus ===
+2025-01-17 16:41:28,037 - __main__ - INFO - Obteniendo token de acceso...
+2025-01-17 16:41:28,038 - factus_client - INFO - Intentando obtener token desde: https://api-sandbox.factus.com.co/oauth/token
+2025-01-17 16:41:28,043 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): api-sandbox.factus.com.co:443
+2025-01-17 16:41:28,886 - urllib3.connectionpool - DEBUG - https://api-sandbox.factus.com.co:443 "POST /oauth/token HTTP/1.1" 200 None
+2025-01-17 16:41:28,888 - factus_client - INFO - Token de acceso obtenido exitosamente
+2025-01-17 16:41:28,889 - __main__ - INFO - Creando factura...
+2025-01-17 16:41:28,890 - factus_client - INFO - Validación de payload exitosa
+2025-01-17 16:41:28,891 - factus_client - INFO - Iniciando creación de factura
+2025-01-17 16:41:28,891 - factus_client - DEBUG - Payload de factura: {
+  "document": "01",
+  "reference_code": "TEST-aa8a66d1",
+  "observation": "Factura de prueba generada autom\u00e1ticamente",
+  "payment_form": "1",
+  "payment_method_code": "10",
+  "billing_period": {
+    "start_date": "2025-01-17",
+    "end_date": "2025-01-17"
+  },
+  "customer": {
+    "identification_document_id": "13",
+    "identification": "900123456",
+    "dv": "1",
+    "company": "Empresa Yeison SAS",
+    "address": "Calle Principal #123",
+    "email": "prueba@empresa.com",
+    "phone": "3001234567",
+    "legal_organization_id": "1",
+    "tribute_id": "01",
+    "municipality_id": "11001"
+  },
+  "items": [
+    {
+      "code_reference": "PROD001",
+      "name": "Producto de Prueba",
+      "quantity": 2,
+      "price": 100000,
+      "tax_rate": 19,
+      "unit_measure_id": "94",
+      "standard_code_id": "999",
+      "is_excluded": 0,
+      "tribute_id": "01"
+    }
+  ]
+}
+2025-01-17 16:41:28,894 - factus_client - DEBUG - Headers generados: {
+  "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5ZGU3YjgwMC02MjcwLTQ1NjctODFlMS0yNzU5ZDZmY2I1NTQiLCJqdGkiOiJlODlmZWYwNGJjNTM3NDVhOWY5ZTE2NGJjNzgyNTVmM2NlMjRjNTAwOTZjODdmMTAxODQ0OWFhZmI5MjAzZThmOThkNDZlYWFiN2M5NTA3ZCIsImlhdCI6MTczNzE1MzY4OC41NzQzMTUsIm5iZiI6MTczNzE1MzY4OC41NzQzMTYsImV4cCI6MTczNzE1NzI4OC41NjY2NzIsInN1YiI6IjMiLCJzY29wZXMiOltdfQ.RoLe09OMJZlkE_PB6bX_ELIU08g81bSWG4aeiOBs1SdrBjIPvdsfhMWGqUicEDZMlDbW1_dRHMI75XoVoc-jKdxk1cd_6O37rzMNxXIbfUIWVQ1aEtyjkvl1c7F1uTeXfXWj21dkaVk397ZvfWRjOuEKyL9i0fQk18sclN0aW-ygIekBkhQQw3JNUTmHEDbSGFBO4E_EbxJNI-BbznkHDSEP6cV5NRR-5R-3AapQ05YDBJDYs07_Unli-Bg3N8UWahRtxJKRkoWuibPcXdeDl3XXHjpbrka7OMfF-AC3iX_31U7B_Z8OTjmcJ28Xfh1wu7k4G4yu4gX22JiVTHmhs1IMARJfQhnmBi-KW7tuIIxrUAUe8FJDjnP90QKLJd0YV-vigTnKnOoYe6NtpFeANJfZxsXGYGPtn3ku7VnY1pofuKOus8UTtPQD3v5fWNFmvddofbMt7mHVyKLFnQ1G6hVjSDl9H_KKhhAYDVAjP4D1RDaiV2PDtflZQcnKBpDW9zbc2M2WEpIv68ti9DJsCa0yyKD7QVs6P3H52RRCggi693JgOn6saZXPdPY1D9eVxVDxiZndN-B6OUVQsOImXoS-A0Mf7MAigOm5guyJL4YwfxvFpE_TzFwb2E7Atp9lynul1HsXaoCClswvoboZYh5eTQy-3aOTO8jX2Uj0iR0",
+  "Accept": "application/json",
+  "Content-Type": "application/json"
+}
+2025-01-17 16:41:28,896 - factus_client - INFO - Realizando solicitud POST a https://api-sandbox.factus.com.co/v1/bills/validate
+2025-01-17 16:41:28,897 - factus_client - DEBUG - Payload: {
+  "document": "01",
+  "reference_code": "TEST-aa8a66d1",
+  "observation": "Factura de prueba generada autom\u00e1ticamente",
+  "payment_form": "1",
+  "payment_method_code": "10",
+  "billing_period": {
+    "start_date": "2025-01-17",
+    "end_date": "2025-01-17"
+  },
+  "customer": {
+    "identification_document_id": "13",
+    "identification": "900123456",
+    "dv": "1",
+    "company": "Empresa Yeison SAS",
+    "address": "Calle Principal #123",
+    "email": "prueba@empresa.com",
+    "phone": "3001234567",
+    "legal_organization_id": "1",
+    "tribute_id": "01",
+    "municipality_id": "11001"
+  },
+  "items": [
+    {
+      "code_reference": "PROD001",
+      "name": "Producto de Prueba",
+      "quantity": 2,
+      "price": 100000,
+      "tax_rate": 19,
+      "unit_measure_id": "94",
+      "standard_code_id": "999",
+      "is_excluded": 0,
+      "tribute_id": "01"
+    }
+  ]
+}
+2025-01-17 16:41:29,192 - urllib3.connectionpool - DEBUG - https://api-sandbox.factus.com.co:443 "POST /v1/bills/validate HTTP/1.1" 422 None
+2025-01-17 16:41:29,194 - factus_client - DEBUG - Respuesta recibida. Status: 422
+2025-01-17 16:41:29,195 - factus_client - DEBUG - Headers de respuesta: {'Date': 'Fri, 17 Jan 2025 22:41:28 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Cache-Control': 'no-cache, private', 'X-RateLimit-Limit': '120', 'X-RateLimit-Remaining': '119', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE', 'Access-Control-Allow-Headers': 'Authorization, Content-Type', 'Access-Control-Allow-Credentials': 'true', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=koJG%2F%2FT8IF2YAUNigv6Ck54CWzaeXVOQOxpEii4blzr7XlnCu5xKijyGVeYMfIlRR3gD9MRuGuROEwVKJycuAQ5Bl10h1P0J0LgogWdm5Gz4vpgk3uAd8pMTNIAhLPv8ZwjmOt9hpKLvKokBd5OhPwXfW4T%2FX04z"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '9039da5af8c268c0-SJO', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&rtt=20587&min_rtt=10591&rtt_var=11644&sent=9&recv=10&lost=0&retrans=0&sent_bytes=6021&recv_bytes=3150&delivery_rate=382954&cwnd=255&unsent_bytes=0&cid=b83248ce1cdf163c&ts=898&x=0"'}
+2025-01-17 16:41:29,196 - factus_client - ERROR - Error en la respuesta. Status: 422
+2025-01-17 16:41:29,197 - factus_client - ERROR - Respuesta: {"status":"Validation error","message":"Error de validación","data":{"message":"Error de validación","errors":{"billing_period.end_date":["El campo fecha de fin debe ser una fecha posterior a fecha de inicio."],"customer.identification_document_id":["El campo ID documento de identidad seleccionado no existe."],"customer.tribute_id":["El campo ID tributo es inválido."],"customer.municipality_id":["El campo ID municipio seleccionado no existe."],"items.0.discount_rate":["El campo items.0.discount_rate es obligatorio."],"items.0.standard_code_id":["El campo items.0.standard_code_id seleccionado no existe."]}}}
+2025-01-17 16:41:29,198 - factus_client - ERROR - Error en request a /v1/bills/validate: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate
+2025-01-17 16:41:29,199 - factus_client - ERROR - Error inesperado creando factura: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate
+Traceback (most recent call last):
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 170, in crear_factura
+    response = self._handle_request(self.session.post, '/v1/bills/validate', json=payload)
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 126, in _handle_request
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\quesa\ecomycr\django_env\Lib\site-packages\requests\models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate
+2025-01-17 16:41:29,208 - __main__ - ERROR - Error en la creación de la factura: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate
+Traceback (most recent call last):
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_test.py", line 73, in create_test_invoice
+    response = self.client.crear_factura(invoice_payload)
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 170, in crear_factura
+    response = self._handle_request(self.session.post, '/v1/bills/validate', json=payload)
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 126, in _handle_request
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\quesa\ecomycr\django_env\Lib\site-packages\requests\models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate

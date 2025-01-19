@@ -1,0 +1,192 @@
+2025-01-17 17:34:28,289 - __main__ - INFO - Validación del payload exitosa.
+2025-01-17 17:34:28,290 - __main__ - INFO - Enviando solicitud para crear factura...
+2025-01-17 17:34:28,291 - __main__ - INFO - Solicitando token de acceso...
+2025-01-17 17:34:28,295 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): api-sandbox.factus.com.co:443
+2025-01-17 17:34:29,221 - urllib3.connectionpool - DEBUG - https://api-sandbox.factus.com.co:443 "POST /oauth/token HTTP/1.1" 200 None
+2025-01-17 17:34:31,223 - __main__ - INFO - Token de acceso obtenido exitosamente.
+2025-01-17 17:34:31,224 - __main__ - DEBUG - Encabezados generados: {
+  "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5ZGU3YjgwMC02MjcwLTQ1NjctODFlMS0yNzU5ZDZmY2I1NTQiLCJqdGkiOiIwZTIxOTJjMzMxY2ExZWYzMGE0MGQ2YzU3MDAxYzE2NjM3MGQwMTY2NGViNzAwNWEwMmI1NmMwYjM2OTMxZmViNjgxOTBkOWU3MGYwY2Y1MiIsImlhdCI6MTczNzE1Njg2OC43NTE3NjksIm5iZiI6MTczNzE1Njg2OC43NTE3NzIsImV4cCI6MTczNzE2MDQ2OC43NDE3Miwic3ViIjoiMyIsInNjb3BlcyI6W119.C1_fHtJ07qhd9N4ohYLBY5kFqXlEB3rcP1UJhJ45-gNfLMx_fz8qHn0fUpBvT10G6YjO4UhxD6M32k_OoVARW3UtWqrPvQq6dbflB05xd5XXN4UQijvpm90fmeKYNGvOveunOkE71FJ4FZtlzE8kAEpFz0t4KVe_Hzb8hC555d4WGFZrW3onFGWsZDRbazXOL5P2O5TFDFmSKAH4ItFOy8tJPxIgx7YcFN8eRuemuRrG6gW5B-vkBnU745kZZGxYoqivIl2InurA6HhitMYHj_BEeJ8uak_QKF1c3Yt-rOZQh76fSKitiBj3-0tsUGiZHREqSEWk3pBMSPFhPuwekuzbq9EClPgBlCNrELXEmvWWgKuqzdav67WWNwp5LPdyG4qaqH8tBsA_TW_zF9fmY-Rcprcje5vkpZY9MQULydCdqVtNmXo3RpNSUQMcqzQnzgHTJXIBJREfh2_8kCf4NU0KXTqjlOOlugo32H1NhuDZf9_ZqP1rsqSsLppPUsWIKxEYQgUdRuKgA_H6bPD0WDsppWYe7EM0DBDzykiCMmElNdbi3ZqCI6ufXOcvoMA9w-YEiaZ4PfOeXSNZyAtFdQNfPYzOC_HN7nK0Zb6PmZGzg1IJQJcHuWLIPcM_DkIN1SLkJ7F2hb9nZTWXRePTNNBE5NaWiOzVRTi27xqJsZ4",
+  "Accept": "application/json",
+  "Content-Type": "application/json"
+}
+2025-01-17 17:34:31,225 - __main__ - INFO - Realizando solicitud POST a https://api-sandbox.factus.com.co/v1/bills/validate
+2025-01-17 17:34:31,226 - __main__ - DEBUG - Payload: {
+  "numbering_range_id": 4,
+  "reference_code": "I3",
+  "observation": "",
+  "payment_form": "1",
+  "payment_due_date": "2024-12-30",
+  "payment_method_code": "10",
+  "billing_period": {
+    "start_date": "2024-01-10",
+    "start_time": "00:00:00",
+    "end_date": "2024-02-09",
+    "end_time": "23:59:59"
+  },
+  "customer": {
+    "identification": "123456789",
+    "dv": "3",
+    "company": "",
+    "trade_name": "",
+    "names": "Alan Turing",
+    "address": "calle 1 # 2-68",
+    "email": "alanturing@enigmasas.com",
+    "phone": "1234567890",
+    "legal_organization_id": "2",
+    "tribute_id": "21",
+    "identification_document_id": "3",
+    "municipality_id": "980"
+  },
+  "items": [
+    {
+      "code_reference": "12345",
+      "name": "producto de prueba",
+      "quantity": 1,
+      "discount_rate": 20,
+      "price": 50000,
+      "tax_rate": "19.00",
+      "unit_measure_id": 70,
+      "standard_code_id": 1,
+      "is_excluded": 0,
+      "tribute_id": 1,
+      "withholding_taxes": [
+        {
+          "code": "06",
+          "withholding_tax_rate": "7.00"
+        },
+        {
+          "code": "05",
+          "withholding_tax_rate": "15.00"
+        }
+      ]
+    },
+    {
+      "code_reference": "54321",
+      "name": "producto de prueba 2",
+      "quantity": 1,
+      "discount_rate": 0,
+      "price": 50000,
+      "tax_rate": "5.00",
+      "unit_measure_id": 70,
+      "standard_code_id": 1,
+      "is_excluded": 0,
+      "tribute_id": 1,
+      "withholding_taxes": []
+    }
+  ]
+}
+2025-01-17 17:34:31,473 - urllib3.connectionpool - DEBUG - https://api-sandbox.factus.com.co:443 "POST /v1/bills/validate HTTP/1.1" 422 None
+2025-01-17 17:34:33,475 - __main__ - ERROR - Error en la solicitud. Status: 422
+2025-01-17 17:34:33,476 - __main__ - ERROR - Respuesta: {"status":"Validation error","message":"Error de validación","data":{"message":"Error de validación","errors":{"numbering_range_id":["El campo id rango de numeración es inválido."]}}}
+2025-01-17 17:34:33,476 - __main__ - ERROR - Error en la solicitud a /v1/bills/validate: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate
+2025-01-17 17:34:33,477 - __main__ - ERROR - Error inesperado al crear factura: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate
+Traceback (most recent call last):
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 139, in crear_factura
+    response = self._handle_request(self.session.post, "/v1/bills/validate", json=payload)
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 116, in _handle_request
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\quesa\ecomycr\django_env\Lib\site-packages\requests\models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate
+2025-01-17 17:34:33,483 - __main__ - ERROR - Error al crear la factura: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate
+2025-01-17 17:40:10,571 - django.utils.autoreload - INFO - C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py changed, reloading.
+2025-01-17 17:40:15,015 - __main__ - INFO - Validación del payload exitosa.
+2025-01-17 17:40:15,016 - __main__ - INFO - Enviando solicitud para crear factura...
+2025-01-17 17:40:15,016 - __main__ - INFO - Solicitando token de acceso...
+2025-01-17 17:40:15,021 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): api-sandbox.factus.com.co:443
+2025-01-17 17:40:15,957 - urllib3.connectionpool - DEBUG - https://api-sandbox.factus.com.co:443 "POST /oauth/token HTTP/1.1" 200 None
+2025-01-17 17:40:17,960 - __main__ - INFO - Token de acceso obtenido exitosamente.
+2025-01-17 17:40:17,961 - __main__ - DEBUG - Encabezados generados: {
+  "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5ZGU3YjgwMC02MjcwLTQ1NjctODFlMS0yNzU5ZDZmY2I1NTQiLCJqdGkiOiJjMjE5YzYwMTJmYjQ1NTgzMjA3ODM1YmVlMTk5ZThhMzczNzg4MDg5ZjUxODlhZjJhMWNjYjQxMDY2ZjgzMjhmMjE2YTNiODNmMjlmNWNjMCIsImlhdCI6MTczNzE1NzIxNS41MjEwOTQsIm5iZiI6MTczNzE1NzIxNS41MjEwOTcsImV4cCI6MTczNzE2MDgxNS41MTE3NzEsInN1YiI6IjMiLCJzY29wZXMiOltdfQ.nSI6WEIdb98I3QUFoA3lNVNtzBBaSylFokzTzHeAUBbg-PzN8XAUFgUagwXluwWZNMDlseFQsxTOX8a-sEmJZxAE7oFHzPaMz1toOs24pJgjj66drx_KCtmvhIeh3YluextdRCzLfJmAYxfl936xmIatZGq_JT4O4mQWbKa7sFgLsKUCPT7hiWjbGeQDqhIOIUnithhzVnVD-QZfu4k8zbB1YUe3x_eXrVtCQzH4UXHLQLq8zytk3obeOzYY36UJJN_M-jjIwkOrrwhLOTFlwUbr9FuptxBzHZ7DZUnkSxSr1e93llM3S9nJAA8nZlTvRe0YHjpceMIUSF4elQlF0gKW4XNkTofuYrH2r_drJFNa8CdpzRrauxLmnnQ2M-XMq3zbV4e8DyWETHWLh2esqDq_wXY16PaPtSiSisehKytrA2nyA31CH_VIX5ksqbdPaWEumMrS5jyOP7lec04B-MElkVDFsjvHffKno6goESNgKVfcdeaR5oFIYIvIIYlpuw95uksUU6TX3gFMJFlUTYoCRY0sEqJU9EmVCxZdIQkKrRXgrF7DbZxylxt2KtImOH_8_pZWugqlgLpowYhnB6kbrSquo10Q-AB_pBEfe1QR0gYGcgaHiOb1DxZBQqO8n2AdALm921I7rdFzwAaXi3rBCNxxsM-ozbLTonFpNDs",
+  "Accept": "application/json",
+  "Content-Type": "application/json"
+}
+2025-01-17 17:40:17,962 - __main__ - INFO - Realizando solicitud POST a https://api-sandbox.factus.com.co/v1/bills/validate
+2025-01-17 17:40:17,962 - __main__ - DEBUG - Payload: {
+  "numbering_range_id": 10,
+  "reference_code": "I3",
+  "observation": "",
+  "payment_form": "1",
+  "payment_due_date": "2024-12-30",
+  "payment_method_code": "10",
+  "billing_period": {
+    "start_date": "2024-01-10",
+    "start_time": "00:00:00",
+    "end_date": "2024-02-09",
+    "end_time": "23:59:59"
+  },
+  "customer": {
+    "identification": "123456789",
+    "dv": "3",
+    "company": "",
+    "trade_name": "",
+    "names": "Alan Turing",
+    "address": "calle 1 # 2-68",
+    "email": "alanturing@enigmasas.com",
+    "phone": "1234567890",
+    "legal_organization_id": "2",
+    "tribute_id": "21",
+    "identification_document_id": "3",
+    "municipality_id": "980"
+  },
+  "items": [
+    {
+      "code_reference": "12345",
+      "name": "producto de prueba",
+      "quantity": 1,
+      "discount_rate": 20,
+      "price": 50000,
+      "tax_rate": "19.00",
+      "unit_measure_id": 70,
+      "standard_code_id": 1,
+      "is_excluded": 0,
+      "tribute_id": 1,
+      "withholding_taxes": [
+        {
+          "code": "06",
+          "withholding_tax_rate": "7.00"
+        },
+        {
+          "code": "05",
+          "withholding_tax_rate": "15.00"
+        }
+      ]
+    },
+    {
+      "code_reference": "54321",
+      "name": "producto de prueba 2",
+      "quantity": 1,
+      "discount_rate": 0,
+      "price": 50000,
+      "tax_rate": "5.00",
+      "unit_measure_id": 70,
+      "standard_code_id": 1,
+      "is_excluded": 0,
+      "tribute_id": 1,
+      "withholding_taxes": []
+    }
+  ]
+}
+2025-01-17 17:40:18,181 - urllib3.connectionpool - DEBUG - https://api-sandbox.factus.com.co:443 "POST /v1/bills/validate HTTP/1.1" 422 None
+2025-01-17 17:40:20,182 - __main__ - ERROR - Error en la solicitud. Status: 422
+2025-01-17 17:40:20,183 - __main__ - ERROR - Respuesta: {"status":"Validation error","message":"Error de validación","data":{"message":"Error de validación","errors":{"numbering_range_id":["El campo id rango de numeración es inválido."]}}}
+2025-01-17 17:40:20,183 - __main__ - ERROR - Error en la solicitud a /v1/bills/validate: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate
+2025-01-17 17:40:20,184 - __main__ - ERROR - Error inesperado al crear factura: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate
+Traceback (most recent call last):
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 139, in crear_factura
+    response = self._handle_request(self.session.post, "/v1/bills/validate", json=payload)
+  File "C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py", line 116, in _handle_request
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\quesa\ecomycr\django_env\Lib\site-packages\requests\models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate
+2025-01-17 17:40:20,188 - __main__ - ERROR - Error al crear la factura: 422 Client Error: Unprocessable Content for url: https://api-sandbox.factus.com.co/v1/bills/validate
+2025-01-17 17:47:08,705 - django.utils.autoreload - INFO - C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py changed, reloading.
+2025-01-17 18:01:49,783 - django.utils.autoreload - INFO - C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\factus_client.py changed, reloading.
+2025-01-17 18:02:16,743 - django.utils.autoreload - INFO - C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\views.py changed, reloading.
+2025-01-17 18:02:31,501 - django.utils.autoreload - INFO - C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\views.py changed, reloading.
+2025-01-17 18:02:42,833 - django.utils.autoreload - INFO - C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\urls.py changed, reloading.
+2025-01-17 18:02:56,911 - django.utils.autoreload - INFO - C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\views.py changed, reloading.
+2025-01-17 18:03:15,028 - django.utils.autoreload - INFO - C:\Users\quesa\ecomycr\portafolio\portafolio_privado\facturasapi\views.py changed, reloading.

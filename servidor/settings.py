@@ -128,7 +128,6 @@ DJANGO_APPS=[
 
 MIS_APPS = [
     'portafolio','accounts', 'condominio',  'oficiales', 'gyna', 'tiendas', 'widget_tweaks', 'blog', 'repuestos','rest_framework', 'factus', 
-    'facturasapi',
     ]
 
 
@@ -367,9 +366,5 @@ LOGGING = {
         },
     },
     'loggers': {
-        'facturasapi': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO',
-        },
     },
 }

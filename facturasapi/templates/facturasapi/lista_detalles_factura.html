@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalles de Factura</title>
+</head>
+<body>
+    <h1>Detalles para Factura {{ factura.numero_factura }}</h1>
+    <ul>
+        {% for detalle in detalles %}
+            <li>{{ detalle.descripcion }} - {{ detalle.valor_total }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'crear_detalle_factura' factura.id %}">Agregar Detalle</a>
+</body>
+</html>

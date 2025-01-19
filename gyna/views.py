@@ -62,8 +62,6 @@ def admin_ver_consultas(request):
 
 
 def home_view(request):
-    if request.user.is_authenticated:
-        return redirect('afterlogin')
     return render(request,'vehicle/index.html')
 
 
@@ -76,7 +74,7 @@ def home_view(request):
 #for showing signup/login button for ADMIN(by sumit)
 def adminclick_view(request):
     if request.user.is_authenticated:
-        return redirect('afterlogin')
+        return redirect('login')
     return redirect('casa-admin')
 
 
@@ -90,19 +88,11 @@ def afterlogin_view(request):
 # ADMIN RELATED views start
 #============================================================================================
 
-@login_required(login_url='casa-admin')
 def admin_dashboard_view(request):
-    
-    try:
-        enquiries = models.Request.objects.all().order_by('-id')  # Cambio de "enquiry" a "enquiries"
-    except models.Request.DoesNotExist:
-        enquiries = []  # Si no hay solicitudes, crea una lista vacía
-
-    return render(request, 'vehicle/admin_dashboard.html', {'data': enquiries})
+    return render(request, 'vehicle/admin_dashboard.html')
 
 
 
-@login_required(login_url='casa-admin')
 def admin_request_view(request):
     return render(request,'vehicle/admin_request.html')
 

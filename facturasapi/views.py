@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods
-from .models import Cliente, Factura, DetalleFactura
+from .models import Cliente, Facturax, DetalleFactura
 from .forms import ClienteForm, FacturaForm, DetalleFacturaForm
 from .factus_client import FactusClient
 import logging
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 @require_http_methods(["GET"])
 def lista_facturas(request):
     """Display list of all invoices"""
-    facturas = Factura.objects.all().order_by('-created_at')
+    facturas = Facturax.objects.all().order_by('-created_at')
     
     
     return render(request, 'facturasapi/lista_facturas.html', {'facturas': facturas})
@@ -68,7 +68,7 @@ def crear_factura(request):
 @require_http_methods(["POST"])
 def validar_factura(request, factura_id):
     """Validate invoice with DIAN through Factus API"""
-    factura = get_object_or_404(Factura, id=factura_id)
+    factura = get_object_or_404(Facturax, id=factura_id)
     try:
         factus_client = FactusClient()
         response = factus_client.validar_factura(factura.numero_factura)

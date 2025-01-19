@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Detalle de Factura</title>
+</head>
+<body>
+    <h1>Editar Detalle de Factura</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ detalle_form.as_p }}
+        <button type="submit">Actualizar</button>
+    </form>
+</body>
+</html>

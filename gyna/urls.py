@@ -6,7 +6,6 @@ urlpatterns = [
     path('', views.admin_dashboard_view, name='casa-admin'),
     path('consultas/', views.admin_ver_consultas, name='ver-consultas'),
     path('edit-request/<int:id>/', views.editar_consulta, name='edit-request'),
-    path('admin-dashboard/', views.admin_dashboard_view, name='admin-dashboard'),
     path('admin-request/', views.admin_request_view, name='admin-request'),
     path('admin-view-request/', views.admin_view_request_view, name='admin-view-request'),
     path('admin-view-request-clientepen/', views.admin_pendientes_clientes, name='admin-view-request-clientepen'),
