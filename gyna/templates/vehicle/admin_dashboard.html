@@ -7,167 +7,6 @@
         <!-- Main Grid Container -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            <!-- Create Request -->
-            <a href="{% url 'admin-add-request'%}" class="transform transition-all hover:scale-105">
-                <div class="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-semibold text-white">Crear consulta</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <!-- View New Requests -->
-            <a href="{% url 'ver-consultas' %}" class="transform transition-all hover:scale-105">
-                <div class="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-semibold text-white">Registro completo</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <!-- View All Requests -->
-            <a href="{% url 'admin-view-request' %}" class="transform transition-all hover:scale-105">
-                <div class="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-semibold text-white">Tabla de registro</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            
-            
-
-
-            <!-- Quoted -->
-            <a href="{% url 'mostrar_ordenes_tienda' %}" class="transform transition-all hover:scale-105">
-                <div class="bg-gradient-to-r from-yellow-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-black/30 rounded-full p-3">
-                                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.3432-3 2-3M12 8c1.657 0 3-.895 3-2s-1.343-2-3-2-3 .895-3 2 1.343 2 3 2zm0 0v1"/>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-semibold text-white">Pedidos de la tienda</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-
-
-            
-
-
-
-            <!-- Quoted -->
-            <a href="{% url 'solo-consultas' %}" class="transform transition-all hover:scale-105">
-                <div class="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.3432-3 2-3M12 8c1.657 0 3-.895 3-2s-1.343-2-3-2-3 .895-3 2 1.343 2 3 2zm0 0v1"/>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-semibold text-white">Consultas</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            
-            <!-- compras-entregadas -->
-            <a href="{% url 'compras-entregadas' %}" class="transform transition-all hover:scale-105">
-                <div class="bg-gradient-to-r from-emerald-400 to-blue-500 rounded-lg shadow-lg overflow-hidden">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.3432-3 2-3M12 8c1.657 0 3-.895 3-2s-1.343-2-3-2-3 .895-3 2 1.343 2 3 2zm0 0v1"/>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-semibold text-white">Compras entregadas</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-
-
-
-
-
-            <!-- Committed Clients -->
-            <a href="{% url 'admin-view-request-dineropen' %}" class="transform transition-all hover:scale-105">
-                <div class="bg-gradient-to-r from-blue-400 to-blue-500 rounded-lg shadow-lg overflow-hidden">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-semibold text-white">Pedidos pagados</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            
-            <!-- Committed Clients -->
-            <a href="{% url 'pendientes-pagar' %}" class="transform transition-all hover:scale-105">
-                <div class="bg-gradient-to-r from-blue-400 to-blue-500 rounded-lg shadow-lg overflow-hidden">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-semibold text-white">Pedidos pendientes de pagar</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
 
 
             <!-- From Internet -->
@@ -240,9 +79,6 @@
                     </div>
                 </div>
             </a>
-
-
-
             
             <!-- Quoted -->
             <a href="{% url 'compras-no-entregadas' %}" class="transform transition-all hover:scale-105">
@@ -300,6 +136,163 @@
                     </div>
                 </div>
             </a>
+
+
+
+
+            
+                     
+
+
+            <!-- Quoted -->
+            <a href="{% url 'mostrar_ordenes_tienda' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-yellow-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-black/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.3432-3 2-3M12 8c1.657 0 3-.895 3-2s-1.343-2-3-2-3 .895-3 2 1.343 2 3 2zm0 0v1"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Pedidos de la tienda</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Quoted -->
+            <a href="{% url 'solo-consultas' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.3432-3 2-3M12 8c1.657 0 3-.895 3-2s-1.343-2-3-2-3 .895-3 2 1.343 2 3 2zm0 0v1"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Consultas</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            
+            <!-- compras-entregadas -->
+            <a href="{% url 'compras-entregadas' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-emerald-400 to-blue-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.3432-3 2-3M12 8c1.657 0 3-.895 3-2s-1.343-2-3-2-3 .895-3 2 1.343 2 3 2zm0 0v1"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Compras entregadas</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+            <!-- Committed Clients -->
+            <a href="{% url 'admin-view-request-dineropen' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-blue-400 to-blue-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Pedidos pagados</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            
+            <!-- Committed Clients -->
+            <a href="{% url 'pendientes-pagar' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-blue-400 to-blue-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Pedidos pendientes de pagar</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+            
+            <!-- Create Request -->
+            <a href="{% url 'admin-add-request'%}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Crear consulta</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <!-- View New Requests -->
+            <a href="{% url 'ver-consultas' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Registro completo</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- View All Requests -->
+            <a href="{% url 'admin-view-request' %}" class="transform transition-all hover:scale-105">
+                <div class="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-white/30 rounded-full p-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-white">Tabla de registro</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
 
         </div>
     </div>

@@ -90,15 +90,9 @@ def afterlogin_view(request):
 # ADMIN RELATED views start
 #============================================================================================
 
-@login_required(login_url='casa-admin')
 def admin_dashboard_view(request):
     
-    try:
-        enquiries = models.Request.objects.all().order_by('-id')  # Cambio de "enquiry" a "enquiries"
-    except models.Request.DoesNotExist:
-        enquiries = []  # Si no hay solicitudes, crea una lista vacía
-
-    return render(request, 'vehicle/admin_dashboard.html', {'data': enquiries})
+    return render(request, 'vehicle/admin_dashboard.html')
 
 
 
